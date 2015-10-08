@@ -20,8 +20,25 @@ public class Nave {
 	}
 	
 	public void mover() {
-		x += dx;
-		y += dy;
+		System.out.println(x+ "," + y);
+		x += dx; // 2 e 538
+		y += dy; // 2 e 538
+		
+		if (this.x < 1){
+			x = 1;
+		}
+		
+		if (this.x > 532){
+			x = 532;
+		}
+		
+		if (this.y < 1){
+			y = 1;
+		}
+		
+		if(this.y > 537){
+			y = 537;
+		}
 		
 	}
 	
