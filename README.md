@@ -2,7 +2,7 @@
 Projeto de jogo em Java, baseado em Space War para o curso de Ciência da Computação.
 
 **Acompanhe a Wiki do projeto**
-Importante acompanhar a Wiki, pois existem diversas regras que devem ser seguidas para o melhor desenvolvimento e aproveitamento do projeto.
+importante acompanhar a Wiki, pois existem diversas regras que devem ser seguidas para o melhor desenvolvimento e aproveitamento do projeto.
 
 
 **Requisitos Mínimos**
