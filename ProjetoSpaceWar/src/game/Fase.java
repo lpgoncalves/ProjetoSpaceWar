@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -38,11 +39,34 @@ public class Fase extends JPanel implements ActionListener {
 		Graphics2D graficos = (Graphics2D) g;
 		graficos.drawImage(background, 0, 0, null); //Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 		graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);//Colocamos na tela a imagem da nave com suas devidas posições.
+		List<Tiro> tiros = nave.getTiros();
+		
+		for(int i = 0; i < tiros.size(); i++){
+		
+			Tiro t = (Tiro) tiros.get(i);
+		    graficos.drawImage(t.getImagem(), t.getX(), t.getY(), this);
+			
+		}
+		
 		g.dispose();//Irá repintar a tela com as novas atualizações.
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		List<Tiro> tiros = nave.getTiros();
+		for(int i = 0; i < tiros.size(); i++){
+			
+			Tiro t = (Tiro) tiros.get(i);
+			
+			if (t.isVisivel()){
+				t.mover();
+			}
+			else {
+			   tiros.remove(i);
+			}
+			
+		}
 		nave.mover(); //Responsavel por fazer a ação de se movimentar da nave.
 		repaint();	
 	}

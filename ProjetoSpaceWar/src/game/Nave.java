@@ -14,12 +14,18 @@ public class Nave {
 	private int dy;
 	private int altura;
 	private int largura;
+	
+	private static final int VELOCIDADE_NAVE = 2;
+	
 	private Image naveImg;
 	private List<Tiro> tiros;
 	
 	public Nave() {
 		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
+		
+		altura = naveImg.getHeight(null);
+		largura = naveImg.getWidth(null);
 		
 		tiros = new ArrayList<Tiro>();
 		//Setamos a posição inicial da nave.
@@ -58,11 +64,18 @@ public class Nave {
 	public int getX() {
 		return x;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public Image getNaveImg() {
 		return naveImg;
+	}
+	
+	public void atirar() {
+		double valorTemp = 1.5;
+		this.tiros.add(new Tiro(getX() + altura, getY() + -largura / 2));
 	}
 	
 	//O x começa da esquerda para direita e o y de cima para baixo.
@@ -70,20 +83,24 @@ public class Nave {
 		
 		int codigo = tecla.getKeyCode();
 		
+		if (codigo ==KeyEvent.VK_SPACE) {
+			atirar();
+		}
+		
 		if (codigo == KeyEvent.VK_UP) { // Tecla "Seta para cima" para movimentar a nave para cima.
-			dy = -1;
+			dy = VELOCIDADE_NAVE - 4;
 		}
 		
 		if (codigo == KeyEvent.VK_DOWN) {// Tecla "Seta para baixo" para movimentar a nave para baixo.
-			dy = 1;
+			dy = VELOCIDADE_NAVE;
 		}
 		
 		if (codigo == KeyEvent.VK_LEFT) {// Tecla "Seta para esquerda" para movimentar a nave para esquerda.
-			dx = -1;
+			dx = VELOCIDADE_NAVE - 4;
 		}
 		
 		if (codigo == KeyEvent.VK_RIGHT) {// Tecla "Seta para direita" para movimentar a nave para direita.
-			dx = 1;
+			dx = VELOCIDADE_NAVE;
 		}
 	}
 		
