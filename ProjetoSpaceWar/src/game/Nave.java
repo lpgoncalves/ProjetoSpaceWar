@@ -1,5 +1,6 @@
 package game;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,8 @@ public class Nave {
 	private int dy;
 	private int altura;
 	private int largura;
-	
+	private boolean isVisivel;
+
 	private static final int VELOCIDADE_NAVE = 2;
 	
 	private Image naveImg;
@@ -24,8 +26,8 @@ public class Nave {
 		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
 		
-		altura = naveImg.getHeight(null);
-		largura = naveImg.getWidth(null);
+		this.altura = naveImg.getHeight(null);
+		this.largura = naveImg.getWidth(null);
 		
 		tiros = new ArrayList<Tiro>();
 		//Setamos a posição inicial da nave.
@@ -73,9 +75,20 @@ public class Nave {
 		return naveImg;
 	}
 	
+	public boolean isVisivel() {
+		return isVisivel;
+	}
+
+	public void setVisivel(boolean isVisivel) {
+		this.isVisivel = isVisivel;
+	}
+	
 	public void atirar() {
-		double valorTemp = 1.5;
 		this.tiros.add(new Tiro(getX() + altura, getY() + -largura / 2));
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle (x, y, largura, altura);
 	}
 	
 	//O x começa da esquerda para direita e o y de cima para baixo.

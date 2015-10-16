@@ -5,9 +5,9 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Tiro {
+public class Inimigos {
 
-	private Image tiroImg;
+	private Image inimigoImg;
 	private int x;
 	private int y;
 	private int altura;
@@ -16,18 +16,28 @@ public class Tiro {
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static final int VELOCIDADE_TIRO = 2;
+	private static final int VELOCIDADE_INIMIGO = 5;
 	
-	public Tiro(int x, int y){
+	private static int contador = 0;
+	
+	public Inimigos(int x, int y){
 		
 		this.x = x;
 		this.y = y;
 		
-		this.altura = tiroImg.getHeight(null);
-		this.largura = tiroImg.getWidth(null);
+		ImageIcon referencia;
+
+		if(contador++ % 3 == 0){
+			referencia = new ImageIcon("res\\inimigo2.png");
 		
-		ImageIcon referencia = new ImageIcon("res\\tiro.png");
-		tiroImg = referencia.getImage();
+		} else {
+			
+			referencia = new ImageIcon("res\\inimigo2.png");
+		}
+		inimigoImg = referencia.getImage();
+		
+		this.altura = inimigoImg.getHeight(null);
+		this.largura = inimigoImg.getWidth(null);
 		
 		isVisivel = true;
 		
@@ -35,10 +45,12 @@ public class Tiro {
 	
 	public void mover() {
 	
-		this.y -= VELOCIDADE_TIRO;
-		if(this.y > COMPRIMENTO_TELA) {
-			isVisivel = false;		
-		}	
+		if (this.y < 0){
+			this.y = COMPRIMENTO_TELA;
+		}
+		else {
+			this.y += VELOCIDADE_INIMIGO;
+		}
 			
 	}
 	
@@ -51,7 +63,7 @@ public class Tiro {
 	}
 
 	public Image getImagem() {
-		return tiroImg;
+		return inimigoImg;
 	}
 
 	public int getX() {
@@ -65,5 +77,6 @@ public class Tiro {
 	public Rectangle getBounds() {
 		return new Rectangle (x, y, largura, altura);
 	}
+	
 	
 }
