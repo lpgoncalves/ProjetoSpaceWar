@@ -23,6 +23,7 @@ public class Nave {
 	private List<Tiro> tiros;
 	
 	public Nave() {
+		
 		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
 		
@@ -30,6 +31,7 @@ public class Nave {
 		this.largura = naveImg.getWidth(null);
 		
 		tiros = new ArrayList<Tiro>();
+		
 		//Setamos a posição inicial da nave.
 		this.x = 100;
 		this.y = 100;
@@ -84,7 +86,7 @@ public class Nave {
 	}
 	
 	public void atirar() {
-		this.tiros.add(new Tiro(getX() + altura, getY() + -largura / 2));
+		this.tiros.add(new Tiro(getX() + largura / 2, getY() + -2 * altura));
 	}
 	
 	public Rectangle getBounds() {
@@ -96,7 +98,7 @@ public class Nave {
 		
 		int codigo = tecla.getKeyCode();
 		
-		if (codigo ==KeyEvent.VK_SPACE) {
+		if (codigo == KeyEvent.VK_SPACE) {
 			atirar();
 		}
 		

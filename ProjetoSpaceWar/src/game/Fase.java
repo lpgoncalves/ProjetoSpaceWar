@@ -21,39 +21,31 @@ public class Fase extends JPanel implements ActionListener {
 	private Image background;
 	private Nave nave;
 	private Timer timer;
+	private Timer novosEnemies;
+	
+	private int repetir = 0;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 
 	private boolean jogoAndamento;
 	
-	private int[][] coordenadas = { { 400, 29 }, { 500, 59 }, { 300, 89 },
-			{ 780, 109 }, { 580, 139 }, { 880, 239 }, { 790, 259 },
-			{ 760, 50 }, { 790, 150 }, { 1980, 209 }, { 560, 45 }, { 510, 70 },
-			{ 930, 159 }, { 590, 80 }, { 530, 60 }, { 940, 59 }, { 990, 30 },
-			{ 920, 200 }, { 900, 259 }, { 660, 50 }, { 540, 90 }, { 810, 220 },
-			{ 860, 20 }, { 740, 180 }, { 820, 128 }, { 490, 170 }, { 700, 30 },
-			{ 920, 300 }, { 856, 328 }, { 456, 320 } 
-	};
-	//int rx = (int) (1 + Math.random() * 400);  
-	//int ry = (int) (-1 - Math.random() * -400);
-	//private int[][] coordenadas = { { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry }, { rx, ry }, { rx, ry },
-	//		{ rx, ry }, { rx, ry }, { rx, ry } };
-	
 	public Fase() {
 
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
-
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
-		ImageIcon referencia = new ImageIcon("res\\fundofase.png");
+		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
 		background = referencia.getImage();
+		
+		inimigos = new ArrayList <Inimigos>();
+		
+		Timer RepetirFundo = new Timer(18, new Repetir());
+		RepetirFundo.start();
+		
+		novosEnemies = new Timer(400, new criarInimigos());
+		novosEnemies.start();
 
 		nave = new Nave();
 		inicializarInimigos();
@@ -65,22 +57,29 @@ public class Fase extends JPanel implements ActionListener {
 
 	}
 
-	public void inicializarInimigos() {
-		
-		inimigos = new ArrayList<Inimigos>();
-		
-		for (int i = 0; i < coordenadas.length; i++) {
-			inimigos.add(new Inimigos(coordenadas[i][0], coordenadas[i][1]));
+	private void inicializarInimigos() {
+		for (int i = 0; i < inimigos.size(); i++) {
+			inimigos.remove(i);
 
+		}
+
+	}
+	
+	public class criarInimigos implements ActionListener {
+		public void actionPerformed (ActionEvent f) {
+			
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -80));
+			
 		}
 	}
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
 		Graphics2D graficos = (Graphics2D) g;
-		graficos.drawImage(background, -400, -500, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
+		graficos.drawImage(background, 0, repetir, null);
+		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
-		if (jogoAndamento) {
+		if (jogoAndamento == true) {
 
 			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);// Colocamos na tela a imagem da nave com suas devidas posições.
 	
@@ -88,33 +87,34 @@ public class Fase extends JPanel implements ActionListener {
 			for (int i = 0; i < tiros.size(); i++) {
 				
 				Tiro shoot = (Tiro) tiros.get(i);
-				graficos.drawImage(shoot.getImagem(), shoot.getX(), shoot.getY(), this);
+				graficos.drawImage(shoot.getTiroImg(), shoot.getX(), shoot.getY(), this);
 				
 			}
 
 			for (int i = 0; i < inimigos.size(); i++) {
 
-				Inimigos in = inimigos.get(i);
-				graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+				Inimigos enemies = inimigos.get(i);
+				graficos.drawImage(enemies.getInimigosImg(), enemies.getX(), enemies.getY(), this);
 
 			}
 	
 			graficos.setColor(Color.white);
-			graficos.drawString("Inimigos Restantes:" + inimigos.size(), 10, 15);
+			graficos.drawString("Inimigos Restantes: " + inimigos.size(), 10, 15);
 
 		} else {
 			
+			ImageIcon black = new ImageIcon("res\\black.png");
+			graficos.drawImage(black.getImage(), 0, 0, null);
 			ImageIcon gameover = new ImageIcon("res\\game_over.gif");
-			graficos.drawImage(gameover.getImage(), 0, 0, null);
+			graficos.drawImage(gameover.getImage(), 0, 100, null);
 		}
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (inimigos.size() == 0) {
+		if (inimigos.size() == 30) {
 
 			jogoAndamento = false;
 		}
@@ -122,10 +122,10 @@ public class Fase extends JPanel implements ActionListener {
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
 			
-			Tiro st = (Tiro) tiros.get(i);
+			Tiro shoot = (Tiro) tiros.get(i);
 			
-			if (st.isVisivel()) {
-				st.mover();
+			if (shoot.isVisivel()) {
+				shoot.mover();
 			} else {
 				tiros.remove(i);
 			}
@@ -134,10 +134,10 @@ public class Fase extends JPanel implements ActionListener {
 		
 		for (int i = 0; i < inimigos.size(); i++) {
 
-			Inimigos enemies = (Inimigos) inimigos.get(i);
+			Inimigos in = inimigos.get(i);
 
-			if (enemies.isVisivel()) {
-				enemies.mover();
+			if (in.isVisivel()) {
+				in.mover();
 			} else {
 				inimigos.remove(i);
 			}
@@ -155,41 +155,51 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle retTiro;
 		Rectangle retInimigos;
 		
-		for (int i = 0; i < inimigos.size(); i++) {
+//		for (int i = 0; i < inimigos.size(); i++) {
+//			
+//			Inimigos tempInimigos = inimigos.get(i);
+//			retInimigos = tempInimigos.getBounds();
+//			
+//			if (retNave.intersects(retInimigos)) {
+//				
+//				nave.setVisivel(false);
+//				tempInimigos.setVisivel(false);
+//				jogoAndamento = false;
+//			}
 			
-			Inimigos tempInimigos = inimigos.get(i);
-			retInimigos = tempInimigos.getBounds();
-			
-			if (retNave.intersects(retInimigos)) {
+//		}
+		
+//		tiros = nave.getTiros();
+//		
+//		for (int i = 0; i < tiros.size(); i++) {
+//			
+//			Tiro tempTiro = tiros.get(i);
+//			retTiro = tempTiro.getBounds();
+//			
+//			for (int j = 0; j < inimigos.size(); j++) {
 				
-				nave.setVisivel(false);
-				tempInimigos.setVisivel(false);
-				jogoAndamento = false;
-			}
+//				Inimigos tempInimigos = inimigos.get(j);
+//				retInimigos = tempTiro.getBounds();
+//				
+//				if (retTiro.intersects(retInimigos)) {
+//					
+//					tempInimigos.setVisivel(false);
+//					tempTiro.setVisivel(false);
+//				}
+//			}
 			
+//		}
+		
+	}
+	
+	private class Repetir implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// REPETIR FUNDO
+			if (repetir < 600)
+				repetir = repetir + 4;
+			else
+				repetir = 0;
 		}
-		
-		tiros = nave.getTiros();
-		
-		for (int i = 0; i < tiros.size(); i++) {
-			
-			Tiro tempTiro = tiros.get(i);
-			retTiro = tempTiro.getBounds();
-			
-			for (int j = 0; j < inimigos.size(); j++) {
-				
-				Inimigos tempInimigos = inimigos.get(j);
-				retInimigos = tempTiro.getBounds();
-				
-				if (retTiro.intersects(retInimigos)) {
-					
-					tempInimigos.setVisivel(false);
-					tempTiro.setVisivel(false);
-				}
-			}
-			
-		}
-		
 	}
 
 	private class TeclaAdapter extends KeyAdapter { // Classe responsavel por pegas as teclas pressionadas.

@@ -16,7 +16,7 @@ public class Inimigos {
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static final int VELOCIDADE_INIMIGO = 5;
+	private static final int VELOCIDADE_INIMIGO = 3;
 	
 	private static int contador = 0;
 	
@@ -34,6 +34,7 @@ public class Inimigos {
 			
 			referencia = new ImageIcon("res\\inimigo2.png");
 		}
+		
 		inimigoImg = referencia.getImage();
 		
 		this.altura = inimigoImg.getHeight(null);
@@ -45,7 +46,7 @@ public class Inimigos {
 	
 	public void mover() {
 	
-		if (this.y < 0){
+		if (this.y == 600){
 			this.y = COMPRIMENTO_TELA;
 		}
 		else {
@@ -62,7 +63,7 @@ public class Inimigos {
 		this.isVisivel = isVisivel;
 	}
 
-	public Image getImagem() {
+	public Image getInimigosImg() {
 		return inimigoImg;
 	}
 

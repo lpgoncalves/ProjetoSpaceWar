@@ -23,11 +23,11 @@ public class Tiro {
 		this.x = x;
 		this.y = y;
 		
-		this.altura = tiroImg.getHeight(null);
-		this.largura = tiroImg.getWidth(null);
-		
 		ImageIcon referencia = new ImageIcon("res\\tiro.png");
 		tiroImg = referencia.getImage();
+		
+		this.largura = tiroImg.getWidth(null);
+		this.altura = tiroImg.getHeight(null);
 		
 		isVisivel = true;
 		
@@ -50,7 +50,7 @@ public class Tiro {
 		this.isVisivel = isVisivel;
 	}
 
-	public Image getImagem() {
+	public Image getTiroImg() {
 		return tiroImg;
 	}
 
