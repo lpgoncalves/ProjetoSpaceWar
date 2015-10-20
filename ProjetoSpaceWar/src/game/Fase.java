@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -31,6 +32,10 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean jogoAndamento;
 	
 	private int repetir = 0;
+	private int pontos = 0;
+	
+    Font pontuacaoFinal = new Font("SansSerif",Font.BOLD,15);
+    Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	
 	public Fase() {
 
@@ -59,6 +64,18 @@ public class Fase extends JPanel implements ActionListener {
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
 
+	}
+	
+	private void menosPontos(){
+		if (pontos < 0) {
+			pontos = 0;
+		} else {
+			pontos--;
+		}
+	}
+	
+	private void maisPontos(){
+		pontos++;
 	}
 
 	private void inicializarInimigos() {
@@ -101,10 +118,20 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(enemies.getInimigosImg(), enemies.getX(), enemies.getY(), this);
 
 			}
-	
+			
+			ImageIcon menubar = new ImageIcon("res\\menubar.png");
+	        graficos.drawImage(menubar.getImage(), 0, 0, null);
 			graficos.setColor(Color.white);
-			graficos.drawString("Inimigos Restantes: " + inimigos.size(), 10, 15);
-			graficos.drawString("Tempo: " + tempo.minutos + ":" + tempo.segundos, 300, 15);
+			graficos.setFont(pontimer);
+			graficos.drawString("Pontos: " + pontos, 10, 15);
+			//Caso seja menor que 10 segundos no timer ele irá colocar um zero antes (ESTÉTICA)
+			if (tempo.segundos < 10) {		
+				graficos.drawString("Tempo: " + tempo.minutos + ":0" + tempo.segundos, 100, 15);				
+			} else {
+				graficos.drawString("Tempo: " + tempo.minutos + ":" + tempo.segundos, 100, 15);
+			}
+				
+			
 
 		} else {
 			
@@ -112,6 +139,9 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(black.getImage(), 0, 0, null);
 			ImageIcon gameover = new ImageIcon("res\\game_over.gif");
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
+			graficos.setColor(Color.white);
+	        graficos.setFont(pontuacaoFinal);
+			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 500);
 		}
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
@@ -122,7 +152,6 @@ public class Fase extends JPanel implements ActionListener {
 		if ((tempo.minutos == 0) && (tempo.segundos == 0)) {
 
 			jogoAndamento = false;
-			timer.start();
 		}
 
 		tiros = nave.getTiros();
@@ -190,6 +219,7 @@ public class Fase extends JPanel implements ActionListener {
 					
 					tempInimigos.setVisivel(false);
 					tempTiro.setVisivel(false);
+					maisPontos();
 				}
 			}
 			
@@ -214,6 +244,7 @@ public class Fase extends JPanel implements ActionListener {
 			
 			if (e.getKeyCode() == KeyEvent.VK_ENTER){
 				jogoAndamento = true;
+				pontos = 0;
 				tempo = new Tempo();
 				nave = new Nave();
 				inicializarInimigos();
