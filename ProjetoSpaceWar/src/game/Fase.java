@@ -20,15 +20,17 @@ public class Fase extends JPanel implements ActionListener {
 
 	private Image background;
 	private Nave nave;
+	
 	private Timer timer;
 	private Timer novosEnemies;
-	
-	private int repetir = 0;
+	Tempo tempo;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 
 	private boolean jogoAndamento;
+	
+	private int repetir = 0;
 	
 	public Fase() {
 
@@ -41,7 +43,9 @@ public class Fase extends JPanel implements ActionListener {
 		
 		inimigos = new ArrayList <Inimigos>();
 		
-		Timer RepetirFundo = new Timer(18, new Repetir());
+		tempo = new Tempo();
+		
+		Timer RepetirFundo = new Timer(20, new Repetir());
 		RepetirFundo.start();
 		
 		novosEnemies = new Timer(600, new criarInimigos());
@@ -100,6 +104,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 			graficos.setColor(Color.white);
 			graficos.drawString("Inimigos Restantes: " + inimigos.size(), 10, 15);
+			graficos.drawString("Tempo: " + tempo.minutos + ":" + tempo.segundos, 300, 15);
 
 		} else {
 			
@@ -114,9 +119,10 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (inimigos.size() == 30) {
+		if ((tempo.minutos == 0) && (tempo.segundos == 0)) {
 
 			jogoAndamento = false;
+			timer.start();
 		}
 
 		tiros = nave.getTiros();
@@ -208,6 +214,7 @@ public class Fase extends JPanel implements ActionListener {
 			
 			if (e.getKeyCode() == KeyEvent.VK_ENTER){
 				jogoAndamento = true;
+				tempo = new Tempo();
 				nave = new Nave();
 				inicializarInimigos();
 			}
