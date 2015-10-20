@@ -90,7 +90,7 @@ public class Nave {
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle (x, y, largura, altura);
+		return new Rectangle (x, y, largura - 20, altura - 20);
 	}
 	
 	//O x começa da esquerda para direita e o y de cima para baixo.

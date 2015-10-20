@@ -44,7 +44,7 @@ public class Fase extends JPanel implements ActionListener {
 		Timer RepetirFundo = new Timer(18, new Repetir());
 		RepetirFundo.start();
 		
-		novosEnemies = new Timer(400, new criarInimigos());
+		novosEnemies = new Timer(600, new criarInimigos());
 		novosEnemies.start();
 
 		nave = new Nave();
@@ -155,40 +155,39 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle retTiro;
 		Rectangle retInimigos;
 		
-//		for (int i = 0; i < inimigos.size(); i++) {
-//			
-//			Inimigos tempInimigos = inimigos.get(i);
-//			retInimigos = tempInimigos.getBounds();
-//			
-//			if (retNave.intersects(retInimigos)) {
-//				
-//				nave.setVisivel(false);
-//				tempInimigos.setVisivel(false);
-//				jogoAndamento = false;
-//			}
+		for (int i = 0; i < inimigos.size(); i++) {
 			
-//		}
-		
-//		tiros = nave.getTiros();
-//		
-//		for (int i = 0; i < tiros.size(); i++) {
-//			
-//			Tiro tempTiro = tiros.get(i);
-//			retTiro = tempTiro.getBounds();
-//			
-//			for (int j = 0; j < inimigos.size(); j++) {
+			Inimigos tempInimigos = inimigos.get(i);
+			retInimigos = tempInimigos.getBounds();
+			
+			if (retNave.intersects(retInimigos)) {
 				
-//				Inimigos tempInimigos = inimigos.get(j);
-//				retInimigos = tempTiro.getBounds();
-//				
-//				if (retTiro.intersects(retInimigos)) {
-//					
-//					tempInimigos.setVisivel(false);
-//					tempTiro.setVisivel(false);
-//				}
-//			}
+				nave.setVisivel(false);
+				tempInimigos.setVisivel(false);
+				jogoAndamento = false;
+			}
 			
-//		}
+		}
+		
+		tiros = nave.getTiros();
+		for (int i = 0; i < tiros.size(); i++) {
+			
+			Tiro tempTiro = tiros.get(i);
+			retTiro = tempTiro.getBounds();
+			
+			for (int j = 0; j < inimigos.size(); j++) {
+				
+				Inimigos tempInimigos = inimigos.get(j);
+				retInimigos = tempInimigos.getBounds();
+				
+				if (retTiro.intersects(retInimigos)) {
+					
+					tempInimigos.setVisivel(false);
+					tempTiro.setVisivel(false);
+				}
+			}
+			
+		}
 		
 	}
 	
@@ -196,7 +195,7 @@ public class Fase extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// REPETIR FUNDO
 			if (repetir < 600)
-				repetir = repetir + 4;
+				repetir = repetir + 1;
 			else
 				repetir = 0;
 		}

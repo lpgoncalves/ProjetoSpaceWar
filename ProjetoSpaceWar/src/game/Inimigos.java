@@ -16,7 +16,7 @@ public class Inimigos {
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static final int VELOCIDADE_INIMIGO = 3;
+	private static final double VELOCIDADE_INIMIGO = 1;
 	
 	private static int contador = 0;
 	
@@ -76,7 +76,7 @@ public class Inimigos {
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle (x, y, largura, altura);
+		return new Rectangle (x, y, largura - 30, altura - 20);
 	}
 	
 	
