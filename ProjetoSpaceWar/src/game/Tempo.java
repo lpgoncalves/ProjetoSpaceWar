@@ -1,10 +1,13 @@
 package game;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Tempo {
+	
 	Timer timer;
+	
 	public int minutos = 0;
 	public int segundos = 40;
 
@@ -26,5 +29,15 @@ public class Tempo {
 				segundos = 59;
 			  } 
 		}
+	}	
+	
+	public void pararTimer() {
+		timer.cancel();
 	}
+	
+	public void comecarTimer() {
+	    this.timer = new Timer();
+	    this.timer.schedule( new DisplayCountdown(), 0, 1000 );
+	}
+
 }

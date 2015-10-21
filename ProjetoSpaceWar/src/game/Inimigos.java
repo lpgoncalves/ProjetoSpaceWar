@@ -17,7 +17,7 @@ public class Inimigos {
 	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static final double VELOCIDADE_INIMIGO = 1;
-	private int VELOCIDADE_X = (int)((Math.random() * 4) - 2); 
+	//private int VELOCIDADE_X = (int)((Math.random() * 4) - 2); 
 	
 	private static int contador = 0;
 	

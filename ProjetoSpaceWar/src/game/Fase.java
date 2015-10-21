@@ -26,16 +26,22 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer novosEnemies;
 	Tempo tempo;
 	private Timer novasLifes;
+	private Timer novoBoss;
+	private Timer repetirFundo;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 	private List<Vida> addVida;
+	private List<Boss> addBoss;
 
 	private boolean jogoAndamento;
+	private boolean pause;
+	private boolean bossUp;
 	
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 1;
+	private int vidaBoss = 20;
 	
     Font pontuacaoFinal = new Font("SansSerif",Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
@@ -50,18 +56,22 @@ public class Fase extends JPanel implements ActionListener {
 		background = referencia.getImage();
 		
 		inimigos = new ArrayList <Inimigos>();
+		addBoss = new ArrayList<Boss>();
 		addVida = new ArrayList<Vida>();
 		
 		tempo = new Tempo();
 		
-		Timer RepetirFundo = new Timer(20, new Repetir());
-		RepetirFundo.start();
+		repetirFundo = new Timer(20, new Repetir());
+		repetirFundo.start();
 		
 		novosEnemies = new Timer(600, new criarInimigos());
 		novosEnemies.start();
 		
 		novasLifes = new Timer(2000, new criarVidas());
 		novasLifes.start();
+		
+		novoBoss = new Timer(2000, new criarBoss());
+		novoBoss.start();
 
 		nave = new Nave();
 		inicializarInimigos();
@@ -92,6 +102,10 @@ public class Fase extends JPanel implements ActionListener {
 	private void maisVidas(){
 		vidas++;
 	}
+	
+	private void menosBossVidas(){
+		vidaBoss--;
+	}
 
 	private void inicializarInimigos() {
 		for (int i = 0; i < inimigos.size(); i++) {
@@ -104,6 +118,16 @@ public class Fase extends JPanel implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			
 			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -80));
+			
+		}
+	}
+	
+	public class criarBoss implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			
+			if (pontos == 10) {
+				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));				
+			}
 			
 		}
 	}
@@ -150,6 +174,13 @@ public class Fase extends JPanel implements ActionListener {
 
 			}
 			
+			for (int i = 0; i < addBoss.size(); i++) {
+
+				Boss boss = addBoss.get(i);
+				graficos.drawImage(boss.getBossImg(), boss.getX(), boss.getY(), this);
+
+			}
+			
 			ImageIcon menubar = new ImageIcon("res\\menubar.png");
 	        graficos.drawImage(menubar.getImage(), 0, 0, null);
 			graficos.setColor(Color.white);
@@ -165,6 +196,12 @@ public class Fase extends JPanel implements ActionListener {
 			  }
 			//---------------------------------------------------------------------------------
 			graficos.drawString(" " + vidas, 198, 14);
+			
+			if (pause == true) {
+				ImageIcon pause = new ImageIcon("res\\pause.png");
+				graficos.drawImage(pause.getImage(), 275, 275, null);
+			}
+			
 				
 		} else {
 			
@@ -186,6 +223,8 @@ public class Fase extends JPanel implements ActionListener {
 		if ((tempo.minutos == 0) && (tempo.segundos == 0)) {
 
 			jogoAndamento = false;
+			nave.setVisivel(false);
+			novosEnemies.stop();
 		}
 
 		tiros = nave.getTiros();
@@ -224,6 +263,18 @@ public class Fase extends JPanel implements ActionListener {
 			}
 
 		}
+		
+		for (int i = 0; i < addBoss.size(); i++) {
+
+			Boss boss = addBoss.get(i);
+
+			if (boss.isVisivel()) {
+				boss.mover();
+			} else {
+				addBoss.remove(i);
+			}
+
+		}
 
 		nave.mover(); //Responsavel por fazer a ação de se movimentar da nave.
 		checarColisoes();
@@ -235,6 +286,7 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle retNave = nave.getBounds();
 		Rectangle retTiro;
 		Rectangle retInimigos;
+		Rectangle retBoss;
 		Rectangle retVida;
 		
 		for (int i = 0; i < inimigos.size(); i++) {
@@ -274,6 +326,33 @@ public class Fase extends JPanel implements ActionListener {
 				}
 			}
 			
+			for (int k = 0; k < addBoss.size(); i++) {
+				
+				Boss tempBoss = addBoss.get(i);
+				retBoss = tempBoss.getBounds();
+				
+				if (retTiro.intersects(retBoss)) {
+					
+					tempTiro.setVisivel(false);
+					menosBossVidas();
+				}
+			
+		    }
+		}
+		
+		for (int i = 0; i < addBoss.size(); i++) {
+			
+			Boss tempBoss = addBoss.get(i);
+			retBoss = tempBoss.getBounds();
+			
+			if (retNave.intersects(retBoss)) {
+				menosVidas();
+				
+				if (vidas < 0) {
+					nave.setVisivel(false);
+					jogoAndamento = false;
+				}
+			}
 		}
 		
 		for (int i = 0; i < addVida.size(); i++) {
@@ -300,7 +379,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 
-	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas.
+	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas na fase.
 
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -308,10 +387,30 @@ public class Fase extends JPanel implements ActionListener {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER){
 				jogoAndamento = true;
 				pontos = 0;
-				vidas = 3;
+				vidas = 1;
 				tempo = new Tempo();
 				nave = new Nave();
 				inicializarInimigos();
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_P) {
+				if (pause == true) {
+					pause = false;
+					timer.start();
+					novosEnemies.start();
+					novasLifes.start();
+					repetirFundo.start();
+                    tempo.comecarTimer();
+					
+				} else {
+					pause = true;
+					timer.stop();
+					novosEnemies.stop();
+					novasLifes.stop();
+					repetirFundo.stop();
+					tempo.pararTimer();
+				
+				}
 			}
 			
 			nave.KeyPressed(e);
