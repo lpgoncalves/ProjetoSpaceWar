@@ -25,14 +25,17 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer timer;
 	private Timer novosEnemies;
 	Tempo tempo;
+	private Timer novasLifes;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
+	private List<Vida> addVida;
 
 	private boolean jogoAndamento;
 	
 	private int repetir = 0;
 	private int pontos = 0;
+	private int vidas = 1;
 	
     Font pontuacaoFinal = new Font("SansSerif",Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
@@ -47,6 +50,7 @@ public class Fase extends JPanel implements ActionListener {
 		background = referencia.getImage();
 		
 		inimigos = new ArrayList <Inimigos>();
+		addVida = new ArrayList<Vida>();
 		
 		tempo = new Tempo();
 		
@@ -55,6 +59,9 @@ public class Fase extends JPanel implements ActionListener {
 		
 		novosEnemies = new Timer(600, new criarInimigos());
 		novosEnemies.start();
+		
+		novasLifes = new Timer(2000, new criarVidas());
+		novasLifes.start();
 
 		nave = new Nave();
 		inicializarInimigos();
@@ -77,19 +84,36 @@ public class Fase extends JPanel implements ActionListener {
 	private void maisPontos(){
 		pontos++;
 	}
+	
+	private void menosVidas(){
+		vidas--;
+	}
+	
+	private void maisVidas(){
+		vidas++;
+	}
 
 	private void inicializarInimigos() {
 		for (int i = 0; i < inimigos.size(); i++) {
 			inimigos.remove(i);
 
 		}
-
 	}
 	
 	public class criarInimigos implements ActionListener {
-		public void actionPerformed (ActionEvent f) {
+		public void actionPerformed (ActionEvent e) {
 			
 			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -80));
+			
+		}
+	}
+	
+	public class criarVidas implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			
+			if ((pontos == 30) || (pontos == 60)) {
+				addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));				
+			}
 			
 		}
 	}
@@ -119,6 +143,13 @@ public class Fase extends JPanel implements ActionListener {
 
 			}
 			
+			for (int i = 0; i < addVida.size(); i++) {
+
+				Vida lifes = addVida.get(i);
+				graficos.drawImage(lifes.getVidaImg(), lifes.getX(), lifes.getY(), this);
+
+			}
+			
 			ImageIcon menubar = new ImageIcon("res\\menubar.png");
 	        graficos.drawImage(menubar.getImage(), 0, 0, null);
 			graficos.setColor(Color.white);
@@ -133,6 +164,7 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawString(" " + tempo.minutos + ":" + tempo.segundos, 105, 14);
 			  }
 			//---------------------------------------------------------------------------------
+			graficos.drawString(" " + vidas, 198, 14);
 				
 		} else {
 			
@@ -144,6 +176,7 @@ public class Fase extends JPanel implements ActionListener {
 	        graficos.setFont(pontuacaoFinal);
 			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 500);
 		}
+		
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
 
@@ -158,10 +191,10 @@ public class Fase extends JPanel implements ActionListener {
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
 			
-			Tiro shoot = (Tiro) tiros.get(i);
+			Tiro shoots = (Tiro) tiros.get(i);
 			
-			if (shoot.isVisivel()) {
-				shoot.mover();
+			if (shoots.isVisivel()) {
+				shoots.mover();
 			} else {
 				tiros.remove(i);
 			}
@@ -170,12 +203,24 @@ public class Fase extends JPanel implements ActionListener {
 		
 		for (int i = 0; i < inimigos.size(); i++) {
 
-			Inimigos in = inimigos.get(i);
+			Inimigos enemies = inimigos.get(i);
 
-			if (in.isVisivel()) {
-				in.mover();
+			if (enemies.isVisivel()) {
+				enemies.mover();
 			} else {
 				inimigos.remove(i);
+			}
+
+		}
+		
+		for (int i = 0; i < addVida.size(); i++) {
+
+			Vida lifes = addVida.get(i);
+
+			if (lifes.isVisivel()) {
+				lifes.mover();
+			} else {
+				addVida.remove(i);
 			}
 
 		}
@@ -190,6 +235,7 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle retNave = nave.getBounds();
 		Rectangle retTiro;
 		Rectangle retInimigos;
+		Rectangle retVida;
 		
 		for (int i = 0; i < inimigos.size(); i++) {
 			
@@ -198,9 +244,13 @@ public class Fase extends JPanel implements ActionListener {
 			
 			if (retNave.intersects(retInimigos)) {
 				
-				nave.setVisivel(false);
+				menosVidas();
 				tempInimigos.setVisivel(false);
-				jogoAndamento = false;
+				
+				if (vidas < 0) {
+					nave.setVisivel(false);
+					jogoAndamento = false;
+				}
 			}
 			
 		}
@@ -226,6 +276,18 @@ public class Fase extends JPanel implements ActionListener {
 			
 		}
 		
+		for (int i = 0; i < addVida.size(); i++) {
+			
+			Vida tempVida = addVida.get(i);
+			retVida = tempVida.getBounds();
+			
+			if (retNave.intersects(retVida)) {
+				
+				tempVida.setVisivel(false);
+				maisVidas();
+			}
+		}
+		
 	}
 	
 	private class Repetir implements ActionListener {
@@ -238,7 +300,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 
-	private class TeclaAdapter extends KeyAdapter { // Classe responsavel por pegas as teclas pressionadas.
+	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas.
 
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -246,6 +308,7 @@ public class Fase extends JPanel implements ActionListener {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER){
 				jogoAndamento = true;
 				pontos = 0;
+				vidas = 3;
 				tempo = new Tempo();
 				nave = new Nave();
 				inicializarInimigos();

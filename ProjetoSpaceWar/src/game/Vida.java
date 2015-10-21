@@ -25,6 +25,9 @@ public class Vida {
 		ImageIcon referencia = new ImageIcon ("res\\vida.gif");//Definimos o diretorio da imagem da nave.
 		vidaImg = referencia.getImage();
 		
+		this.altura = vidaImg.getHeight(null);
+		this.largura = vidaImg.getWidth(null);
+		
 		isVisivel = true;
 	}
 	
@@ -60,7 +63,7 @@ public class Vida {
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle (x, y, largura - 30, altura - 20);
+		return new Rectangle (x, y, largura, altura);
 	}
 	
 

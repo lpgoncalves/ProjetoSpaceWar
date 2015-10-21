@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class Tempo {
 	Timer timer;
 	public int minutos = 0;
-	public int segundos = 20;
+	public int segundos = 40;
 
 	public Tempo() {
 		

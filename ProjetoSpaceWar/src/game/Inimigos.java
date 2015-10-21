@@ -17,6 +17,7 @@ public class Inimigos {
 	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static final double VELOCIDADE_INIMIGO = 1;
+	private int VELOCIDADE_X = (int)((Math.random() * 4) - 2); 
 	
 	private static int contador = 0;
 	
@@ -46,13 +47,27 @@ public class Inimigos {
 	
 	public void mover() {
 	
-		if (this.y == 600){
+		if ((this.y == 600 || this.x == 600)){
 			this.y = COMPRIMENTO_TELA;
+			this.x = COMPRIMENTO_TELA;
 		}
 		else {
 			this.y += VELOCIDADE_INIMIGO;
 		}
-			
+		//-----------MOVIMENTAÇÃO NO VETOR X-----------------
+		/*else if (VELOCIDADE_X == 0) {
+			this.y += VELOCIDADE_INIMIGO;
+			this.x += 0;
+		}
+		else if (VELOCIDADE_X == -1) {
+			this.y += VELOCIDADE_INIMIGO;
+			this.x += -0.1;
+		}
+		else {
+			this.y += VELOCIDADE_INIMIGO;
+			this.x += 0.1;
+		}*/
+		//-----------------------------------------------------
 	}
 	
 	public boolean isVisivel() {
