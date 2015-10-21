@@ -33,8 +33,8 @@ public class Nave {
 		tiros = new ArrayList<Tiro>();
 		
 		//Setamos a posição inicial da nave.
-		this.x = 100;
-		this.y = 100;
+		this.x = 275;
+		this.y = 500;
 	}
 	
 	public void mover() {
@@ -86,7 +86,7 @@ public class Nave {
 	}
 	
 	public void atirar() {
-		this.tiros.add(new Tiro(getX() + largura / 2, getY() + -2 * altura));
+		this.tiros.add(new Tiro(getX() + (largura / 2) - 10, getY() + -1 * altura));
 	}
 	
 	public Rectangle getBounds() {

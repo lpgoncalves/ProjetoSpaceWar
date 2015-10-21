@@ -123,16 +123,17 @@ public class Fase extends JPanel implements ActionListener {
 	        graficos.drawImage(menubar.getImage(), 0, 0, null);
 			graficos.setColor(Color.white);
 			graficos.setFont(pontimer);
-			graficos.drawString("Pontos: " + pontos, 10, 15);
+			graficos.drawString(" " + pontos, 20, 14);
+			
+			//--------------------------------------------------------------------------------
 			//Caso seja menor que 10 segundos no timer ele irá colocar um zero antes (ESTÉTICA)
 			if (tempo.segundos < 10) {		
-				graficos.drawString("Tempo: " + tempo.minutos + ":0" + tempo.segundos, 100, 15);				
+				graficos.drawString(" " + tempo.minutos + ":0" + tempo.segundos, 105, 14);				
 			} else {
-				graficos.drawString("Tempo: " + tempo.minutos + ":" + tempo.segundos, 100, 15);
-			}
+				graficos.drawString(" " + tempo.minutos + ":" + tempo.segundos, 105, 14);
+			  }
+			//---------------------------------------------------------------------------------
 				
-			
-
 		} else {
 			
 			ImageIcon black = new ImageIcon("res\\black.png");
