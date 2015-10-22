@@ -44,7 +44,12 @@ public class Fase extends JPanel implements ActionListener {
 	private int vidas = 1;
 	private int vidaBoss = 20;
 	
-    Font pontuacaoFinal = new Font("SansSerif",Font.BOLD,15);
+	private int itemSelecionado;
+	private Graphics2D graficos;
+	private ImageIcon seta;
+	private ImageIcon seta1;
+	
+    Font pontuacaoFinal = new Font(FontGame.GetFontArcade(),Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	
 	public Fase() {
@@ -145,7 +150,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
-		Graphics2D graficos = (Graphics2D) g;
+		graficos = (Graphics2D) g;
 		graficos.drawImage(background, 0, repetir, null);
 		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
@@ -211,8 +216,20 @@ public class Fase extends JPanel implements ActionListener {
 			ImageIcon gameover = new ImageIcon("res\\game_over.gif");
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
+			
+			
+			
+			seta = new ImageIcon();
+			seta1 = new ImageIcon();
+			
+			addKeyListener(new EventoMenuFinal());
+			
 	        graficos.setFont(pontuacaoFinal);
-			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 500);
+	        graficos.drawImage(seta.getImage(), 150, 490, null);
+	        graficos.drawString("Jogar Novamente", 170, 490);
+	        graficos.drawImage(seta1.getImage(), 150, 490, null);
+	        graficos.drawString("Voltar ao Menu Principal", 170, 510);
+			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 550);
 		}
 		
 		g.dispose();// Irá repintar a tela com as novas atualizações.
@@ -428,6 +445,42 @@ public class Fase extends JPanel implements ActionListener {
 			nave.KeyReleased(e);
 		}
 
+	}
+	private class EventoMenuFinal extends KeyAdapter{
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				   itemSelecionado -= 1;
+				  }
+			  
+			  if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				   itemSelecionado += 1;
+				  } 
+			  
+			  if (itemSelecionado >= 2) {
+				   itemSelecionado = 0;
+				  }
+			  
+			  if (itemSelecionado < 0) {
+				   itemSelecionado = 1;
+				  }
+			  
+			  if(itemSelecionado == 0){
+				  seta = new ImageIcon("res\\seta.gif");
+				  seta1 = new ImageIcon("");
+				  
+			  }
+			  if(itemSelecionado == 1)
+			  {	
+				  seta = new ImageIcon("");
+				  seta1 = new ImageIcon("res\\seta.gif");
+			  }
+			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
+				   
+				  }
+		  
+		
+			}
 	}
 
 }
