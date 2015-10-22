@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +126,7 @@ public class Fase extends JPanel implements ActionListener {
 	public class criarBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			
-			if (pontos == 10) {
+			if (tempo.segundos == 35) {
 				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));				
 			}
 			
@@ -176,8 +177,8 @@ public class Fase extends JPanel implements ActionListener {
 			
 			for (int i = 0; i < addBoss.size(); i++) {
 
-				Boss boss = addBoss.get(i);
-				graficos.drawImage(boss.getBossImg(), boss.getX(), boss.getY(), this);
+				Boss bosses = addBoss.get(i);
+				graficos.drawImage(bosses.getBossImg(), (int) bosses.getX(), (int) bosses.getY(), this);
 
 			}
 			
@@ -266,10 +267,10 @@ public class Fase extends JPanel implements ActionListener {
 		
 		for (int i = 0; i < addBoss.size(); i++) {
 
-			Boss boss = addBoss.get(i);
+			Boss bosses = addBoss.get(i);
 
-			if (boss.isVisivel()) {
-				boss.mover();
+			if (bosses.isVisivel()) {
+				bosses.Baixo();
 			} else {
 				addBoss.remove(i);
 			}
@@ -283,11 +284,11 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public void checarColisoes() {
 		
-		Rectangle retNave = nave.getBounds();
-		Rectangle retTiro;
-		Rectangle retInimigos;
-		Rectangle retBoss;
-		Rectangle retVida;
+		Rectangle2D retNave = nave.getBounds();
+		Rectangle2D retTiro;
+		Rectangle2D retInimigos;
+		Rectangle2D retBoss;
+		Rectangle2D retVida;
 		
 		for (int i = 0; i < inimigos.size(); i++) {
 			
@@ -326,15 +327,19 @@ public class Fase extends JPanel implements ActionListener {
 				}
 			}
 			
-			for (int k = 0; k < addBoss.size(); i++) {
+			for (int k = 0; k < addBoss.size(); k++) {
 				
-				Boss tempBoss = addBoss.get(i);
+				Boss tempBoss = addBoss.get(k);
 				retBoss = tempBoss.getBounds();
 				
 				if (retTiro.intersects(retBoss)) {
 					
 					tempTiro.setVisivel(false);
 					menosBossVidas();
+					
+					if (vidaBoss == 0) {
+						tempBoss.setVisivel(false);
+					}
 				}
 			
 		    }
@@ -390,6 +395,8 @@ public class Fase extends JPanel implements ActionListener {
 				vidas = 1;
 				tempo = new Tempo();
 				nave = new Nave();
+				novosEnemies.start();
+				novasLifes.start();
 				inicializarInimigos();
 			}
 			

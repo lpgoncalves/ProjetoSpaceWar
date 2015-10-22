@@ -2,14 +2,15 @@ package game;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 
 public class Boss {
 
 	private Image bossImg;
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private int altura;
 	private int largura;
 	
@@ -18,7 +19,7 @@ public class Boss {
 	private static final int COMPRIMENTO_TELA = 600;
 	private static final int Y_MAXIMO = 400;
 	private static final int Y_MINIMO = 0;
-	private static final double VELOCIDADE_BOSS = 2;
+	private static final double VELOCIDADE_BOSS = 0.5;
 	
 	private static int contador = 0;
 	
@@ -37,30 +38,44 @@ public class Boss {
 		
 	}
 	
-	public void mover() {
-		if ((this.y == 600 || this.x == 600)){
-			this.y = COMPRIMENTO_TELA;
+	public void Direita() {
+		if (this.x == 600) {
 			this.x = COMPRIMENTO_TELA;
 		}
 		else {
-			this.y += VELOCIDADE_BOSS;
+			this.x += VELOCIDADE_BOSS; 
 		}
-/*		if (this.y == 400 ) {
-			this.y = Y_MAXIMO;
-			this.y -= VELOCIDADE_BOSS;
-		}
-		else if (this.y == 0) {
-			this.y = Y_MINIMO;
-			this.y += VELOCIDADE_BOSS;
-		}
-		else if (this.x == 600 ) {
+		
+	}
+	
+	public void Esquerda() {
+		if (this.x == 1) {
 			this.x = COMPRIMENTO_TELA;
-			this.x -= VELOCIDADE_BOSS;
 		}
-		else if (this.x == 0) {
-			this.x = Y_MINIMO;
-			this.x += VELOCIDADE_BOSS;
-		} */
+		else {
+			this.x -= VELOCIDADE_BOSS; 
+		}
+		
+	}
+	
+	public void Baixo() {	
+		if (this.y == 600) {
+			this.y = COMPRIMENTO_TELA;
+		}
+		else {
+			this.y += VELOCIDADE_BOSS; 
+		}
+		
+	}
+	
+	public void Cima() {
+		if (this.y == 1) {
+			this.y = COMPRIMENTO_TELA;
+		}
+		else {
+			this.y -= VELOCIDADE_BOSS; 
+		}
+		
 	}
 	
 	public boolean isVisivel() {
@@ -75,16 +90,16 @@ public class Boss {
 		return bossImg;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	
-	public Rectangle getBounds() {
-		return new Rectangle (x, y, largura - 30, altura - 20);
+	public Rectangle2D getBounds() {
+		return new Rectangle2D.Double(x, y, largura, altura);
 	}
 	
 	

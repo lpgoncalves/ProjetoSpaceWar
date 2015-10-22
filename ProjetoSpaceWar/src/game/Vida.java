@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 
@@ -62,7 +63,7 @@ public class Vida {
 		return y;
 	}
 	
-	public Rectangle getBounds() {
+	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura, altura);
 	}
 	

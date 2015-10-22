@@ -2,6 +2,7 @@ package game;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class Nave {
 		this.tiros.add(new Tiro(getX() + (largura / 2) - 10, getY() + -1 * altura));
 	}
 	
-	public Rectangle getBounds() {
+	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura - 20, altura - 20);
 	}
 	

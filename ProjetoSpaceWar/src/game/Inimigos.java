@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 
@@ -90,7 +91,7 @@ public class Inimigos {
 		return y;
 	}
 	
-	public Rectangle getBounds() {
+	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura - 30, altura - 20);
 	}
 	
