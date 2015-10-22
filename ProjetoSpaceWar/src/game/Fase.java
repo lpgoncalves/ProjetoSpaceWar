@@ -45,7 +45,6 @@ public class Fase extends JPanel implements ActionListener {
 	private int vidaBoss = 20;
 	
 	private int itemSelecionado;
-	private Graphics2D graficos;
 	private ImageIcon seta;
 	private ImageIcon seta1;
 	
@@ -53,7 +52,8 @@ public class Fase extends JPanel implements ActionListener {
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	
 	public Fase() {
-
+		
+		System.out.println("focus fase" + this.isFocusable());
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
@@ -150,7 +150,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
-		graficos = (Graphics2D) g;
+		Graphics2D graficos = (Graphics2D) g;
 		graficos.drawImage(background, 0, repetir, null);
 		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
@@ -222,7 +222,7 @@ public class Fase extends JPanel implements ActionListener {
 			seta = new ImageIcon();
 			seta1 = new ImageIcon();
 			
-			addKeyListener(new EventoMenuFinal());
+			/*addKeyListener(new EventoMenuFinal());*/
 			
 	        graficos.setFont(pontuacaoFinal);
 	        graficos.drawImage(seta.getImage(), 150, 490, null);
@@ -446,7 +446,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 
 	}
-	private class EventoMenuFinal extends KeyAdapter{
+	/*private class EventoMenuFinal extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -481,6 +481,6 @@ public class Fase extends JPanel implements ActionListener {
 		  
 		
 			}
-	}
+	}*/
 
 }

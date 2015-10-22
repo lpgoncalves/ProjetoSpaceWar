@@ -19,75 +19,17 @@ public class Menu extends JFrame {
 	
 	public Menu() {
 
-		JLabel LabelMenu = new JLabel();
+		
+		SubMenu LabelMenu = new SubMenu(this);
 		LabelMenu.setForeground(SystemColor.textHighlight);
 		LabelMenu.setBounds(220,250, 210, 513);
+		LabelMenu.setVisible(true);
 		add(LabelMenu);
 		
 		JLabel background = new JLabel( new ImageIcon("res\\fundofase3.png"));
-		background.setVisible(true);
+
 		add(background);
-		
-		JButton jogar = new JButton("Jogar");
-		jogar.setSelected(true);
-		jogar.setForeground(corNaoSelecionado);
-		jogar.setFont(fonte);
-		jogar.setBounds(0, 0, 130, 20);
-		LabelMenu.add(jogar);
-		jogar.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				jogar.setForeground(corSelecionado);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jogar.setForeground(corNaoSelecionado);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				background.setVisible(false);
-				add(new Fase()); // Inicia o Game
-			}
-		});
-		
-		JButton recordes = new JButton("Recordes");
-		recordes.setFont(fonte);
-		recordes.setBounds(0, 30, 130, 20);
-		LabelMenu.add(recordes);
-		recordes.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				recordes.setForeground(corSelecionado);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				recordes.setForeground(corNaoSelecionado);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		
-		JButton opcoes = new JButton("Opções");
-		opcoes.setFont(fonte);
-		opcoes.setBounds(0, 60, 130, 20);
-		LabelMenu.add(opcoes);
-		opcoes.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				opcoes.setForeground(corSelecionado);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				opcoes.setForeground(corNaoSelecionado);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		
+
 				
 		setTitle("Space War");//Seta o titulo para o frame.
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
