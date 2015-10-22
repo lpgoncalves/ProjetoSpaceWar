@@ -39,14 +39,12 @@ public class SubMenu extends JLabel{
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-
+				
+				        Fase game = new Fase();
+                   		menu.add(game);
 						setVisible(false);
 						jogar.setFocusable(false);
-						System.out.println("focu do botão"	+jogar.isFocusable());
-						Fase game = new Fase();
 						game.setFocusable(true);
-						menu.add(game);
-						System.out.print("focus" + isFocusable());
 			}
 		});
 

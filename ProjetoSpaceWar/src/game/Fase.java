@@ -22,6 +22,7 @@ public class Fase extends JPanel implements ActionListener {
 
 	private Image background;
 	private Nave nave;
+	private SubMenu menu;
 	
 	private Timer timer;
 	private Timer novosEnemies;
@@ -53,9 +54,8 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public Fase() {
 		
-		System.out.println("focus fase" + this.isFocusable());
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
-		setFocusable(true);// Seta a nave como foco.
+		this.setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
 		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
