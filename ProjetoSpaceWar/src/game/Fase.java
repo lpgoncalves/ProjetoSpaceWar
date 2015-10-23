@@ -251,6 +251,12 @@ public class Fase extends JPanel implements ActionListener {
 				
 		} else {
 			
+			try {
+				ApagaGame();
+			} catch (Throwable e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
@@ -516,12 +522,7 @@ public class Fase extends JPanel implements ActionListener {
 			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				  
 				  if (up == true) {
-					  try {
-							ApagaGame();
-						} catch (Throwable e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					  
 					  StartFase();
 				  	}
 				  
