@@ -22,7 +22,6 @@ public class Fase extends JPanel implements ActionListener {
 
 	private Image background;
 	private Nave nave;
-	private SubMenu menu;
 	
 	private Timer timer;
 	private Timer novosEnemies;
@@ -51,11 +50,12 @@ public class Fase extends JPanel implements ActionListener {
 	
     Font pontuacaoFinal = new Font(FontGame.GetFontArcade(),Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
+    Graphics2D graficos;
 	
 	public Fase() {
 		
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
-		this.setFocusable(true);// Seta a nave como foco.
+		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
 		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
@@ -150,7 +150,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
-		Graphics2D graficos = (Graphics2D) g;
+		graficos = (Graphics2D) g;
 		graficos.drawImage(background, 0, repetir, null);
 		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
@@ -217,19 +217,17 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
 			
+
+			seta = new ImageIcon("res\\seta.gif");
+			setFocusable(true);
 			
-			
-			seta = new ImageIcon();
-			seta1 = new ImageIcon();
-			
-			/*addKeyListener(new EventoMenuFinal());*/
 			
 	        graficos.setFont(pontuacaoFinal);
-	        graficos.drawImage(seta.getImage(), 150, 490, null);
 	        graficos.drawString("Jogar Novamente", 170, 490);
-	        graficos.drawImage(seta1.getImage(), 150, 490, null);
 	        graficos.drawString("Voltar ao Menu Principal", 170, 510);
 			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 550);
+			addKeyListener(new EventoMenuFinal());
+			g.dispose();
 		}
 		
 		g.dispose();// Irá repintar a tela com as novas atualizações.
@@ -446,41 +444,27 @@ public class Fase extends JPanel implements ActionListener {
 		}
 
 	}
-	/*private class EventoMenuFinal extends KeyAdapter{
+	private class EventoMenuFinal extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
+			 
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				   itemSelecionado -= 1;
+				  System.out.println("teste:"+ seta.getIconHeight());
+				  
+				  graficos.drawString("1", 150, 490);
 				  }
 			  
 			  if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				   itemSelecionado += 1;
+				  graficos.drawImage(seta.getImage(), 150, 490, null);
 				  } 
 			  
-			  if (itemSelecionado >= 2) {
-				   itemSelecionado = 0;
-				  }
 			  
-			  if (itemSelecionado < 0) {
-				   itemSelecionado = 1;
-				  }
-			  
-			  if(itemSelecionado == 0){
-				  seta = new ImageIcon("res\\seta.gif");
-				  seta1 = new ImageIcon("");
-				  
-			  }
-			  if(itemSelecionado == 1)
-			  {	
-				  seta = new ImageIcon("");
-				  seta1 = new ImageIcon("res\\seta.gif");
-			  }
 			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				   
 				  }
 		  
-		
+			 
 			}
-	}*/
+	}
 
 }
