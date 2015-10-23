@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -49,16 +50,19 @@ public class Fase extends JPanel implements ActionListener {
 	private ImageIcon seta;
 	private ImageIcon seta1;
 	
+	private JLabel menu2;
+	
     Font pontuacaoFinal = new Font(FontGame.GetFontArcade(),Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
     Graphics2D graficos;
 	
-	public Fase() {
+	public Fase(JLabel menu) {
 		
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
+		menu2 = menu;
 		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
 		background = referencia.getImage();
 		
@@ -494,14 +498,15 @@ public class Fase extends JPanel implements ActionListener {
 			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				  
 				  if (up == true) {
-					  new Fase(); 
-				  }
+					   new Fase(menu2);
+				  	}
 				  
 				  if (down == true) {
-
-				  }
+					  setVisible(false);
+					  menu2.setVisible(true);
+				  	}
 				   
-				  }
+			  	}
 			}
 	}
 

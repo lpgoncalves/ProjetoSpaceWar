@@ -26,7 +26,8 @@ public class Menu extends JLabel{
 		jogar.setForeground(corNaoSelecionado);
 		jogar.setFont(fonte);
 		jogar.setBounds(0, 0, 130, 20);
-		add(jogar);
+		JLabel menu = this;
+		menu.add(jogar);
 		
 		jogar.addMouseListener(new MouseAdapter(){
 			
@@ -38,8 +39,9 @@ public class Menu extends JLabel{
 				jogar.setForeground(corNaoSelecionado);
 			}
 			
-			public void mouseClicked(MouseEvent e) {			
-				        Fase game = new Fase();
+			public void mouseClicked(MouseEvent e) {	
+				
+				        Fase game = new Fase(menu);
 				        frame.add(game);
 						setVisible(false);
 						game.setFocusable(true);
@@ -84,9 +86,12 @@ public class Menu extends JLabel{
 				
 			}
 		});
-		
-		
-		
+
 	}
+	
+	public void MostraMenu(){
+		setVisible(true);
+	}
+	
 
 }
