@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -38,6 +37,8 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean jogoAndamento;
 	private boolean pause;
 	private boolean bossUp;
+	private boolean up;
+	private boolean down;
 	
 	private int repetir = 0;
 	private int pontos = 0;
@@ -83,10 +84,27 @@ public class Fase extends JPanel implements ActionListener {
 		inicializarInimigos();
 
 		jogoAndamento = true;
+		up = true;
+		down = false;
 
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
 
+	}
+	
+	private void StartFase() {
+		jogoAndamento = true;
+		up = true;
+		down = false;
+		nave = new Nave();
+		inicializarInimigos();
+		pontos = 0;
+		vidas = 1;
+		vidaBoss = 20;
+		novoBoss.start();
+		novasLifes.start();
+		repetirFundo.start();
+		timer.start();
 	}
 	
 	private void menosPontos(){
@@ -151,6 +169,7 @@ public class Fase extends JPanel implements ActionListener {
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
 		graficos = (Graphics2D) g;
+		graficos.setBackground(Color.BLACK);  
 		graficos.drawImage(background, 0, repetir, null);
 		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
@@ -217,16 +236,29 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
 			
-
+			addKeyListener(new EventoMenuFinal());
 			seta = new ImageIcon("res\\seta.gif");
-			setFocusable(true);
+			ImageIcon preto = new ImageIcon("res\\preto.png");
 			
+            if (up == true) {
+			graficos.drawImage(seta.getImage(), 80, 457, null);
+			setFocusable(true);
+            } else {
+            	
+            }
+            
+            if (down == true) {
+            graficos.drawImage(seta.getImage(), 80, 476, null);
+			setFocusable(true);
+            } else {
+            	
+            }
 			
 	        graficos.setFont(pontuacaoFinal);
 	        graficos.drawString("Jogar Novamente", 170, 490);
 	        graficos.drawString("Voltar ao Menu Principal", 170, 510);
 			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 550);
-			addKeyListener(new EventoMenuFinal());
+			
 			g.dispose();
 		}
 		
@@ -444,26 +476,32 @@ public class Fase extends JPanel implements ActionListener {
 		}
 
 	}
-	private class EventoMenuFinal extends KeyAdapter{
+	
+	private class EventoMenuFinal extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			 
-			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				  System.out.println("teste:"+ seta.getIconHeight());
-				  
-				  graficos.drawString("1", 150, 490);
+			if (e.getKeyCode() == KeyEvent.VK_W) {
+				  up = true;
+				  down = false;
 				  }
 			  
-			  if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				  graficos.drawImage(seta.getImage(), 150, 490, null);
+			  if (e.getKeyCode() == KeyEvent.VK_S) {
+				  down = true;
+				  up = false;
 				  } 
 			  
-			  
 			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
+				  
+				  if (up == true) {
+					  new Fase(); 
+				  }
+				  
+				  if (down == true) {
+
+				  }
 				   
 				  }
-		  
-			 
 			}
 	}
 
