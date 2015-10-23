@@ -50,7 +50,8 @@ public class Fase extends JPanel implements ActionListener {
 	private ImageIcon seta;
 	private ImageIcon seta1;
 	
-	private JLabel menu2;
+	private JLabel menu;
+
 	
     Font pontuacaoFinal = new Font(FontGame.GetFontArcade(),Font.BOLD,15);
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
@@ -62,7 +63,7 @@ public class Fase extends JPanel implements ActionListener {
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
-		menu2 = menu;
+		this.menu = menu;
 		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
 		background = referencia.getImage();
 		
@@ -105,9 +106,10 @@ public class Fase extends JPanel implements ActionListener {
 		pontos = 0;
 		vidas = 1;
 		vidaBoss = 20;
-		novoBoss.start();
-		novasLifes.start();
-		repetirFundo.start();
+		novosEnemies.restart();
+		novoBoss.restart();
+		novasLifes.restart();
+		repetirFundo.restart();
 		timer.start();
 	}
 	
@@ -142,6 +144,20 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 	
+	private void ApagaGame() throws Throwable{
+		
+		inimigos.clear();	
+		tiros.clear();
+		addVida.clear();
+		addBoss.clear();
+		
+		novosEnemies.stop();
+		novasLifes.stop();
+		novoBoss.stop();
+		repetirFundo.stop();
+		
+	}
+	
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			
@@ -172,6 +188,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 
+		
 		graficos = (Graphics2D) g;
 		graficos.setBackground(Color.BLACK);  
 		graficos.drawImage(background, 0, repetir, null);
@@ -233,6 +250,7 @@ public class Fase extends JPanel implements ActionListener {
 			
 				
 		} else {
+			
 			
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
@@ -498,12 +516,18 @@ public class Fase extends JPanel implements ActionListener {
 			  if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				  
 				  if (up == true) {
-					   new Fase(menu2);
+					  try {
+							ApagaGame();
+						} catch (Throwable e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					  StartFase();
 				  	}
 				  
 				  if (down == true) {
 					  setVisible(false);
-					  menu2.setVisible(true);
+					  menu.setVisible(true);
 				  	}
 				   
 			  	}

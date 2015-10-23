@@ -67,4 +67,8 @@ public class Tiro {
 		return new Rectangle (x, y, largura, altura);
 	}
 	
+	public void Apagatiro() throws Throwable{
+		this.finalize();
+	}
+	
 }

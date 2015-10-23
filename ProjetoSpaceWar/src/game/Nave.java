@@ -142,6 +142,10 @@ public class Nave {
 			
 	}
 	
+	public void ApagaNave() throws Throwable{
+		this.finalize();
+	}
+	
 }
 	
 

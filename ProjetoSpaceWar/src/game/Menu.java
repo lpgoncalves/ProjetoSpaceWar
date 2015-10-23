@@ -45,6 +45,8 @@ public class Menu extends JLabel{
 				        frame.add(game);
 						setVisible(false);
 						game.setFocusable(true);
+						game = null;
+						
 			}
 		});
 

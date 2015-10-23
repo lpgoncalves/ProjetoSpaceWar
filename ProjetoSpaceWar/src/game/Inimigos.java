@@ -95,5 +95,8 @@ public class Inimigos {
 		return new Rectangle (x, y, largura - 30, altura - 20);
 	}
 	
+	public void ApagaInimigo() throws Throwable{
+		this.finalize();
+	}
 	
 }
