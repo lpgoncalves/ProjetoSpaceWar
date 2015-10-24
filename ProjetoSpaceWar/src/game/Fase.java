@@ -37,18 +37,16 @@ public class Fase extends JPanel implements ActionListener {
 
 	private boolean jogoAndamento;
 	private boolean pause;
-	private boolean bossUp;
 	private boolean up;
 	private boolean down;
 	
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 1;
-	private int vidaBoss = 20;
+	private int vidaBoss = 5;
 	
-	private int itemSelecionado;
 	private ImageIcon seta;
-	private ImageIcon seta1;
+
 	
 	private JLabel menu;
 
@@ -79,10 +77,10 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies = new Timer(600, new criarInimigos());
 		novosEnemies.start();
 		
-		novasLifes = new Timer(2000, new criarVidas());
+		novasLifes = new Timer(1500, new criarVidas());
 		novasLifes.start();
 		
-		novoBoss = new Timer(2000, new criarBoss());
+		novoBoss = new Timer(10000, new criarBoss());
 		novoBoss.start();
 
 		nave = new Nave();
@@ -110,7 +108,7 @@ public class Fase extends JPanel implements ActionListener {
 		novoBoss.restart();
 		novasLifes.restart();
 		repetirFundo.restart();
-		timer.start();
+		timer.restart();
 	}
 	
 	private void menosPontos(){
@@ -151,6 +149,7 @@ public class Fase extends JPanel implements ActionListener {
 		addVida.clear();
 		addBoss.clear();
 		
+		timer.stop();
 		novosEnemies.stop();
 		novasLifes.stop();
 		novoBoss.stop();
@@ -168,21 +167,16 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			
-			if (tempo.segundos == 35) {
+
 				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));				
-			}
-			
+
 		}
 	}
 	
 	public class criarVidas implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			
-			if ((pontos == 30) || (pontos == 60)) {
 				addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));				
-			}
-			
+	
 		}
 	}
 	
@@ -292,17 +286,11 @@ public class Fase extends JPanel implements ActionListener {
 		
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
-
+	int r;
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		if ((tempo.minutos == 0) && (tempo.segundos == 0)) {
-
-			jogoAndamento = false;
-			nave.setVisivel(false);
-			novosEnemies.stop();
-		}
-
+			
+		System.out.println(r++);
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
 			
@@ -355,6 +343,7 @@ public class Fase extends JPanel implements ActionListener {
 		nave.mover(); //Responsavel por fazer a ação de se movimentar da nave.
 		checarColisoes();
 		repaint();
+		
 	}
 	
 	public void checarColisoes() {
@@ -426,6 +415,7 @@ public class Fase extends JPanel implements ActionListener {
 			retBoss = tempBoss.getBounds();
 			
 			if (retNave.intersects(retBoss)) {
+				
 				menosVidas();
 				
 				if (vidas < 0) {
@@ -460,7 +450,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas na fase.
-
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
 			

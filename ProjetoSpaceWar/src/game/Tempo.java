@@ -9,7 +9,7 @@ public class Tempo {
 	Timer timer;
 	
 	public int minutos = 0;
-	public int segundos = 40;
+	public int segundos = 0;
 
 	public Tempo() {
 		
@@ -21,13 +21,12 @@ public class Tempo {
 
 		public void run() {
 			
-			if (segundos >= 0) {
-				segundos--;
+				segundos++;
+				if(segundos == 60){
+					segundos = 0;
+					minutos++;
+				}
 				
-			} else if (minutos > 0) {
-				minutos--;
-				segundos = 59;
-			  } 
 		}
 	}	
 	
