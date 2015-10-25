@@ -10,6 +10,7 @@ public class Tempo {
 	
 	public int minutos = 0;
 	public int segundos = 0;
+	public int shadow = 0;
 
 	public Tempo() {
 		
@@ -26,6 +27,10 @@ public class Tempo {
 					segundos = 0;
 					minutos++;
 				}
+				if(shadow > 0)
+				{
+					shadow--;
+				}
 				
 		}
 	}	
@@ -39,4 +44,7 @@ public class Tempo {
 	    this.timer.schedule( new DisplayCountdown(), 0, 1000 );
 	}
 
+	public void iniciarShadow(){
+		shadow = 2;
+	}
 }

@@ -27,11 +27,13 @@ public class Nave {
 		
 		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
-		
+	
 		this.altura = naveImg.getHeight(null);
 		this.largura = naveImg.getWidth(null);
 		
 		tiros = new ArrayList<Tiro>();
+		
+		isVisivel = true;
 		
 		//Setamos a posição inicial da nave.
 		this.x = 275;
@@ -72,6 +74,10 @@ public class Nave {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public void setNaveImg(ImageIcon img){
+		naveImg = img.getImage();
 	}
 	
 	public Image getNaveImg() {

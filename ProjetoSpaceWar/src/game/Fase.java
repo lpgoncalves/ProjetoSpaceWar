@@ -17,13 +17,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.util.TimerTask;
 
 public class Fase extends JPanel implements ActionListener {
 
 	private Image background;
 	private Nave nave;
 	
+	ImageIcon naveVisivel = new ImageIcon ("res\\nave.gif");
+	ImageIcon naveInvisivel = new ImageIcon ("");
+	
 	private Timer timer;
+	private Timer tempoShadow;
 	private Timer novosEnemies;
 	Tempo tempo;
 	private Timer novasLifes;
@@ -44,6 +49,8 @@ public class Fase extends JPanel implements ActionListener {
 	private int pontos = 0;
 	private int vidas = 1;
 	private int vidaBoss = 5;
+	private int intShadow;
+
 	
 	private ImageIcon seta;
 
@@ -71,6 +78,8 @@ public class Fase extends JPanel implements ActionListener {
 		
 		tempo = new Tempo();
 		
+		tempoShadow = new Timer(200,piscar);
+		
 		repetirFundo = new Timer(20, new Repetir());
 		repetirFundo.start();
 		
@@ -97,6 +106,8 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private void StartFase() {
 		jogoAndamento = true;
+		tempoShadow.stop();
+		nave.setNaveImg(naveVisivel);
 		up = true;
 		down = false;
 		nave = new Nave();
@@ -123,9 +134,31 @@ public class Fase extends JPanel implements ActionListener {
 		pontos++;
 	}
 	
-	private void menosVidas(){
-		vidas--;
+	private void menosVidas(){	
+			vidas--;
+			tempo.iniciarShadow();
+			intShadow = 0;
+			tempoShadow.start();	
+
 	}
+	
+	ActionListener piscar = new ActionListener() {
+	      public void actionPerformed(ActionEvent evt) {
+	    	  if(nave.isVisivel()){
+	    		  nave.setVisivel(false);
+	    		  nave.setNaveImg(naveInvisivel);
+	    	  }
+	    	  else{
+	    		  nave.setVisivel(true);
+	    		  nave.setNaveImg(naveVisivel);
+	    	  }
+	    	  intShadow++;
+	    	  if(intShadow == 10){
+	    		  nave.setNaveImg(naveVisivel);
+	    		  tempoShadow.stop();
+	    	  }
+	      }
+	  };
 	
 	private void maisVidas(){
 		vidas++;
@@ -290,7 +323,6 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			
-		System.out.println(r++);
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
 			
@@ -360,12 +392,12 @@ public class Fase extends JPanel implements ActionListener {
 			retInimigos = tempInimigos.getBounds();
 			
 			if (retNave.intersects(retInimigos)) {
-				
-				menosVidas();
-				tempInimigos.setVisivel(false);
-				
+				if(tempo.shadow == 0){
+					menosVidas();
+					tempInimigos.setVisivel(false);
+				}
 				if (vidas < 0) {
-					nave.setVisivel(false);
+					
 					jogoAndamento = false;
 				}
 			}
@@ -416,10 +448,11 @@ public class Fase extends JPanel implements ActionListener {
 			
 			if (retNave.intersects(retBoss)) {
 				
-				menosVidas();
-				
+				if(tempo.shadow == 0){
+					menosVidas();
+				}
 				if (vidas < 0) {
-					nave.setVisivel(false);
+					
 					jogoAndamento = false;
 				}
 			}
