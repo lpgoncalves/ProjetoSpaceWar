@@ -41,7 +41,7 @@ public class Fase extends JPanel implements ActionListener {
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 	private List<Vida> addVida;
-	private List<Boss> addBoss;
+	private Boss addBoss;
 
 	private boolean jogoAndamento;
 	private boolean pause;
@@ -90,7 +90,6 @@ public class Fase extends JPanel implements ActionListener {
 		
 		
 		inimigos = new ArrayList <Inimigos>();
-		addBoss = new ArrayList<Boss>();
 		addVida = new ArrayList<Vida>();
 		
 		tempo = new Tempo();
@@ -107,9 +106,6 @@ public class Fase extends JPanel implements ActionListener {
 		novasLifes = new Timer(10000, new criarVidas());
 		novasLifes.start();
 		
-		novoBoss = new Timer(10000, new criarBoss());
-		novoBoss.start();
-
 		nave = new Nave();
 		inicializarInimigos();
 
@@ -139,7 +135,6 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoQnt = 1000;
 		
 		novosEnemies.restart();
-		novoBoss.restart();
 		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
@@ -169,6 +164,7 @@ public class Fase extends JPanel implements ActionListener {
 		if(frenesi == true){
 			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
+			criarBoss();
 			boolFrenesi = frenesi;
 		}else{
 			inimigoQnt = inimigoQnt - 50;
@@ -220,12 +216,10 @@ public class Fase extends JPanel implements ActionListener {
 		inimigos.clear();	
 		tiros.clear();
 		addVida.clear();
-		addBoss.clear();
 		
 		timer.stop();
 		novosEnemies.stop();
 		novasLifes.stop();
-		novoBoss.stop();
 		repetirFundo.stop();
 		
 	}
@@ -238,13 +232,11 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 	
-	public class criarBoss implements ActionListener {
-		public void actionPerformed (ActionEvent e) {
-				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));		
-				Boss tempBoss = addBoss.get(addBoss.size()-1);
-				tempBoss.setVidaBoss(5);
+	
+		public void criarBoss () {
+				addBoss = new Boss(1 + (int) (550 * Math.random()), -80);		
+				addBoss.setVidaBoss(5);
 		}
-	}
 	
 	public class criarVidas implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
@@ -287,14 +279,10 @@ public class Fase extends JPanel implements ActionListener {
 
 			}
 			
-			for (int i = 0; i < addBoss.size(); i++) {
+				if(boolFrenesi && addBoss != null)
+				graficos.drawImage(addBoss.getBossImg(), (int) addBoss.getX(), (int) addBoss.getY(), this);
 
-				Boss bosses = addBoss.get(i);
-				
-				graficos.drawImage(bosses.getBossImg(), (int) bosses.getX(), (int) bosses.getY(), this);
 
-			}
-			
 			ImageIcon menubar = new ImageIcon("res\\menubar.png");
 	        graficos.drawImage(menubar.getImage(), 0, 0, null);
 			graficos.setColor(Color.white);
@@ -364,7 +352,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(tempo.segundos == 50 && boolFrenesi == false){
+		if(tempo.segundos == 40 && boolFrenesi == false){
 			modeFrenesi(true);
 		}
 		
@@ -409,18 +397,15 @@ public class Fase extends JPanel implements ActionListener {
 
 		}
 		
-		for (int i = 0; i < addBoss.size(); i++) {
-
-			Boss bosses = addBoss.get(i);
-
-			if (bosses.isVisivel()) {
-				bosses.Baixo();
+		if(boolFrenesi && addBoss != null){
+			if (addBoss.isVisivel()) {
+				addBoss.Baixo();
 			} else {
-				addBoss.remove(i);
-			
+				addBoss.setVisivel(false);
+				addBoss = null;
 			}
-
 		}
+		
 
 		nave.mover(); //Responsavel por fazer a ação de se movimentar da nave.
 		checarColisoes();
@@ -473,41 +458,39 @@ public class Fase extends JPanel implements ActionListener {
 				}
 			}
 			
-			for (int k = 0; k < addBoss.size(); k++) {
+			if(boolFrenesi && addBoss != null){
 				
-				Boss tempBoss = addBoss.get(k);
-				retBoss = tempBoss.getBounds();
-				
-				if (retTiro.intersects(retBoss)) {
+					retBoss = addBoss.getBounds();
 					
-					tempTiro.setVisivel(false);
-					tempBoss.removeVidaBoss(1);
-					
-					if (tempBoss.getVidaBoss() == 0) {
-						tempBoss.setVisivel(false);
+					if (retTiro.intersects(retBoss)) {
 						
+						tempTiro.setVisivel(false);
+						addBoss.removeVidaBoss(1);
+						
+						if (addBoss.getVidaBoss() == 0) {
+							addBoss.setVisivel(false);
+							
+						}
 					}
 				}
-			
 		    }
-		}
 		
-		for (int i = 0; i < addBoss.size(); i++) {
-			
-			Boss tempBoss = addBoss.get(i);
-			retBoss = tempBoss.getBounds();
-			
-			if (retNave.intersects(retBoss)) {
-				
-				if(tempo.shadow == 0){
-					menosVidas();
-				}
-				if (vidas < 0) {
+		
 					
-					jogoAndamento = false;
+		if(boolFrenesi && addBoss != null){
+				retBoss = addBoss.getBounds();
+				
+				if (retNave.intersects(retBoss)) {
+					
+					if(tempo.shadow == 0){
+						menosVidas();
+					}
+					if (vidas < 0) {
+						
+						jogoAndamento = false;
+					}
 				}
 			}
-		}
 		
 		for (int i = 0; i < addVida.size(); i++) {
 			
