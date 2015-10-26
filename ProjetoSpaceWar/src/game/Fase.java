@@ -37,8 +37,6 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer novasLifes;
 	private Timer novoBoss;
 	private Timer repetirFundo;
-	private Timer mudarBack;
-	private Timer frenesiTimer;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
@@ -49,7 +47,10 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean pause;
 	private boolean up;
 	private boolean down;
+	private boolean boolFrenesi;
 	
+	private int inimigoQnt = 1000;
+	private int inimigoFrenesiQnt = 900;
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 1;
@@ -94,15 +95,13 @@ public class Fase extends JPanel implements ActionListener {
 		
 		tempo = new Tempo();
 		
-		mudarBack = new Timer(100000,mudarBackground);
-		mudarBack.start();
-				
+						
 		tempoShadow = new Timer(200,piscar);
 		
 		repetirFundo = new Timer(20, new Repetir());
 		repetirFundo.start();
 		
-		novosEnemies = new Timer(600, new criarInimigos());
+		novosEnemies = new Timer(inimigoQnt, new criarInimigos());
 		novosEnemies.start();
 		
 		novasLifes = new Timer(10000, new criarVidas());
@@ -114,6 +113,7 @@ public class Fase extends JPanel implements ActionListener {
 		nave = new Nave();
 		inicializarInimigos();
 
+		boolFrenesi = false;
 		jogoAndamento = true;
 		up = true;
 		down = false;
@@ -131,15 +131,18 @@ public class Fase extends JPanel implements ActionListener {
 		down = false;
 		nave = new Nave();
 		inicializarInimigos();
+		
 		indexBack = 0;
 		pontos = 0;
 		vidas = 1;
+		inimigoFrenesiQnt = 900;
+		inimigoQnt = 1000;
+		
 		novosEnemies.restart();
 		novoBoss.restart();
 		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
-		mudarBack.restart();
 	}
 	
 	private void menosPontos(){
@@ -162,20 +165,26 @@ public class Fase extends JPanel implements ActionListener {
 
 	}
 	
-
+	private void modeFrenesi(boolean frenesi){
+		if(frenesi == true){
+			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
+			novosEnemies.setDelay(inimigoFrenesiQnt);
+			boolFrenesi = frenesi;
+		}else{
+			inimigoQnt = inimigoQnt - 50;
+			novosEnemies.setDelay(inimigoQnt);
+			boolFrenesi = frenesi;
+			mudarBack();
+		}
+	}
 	
-	ActionListener mudarBackground = new ActionListener() {
-	      public void actionPerformed(ActionEvent evt) {
-	    	  System.out.println("teste");
+	private void mudarBack(){
 	    	  if(background.size() - 1 == indexBack){
 	    		  indexBack = 0;  
 	    	  }else{
 	    		  indexBack++;
 	    	  }
-	    	  
-	      }
-	};
-	
+	}
 
 	ActionListener piscar = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
@@ -213,7 +222,6 @@ public class Fase extends JPanel implements ActionListener {
 		addVida.clear();
 		addBoss.clear();
 		
-		mudarBack.stop();
 		timer.stop();
 		novosEnemies.stop();
 		novasLifes.stop();
@@ -355,7 +363,14 @@ public class Fase extends JPanel implements ActionListener {
 	int r;
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			
+		
+		if(tempo.segundos == 50 && boolFrenesi == false){
+			modeFrenesi(true);
+		}
+		
+		if(tempo.segundos == 0 && boolFrenesi == true){
+			modeFrenesi(false);
+		}
 		
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
