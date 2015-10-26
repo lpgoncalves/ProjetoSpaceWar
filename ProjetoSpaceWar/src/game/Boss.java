@@ -13,6 +13,7 @@ public class Boss {
 	private double y;
 	private int altura;
 	private int largura;
+	private int vidaBoss;
 	
 	private boolean isVisivel;
 	
@@ -96,6 +97,18 @@ public class Boss {
 
 	public double getY() {
 		return y;
+	}
+	
+	public void setVidaBoss(int vida){
+		vidaBoss = vida;
+	}
+	
+	public int getVidaBoss(){
+		return vidaBoss;
+	}
+	
+	public void removeVidaBoss(int vida){
+		vidaBoss = vidaBoss - vida;
 	}
 	
 	public Rectangle2D getBounds() {

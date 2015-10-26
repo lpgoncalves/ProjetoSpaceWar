@@ -48,7 +48,6 @@ public class Fase extends JPanel implements ActionListener {
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 1;
-	private int vidaBoss = 5;
 	private int intShadow;
 
 	
@@ -114,7 +113,6 @@ public class Fase extends JPanel implements ActionListener {
 		inicializarInimigos();
 		pontos = 0;
 		vidas = 1;
-		vidaBoss = 20;
 		novosEnemies.restart();
 		novoBoss.restart();
 		novasLifes.restart();
@@ -164,10 +162,6 @@ public class Fase extends JPanel implements ActionListener {
 		vidas++;
 	}
 	
-	private void menosBossVidas(){
-		vidaBoss--;
-	}
-
 	private void inicializarInimigos() {
 		for (int i = 0; i < inimigos.size(); i++) {
 			inimigos.remove(i);
@@ -200,9 +194,9 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-
-				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));				
-
+				addBoss.add(new Boss(1 + (int) (550 * Math.random()), -80));		
+				Boss tempBoss = addBoss.get(addBoss.size()-1);
+				tempBoss.setVidaBoss(5);
 		}
 	}
 	
@@ -250,6 +244,7 @@ public class Fase extends JPanel implements ActionListener {
 			for (int i = 0; i < addBoss.size(); i++) {
 
 				Boss bosses = addBoss.get(i);
+				
 				graficos.drawImage(bosses.getBossImg(), (int) bosses.getX(), (int) bosses.getY(), this);
 
 			}
@@ -368,6 +363,7 @@ public class Fase extends JPanel implements ActionListener {
 				bosses.Baixo();
 			} else {
 				addBoss.remove(i);
+			
 			}
 
 		}
@@ -431,10 +427,11 @@ public class Fase extends JPanel implements ActionListener {
 				if (retTiro.intersects(retBoss)) {
 					
 					tempTiro.setVisivel(false);
-					menosBossVidas();
+					tempBoss.removeVidaBoss(1);
 					
-					if (vidaBoss == 0) {
+					if (tempBoss.getVidaBoss() == 0) {
 						tempBoss.setVisivel(false);
+						
 					}
 				}
 			
