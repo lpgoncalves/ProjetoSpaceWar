@@ -17,7 +17,7 @@ public class Inimigos {
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static final double VELOCIDADE_INIMIGO = 1;
+	private static double velocidade_inimigo = 1;
 	//private int VELOCIDADE_X = (int)((Math.random() * 4) - 2); 
 	
 	private static int contador = 0;
@@ -53,7 +53,7 @@ public class Inimigos {
 			this.x = COMPRIMENTO_TELA;
 		}
 		else {
-			this.y += VELOCIDADE_INIMIGO;
+			this.y += velocidade_inimigo;
 		}
 		//-----------MOVIMENTAÇÃO NO VETOR X-----------------
 		/*else if (VELOCIDADE_X == 0) {
@@ -95,8 +95,5 @@ public class Inimigos {
 		return new Rectangle (x, y, largura - 30, altura - 20);
 	}
 	
-	public void ApagaInimigo() throws Throwable{
-		this.finalize();
-	}
 	
 }

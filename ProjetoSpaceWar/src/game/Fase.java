@@ -17,6 +17,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import game.Fase.criarInimigos;
+
 import java.util.TimerTask;
 
 public class Fase extends JPanel implements ActionListener {
@@ -29,12 +32,13 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	private Timer tempoShadow;
-	private Timer novosEnemies;
+	private static Timer novosEnemies;
 	Tempo tempo;
 	private Timer novasLifes;
 	private Timer novoBoss;
 	private Timer repetirFundo;
 	private Timer mudarBack;
+	private Timer frenesiTimer;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
@@ -90,9 +94,9 @@ public class Fase extends JPanel implements ActionListener {
 		
 		tempo = new Tempo();
 		
-		mudarBack = new Timer(30000,mudarBackground);
+		mudarBack = new Timer(100000,mudarBackground);
 		mudarBack.start();
-		
+				
 		tempoShadow = new Timer(200,piscar);
 		
 		repetirFundo = new Timer(20, new Repetir());
@@ -158,6 +162,8 @@ public class Fase extends JPanel implements ActionListener {
 
 	}
 	
+
+	
 	ActionListener mudarBackground = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
 	    	  System.out.println("teste");
@@ -170,6 +176,7 @@ public class Fase extends JPanel implements ActionListener {
 	      }
 	};
 	
+
 	ActionListener piscar = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
 	    	  if(nave.isVisivel()){
@@ -349,6 +356,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			
+		
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
 			
