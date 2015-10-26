@@ -21,7 +21,7 @@ import java.util.TimerTask;
 
 public class Fase extends JPanel implements ActionListener {
 
-	private Image background;
+	private List<Image> background = new ArrayList<Image>();;
 	private Nave nave;
 	
 	ImageIcon naveVisivel = new ImageIcon ("res\\nave.gif");
@@ -34,6 +34,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer novasLifes;
 	private Timer novoBoss;
 	private Timer repetirFundo;
+	private Timer mudarBack;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
@@ -49,6 +50,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int pontos = 0;
 	private int vidas = 1;
 	private int intShadow;
+	private int indexBack = 0;
 
 	
 	private ImageIcon seta;
@@ -68,14 +70,28 @@ public class Fase extends JPanel implements ActionListener {
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
 		this.menu = menu;
-		ImageIcon referencia = new ImageIcon("res\\fundofase3.png");
-		background = referencia.getImage();
+		
+		ImageIcon referencia1 = new ImageIcon("res\\background.png");
+		ImageIcon referencia2 = new ImageIcon("res\\background2.jpg");
+		ImageIcon referencia3 = new ImageIcon("res\\background3.jpg");
+		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
+		ImageIcon referencia5 = new ImageIcon("res\\background5.png");
+		
+		background.add(referencia1.getImage());
+		background.add(referencia2.getImage());
+		background.add(referencia3.getImage());
+		background.add(referencia4.getImage());
+		background.add(referencia5.getImage());
+		
 		
 		inimigos = new ArrayList <Inimigos>();
 		addBoss = new ArrayList<Boss>();
 		addVida = new ArrayList<Vida>();
 		
 		tempo = new Tempo();
+		
+		mudarBack = new Timer(30000,mudarBackground);
+		mudarBack.start();
 		
 		tempoShadow = new Timer(200,piscar);
 		
@@ -85,7 +101,7 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies = new Timer(600, new criarInimigos());
 		novosEnemies.start();
 		
-		novasLifes = new Timer(1500, new criarVidas());
+		novasLifes = new Timer(10000, new criarVidas());
 		novasLifes.start();
 		
 		novoBoss = new Timer(10000, new criarBoss());
@@ -111,6 +127,7 @@ public class Fase extends JPanel implements ActionListener {
 		down = false;
 		nave = new Nave();
 		inicializarInimigos();
+		indexBack = 0;
 		pontos = 0;
 		vidas = 1;
 		novosEnemies.restart();
@@ -118,6 +135,7 @@ public class Fase extends JPanel implements ActionListener {
 		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
+		mudarBack.restart();
 	}
 	
 	private void menosPontos(){
@@ -139,6 +157,18 @@ public class Fase extends JPanel implements ActionListener {
 			tempoShadow.start();	
 
 	}
+	
+	ActionListener mudarBackground = new ActionListener() {
+	      public void actionPerformed(ActionEvent evt) {
+	    	  System.out.println("teste");
+	    	  if(background.size() - 1 == indexBack){
+	    		  indexBack = 0;  
+	    	  }else{
+	    		  indexBack++;
+	    	  }
+	    	  
+	      }
+	};
 	
 	ActionListener piscar = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
@@ -176,6 +206,7 @@ public class Fase extends JPanel implements ActionListener {
 		addVida.clear();
 		addBoss.clear();
 		
+		mudarBack.stop();
 		timer.stop();
 		novosEnemies.stop();
 		novasLifes.stop();
@@ -212,8 +243,8 @@ public class Fase extends JPanel implements ActionListener {
 		
 		graficos = (Graphics2D) g;
 		graficos.setBackground(Color.BLACK);  
-		graficos.drawImage(background, 0, repetir, null);
-		graficos.drawImage(background, 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
+		graficos.drawImage(background.get(indexBack), 0, repetir, null);
+		graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); // Colocamos na tela o background da fase como estático, ou seja ele não irá se movimentar.
 
 		if (jogoAndamento == true) {
 

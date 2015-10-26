@@ -26,7 +26,7 @@ public class Main_Frame extends JFrame {
 		LabelMenu.setVisible(true);
 		add(LabelMenu);
 		
-		JLabel background = new JLabel( new ImageIcon("res\\fundofase3.png"));
+		JLabel background = new JLabel( new ImageIcon("res\\background2.jpg"));
 		add(background);
 		
 		setTitle("Space War");//Seta o titulo para o frame.
