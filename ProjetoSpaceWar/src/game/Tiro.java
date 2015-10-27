@@ -17,15 +17,27 @@ public class Tiro {
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static final int VELOCIDADE_TIRO = 2;
+	private static int VELOCIDADE_TIRO;
 	
-	public Tiro(int x, int y){
+	public Tiro(int x, int y, int nivel){
 		
 		this.x = x;
 		this.y = y;
 		
 		ImageIcon referencia = new ImageIcon("res\\tiro.png");
 		tiroImg = referencia.getImage();
+		
+		switch(nivel){
+			case 0:
+				nivel_0();
+				break;
+			case 1:
+				nivel_1();
+				break;
+			default:
+				nivel_1();
+				break;
+		}
 		
 		this.largura = tiroImg.getWidth(null);
 		this.altura = tiroImg.getHeight(null);
@@ -71,4 +83,11 @@ public class Tiro {
 		this.finalize();
 	}
 	
+	public void nivel_0(){
+		VELOCIDADE_TIRO = 1;
+	}
+	
+	public void nivel_1(){
+		VELOCIDADE_TIRO = 2;
+	}
 }

@@ -16,6 +16,7 @@ public class Nave {
 	private int dy;
 	private int altura;
 	private int largura;
+	private int nivelTiro;
 	private boolean isVisivel;
 
 	private static final int VELOCIDADE_NAVE = 2;
@@ -31,6 +32,7 @@ public class Nave {
 		this.altura = naveImg.getHeight(null);
 		this.largura = naveImg.getWidth(null);
 		
+		nivelTiro = 0;
 		tiros = new ArrayList<Tiro>();
 		
 		isVisivel = true;
@@ -92,8 +94,12 @@ public class Nave {
 		this.isVisivel = isVisivel;
 	}
 	
+	public void setNivelTiro(int nivel){
+		nivelTiro = nivel;
+	}
+	
 	public void atirar() {
-		this.tiros.add(new Tiro(getX() + (largura / 2) - 10, getY() + -1 * altura));
+		this.tiros.add(new Tiro(getX() + (largura / 2) - 10, getY() + -1 * altura, nivelTiro));
 	}
 	
 	public Rectangle2D getBounds() {

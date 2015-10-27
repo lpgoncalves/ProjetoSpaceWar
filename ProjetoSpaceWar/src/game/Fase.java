@@ -35,7 +35,6 @@ public class Fase extends JPanel implements ActionListener {
 	private static Timer novosEnemies;
 	Tempo tempo;
 	private Timer novasLifes;
-	private Timer novoBoss;
 	private Timer repetirFundo;
 
 	private List<Inimigos> inimigos;
@@ -56,6 +55,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int vidas = 1;
 	private int intShadow;
 	private int indexBack = 0;
+	private int nivelTiro = 0;
 
 	
 	private ImageIcon seta;
@@ -468,6 +468,8 @@ public class Fase extends JPanel implements ActionListener {
 						addBoss.removeVidaBoss(1);
 						
 						if (addBoss.getVidaBoss() == 0) {
+							nivelTiro++;
+							nave.setNivelTiro(nivelTiro);
 							addBoss.setVisivel(false);
 							
 						}
