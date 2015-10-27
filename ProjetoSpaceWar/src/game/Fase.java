@@ -133,6 +133,7 @@ public class Fase extends JPanel implements ActionListener {
 		vidas = 1;
 		inimigoFrenesiQnt = 900;
 		inimigoQnt = 1000;
+		nivelTiro = 0;
 		
 		novosEnemies.restart();
 		novasLifes.restart();
@@ -154,6 +155,10 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private void menosVidas(){	
 			vidas--;
+			if(nivelTiro > 0){
+				nivelTiro--;
+				nave.setNivelTiro(nivelTiro);
+			}
 			tempo.iniciarShadow();
 			intShadow = 0;
 			tempoShadow.start();	
@@ -216,6 +221,7 @@ public class Fase extends JPanel implements ActionListener {
 		inimigos.clear();	
 		tiros.clear();
 		addVida.clear();
+		addBoss = null;
 		
 		timer.stop();
 		novosEnemies.stop();

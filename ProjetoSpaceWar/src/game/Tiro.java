@@ -88,6 +88,6 @@ public class Tiro {
 	}
 	
 	public void nivel_1(){
-		VELOCIDADE_TIRO = 2;
+		VELOCIDADE_TIRO = 4;
 	}
 }
