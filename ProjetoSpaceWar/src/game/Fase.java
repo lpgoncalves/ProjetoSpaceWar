@@ -20,12 +20,15 @@ import javax.swing.Timer;
 
 import game.Fase.criarInimigos;
 
+import music.SomExpNave;
+
 import java.util.TimerTask;
 
 public class Fase extends JPanel implements ActionListener {
 
 	private List<Image> background = new ArrayList<Image>();;
 	private Nave nave;
+	private Tiro tiro;
 	
 	ImageIcon naveVisivel = new ImageIcon ("res\\nave.gif");
 	ImageIcon naveInvisivel = new ImageIcon ("");
@@ -36,11 +39,15 @@ public class Fase extends JPanel implements ActionListener {
 	Tempo tempo;
 	private Timer novasLifes;
 	private Timer repetirFundo;
+	private Timer novosTirosBoss;
 
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 	private List<Vida> addVida;
 	private Boss addBoss;
+	private List<Tiro> tirosBoss;
+	private List<Explosao> explosoes;
+	private List<Timer> tempoExplosao;
 
 	private boolean jogoAndamento;
 	private boolean pause;
@@ -91,6 +98,9 @@ public class Fase extends JPanel implements ActionListener {
 		
 		inimigos = new ArrayList <Inimigos>();
 		addVida = new ArrayList<Vida>();
+		tirosBoss = new ArrayList<Tiro>();
+		explosoes = new ArrayList<Explosao>();
+		tempoExplosao = new ArrayList<Timer>();
 		
 		tempo = new Tempo();
 		
@@ -105,6 +115,8 @@ public class Fase extends JPanel implements ActionListener {
 		
 		novasLifes = new Timer(10000, new criarVidas());
 		novasLifes.start();
+		
+	    novosTirosBoss = new Timer(500, new criarTirosBoss());
 		
 		nave = new Nave();
 		inicializarInimigos();
@@ -121,6 +133,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private void StartFase() {
 		jogoAndamento = true;
+		boolFrenesi = false;
 		tempoShadow.stop();
 		nave.setNaveImg(naveVisivel);
 		up = true;
@@ -139,6 +152,7 @@ public class Fase extends JPanel implements ActionListener {
 		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
+		novosTirosBoss.stop();
 	}
 	
 	private void menosPontos(){
@@ -242,6 +256,7 @@ public class Fase extends JPanel implements ActionListener {
 		public void criarBoss () {
 				addBoss = new Boss(1 + (int) (550 * Math.random()), -80);		
 				addBoss.setVidaBoss(5);
+				novosTirosBoss.start();
 		}
 	
 	public class criarVidas implements ActionListener {
@@ -249,6 +264,14 @@ public class Fase extends JPanel implements ActionListener {
 				addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));				
 	
 		}
+	}
+	
+	public class criarTirosBoss implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			tirosBoss.add(new Tiro(1 + (int) (500 * Math.random()), -80, 0));	
+			tirosBoss.add(new Tiro(1 + (int) (300 * Math.random()), -80, 0));	
+			tirosBoss.add(new Tiro(1 + (int) (100 * Math.random()), -80, 0));	
+	    }
 	}
 	
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
@@ -283,6 +306,31 @@ public class Fase extends JPanel implements ActionListener {
 				Vida lifes = addVida.get(i);
 				graficos.drawImage(lifes.getVidaImg(), lifes.getX(), lifes.getY(), this);
 
+			}
+			
+			for (int i = 0; i < tirosBoss.size(); i++) {
+				
+				Tiro shootBoss = (Tiro) tirosBoss.get(i);
+				graficos.drawImage(shootBoss.getTiroBossImg(), shootBoss.getX(), shootBoss.getY(), this);
+					
+			}
+			
+			Timer tempoTemp;
+			Explosao expTemp;
+			
+			for (int i = 0; i < tempoExplosao.size(); i++) {
+				tempoTemp = tempoExplosao.get(i);
+				expTemp = explosoes.get(i);
+
+				if (expTemp.getContador() == 5) {
+					tempoTemp.stop();
+					tempoExplosao.remove(i);
+					explosoes.remove(i);
+					
+				} else {
+					
+					graficos.drawImage(expTemp.getExplosaoImg(), expTemp.getX(), expTemp.getY(), this);
+				}
 			}
 			
 				if(boolFrenesi && addBoss != null)
@@ -354,11 +402,14 @@ public class Fase extends JPanel implements ActionListener {
 		
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
+	
 	int r;
+	private int gY;
+	private int gX;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(tempo.segundos == 40 && boolFrenesi == false){
+		if(tempo.segundos == 10 && boolFrenesi == false){
 			modeFrenesi(true);
 		}
 		
@@ -379,6 +430,18 @@ public class Fase extends JPanel implements ActionListener {
 			
 		}
 		
+		for (int i = 0; i < tirosBoss.size(); i++) {
+			
+			Tiro shootsboss = (Tiro) tirosBoss.get(i);
+			
+			if (shootsboss.isVisivel()) {
+				shootsboss.moverTiroBoss();
+			} else {
+				tirosBoss.remove(i);
+			}
+			
+		}
+		
 		for (int i = 0; i < inimigos.size(); i++) {
 
 			Inimigos enemies = inimigos.get(i);
@@ -387,6 +450,18 @@ public class Fase extends JPanel implements ActionListener {
 				enemies.mover();
 			} else {
 				inimigos.remove(i);
+				
+				// -- Som --
+				SomExpNave som = new SomExpNave();
+				som.main(null);
+				
+				// -- Explosao --
+				gX =  enemies.getX();
+				gY = enemies.getY();
+				explosoes.add(new Explosao(gX, gY));
+				tempoExplosao.add(new Timer(60, explosoes.get(explosoes.size() - 1 )));
+				Timer tempoTemp = tempoExplosao.get(tempoExplosao.size() - 1);
+				tempoTemp.start();
 			}
 
 		}
@@ -409,9 +484,9 @@ public class Fase extends JPanel implements ActionListener {
 			} else {
 				addBoss.setVisivel(false);
 				addBoss = null;
+				novosTirosBoss.stop();
 			}
 		}
-		
 
 		nave.mover(); //Responsavel por fazer a ação de se movimentar da nave.
 		checarColisoes();
@@ -426,6 +501,7 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle2D retInimigos;
 		Rectangle2D retBoss;
 		Rectangle2D retVida;
+		Rectangle2D retTiroBoss;
 		
 		for (int i = 0; i < inimigos.size(); i++) {
 			
@@ -443,6 +519,21 @@ public class Fase extends JPanel implements ActionListener {
 				}
 			}
 			
+		}
+		
+		for (int i = 0; i < tirosBoss.size(); i++) {
+			
+			Tiro tempTiroBoss = tirosBoss.get(i);
+			retTiroBoss = tempTiroBoss.getBounds();
+			
+			if (retTiroBoss.intersects(retNave)){
+				menosVidas();
+				
+			}
+			
+			if (vidas < 0) {
+				jogoAndamento = false;
+			}
 		}
 		
 		tiros = nave.getTiros();

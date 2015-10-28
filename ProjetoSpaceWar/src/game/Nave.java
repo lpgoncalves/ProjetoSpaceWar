@@ -99,7 +99,7 @@ public class Nave {
 	}
 	
 	public void atirar() {
-		this.tiros.add(new Tiro(getX() + (largura / 2) - 10, getY() + -1 * altura, nivelTiro));
+		this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, (int) nivelTiro));
 	}
 	
 	public Rectangle2D getBounds() {

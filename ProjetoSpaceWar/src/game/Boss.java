@@ -60,8 +60,9 @@ public class Boss {
 	}
 	
 	public void Baixo() {	
-		if (this.y == 600) {
+		if (this.y > 600) {
 			this.y = COMPRIMENTO_TELA;
+			this.setVisivel(false);
 		}
 		else {
 			this.y += VELOCIDADE_BOSS; 
