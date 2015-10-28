@@ -63,6 +63,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int intShadow;
 	private int indexBack = 0;
 	private int nivelTiro = 0;
+	private int vidaBoss = 10;
 
 	
 	private ImageIcon seta;
@@ -182,6 +183,7 @@ public class Fase extends JPanel implements ActionListener {
 	private void modeFrenesi(boolean frenesi){
 		if(frenesi == true){
 			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
+			vidaBoss = vidaBoss + 15;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
 			criarBoss();
 			boolFrenesi = frenesi;
@@ -255,7 +257,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 		public void criarBoss () {
 				addBoss = new Boss(1 + (int) (550 * Math.random()), -80);		
-				addBoss.setVidaBoss(5);
+				addBoss.setVidaBoss(vidaBoss);
 				novosTirosBoss.start();
 		}
 	
