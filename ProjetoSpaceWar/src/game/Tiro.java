@@ -12,13 +12,14 @@ public class Tiro {
 	private Image tiroBossImg;
 	private int x;
 	private int y;
+	private int nivelT;
 	private int altura, alturaBoss;
 	private int largura, larguraBoss;
 	
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static int VELOCIDADE_TIRO;
+	private static int VELOCIDADE_TIRO = 2;
 	
 	public Tiro(double x, double y, int nivel){
 		
@@ -30,17 +31,8 @@ public class Tiro {
 		tiroImg = referencia1.getImage();
 		tiroBossImg = referencia2.getImage();
 		
-		switch(nivel){
-			case 0:
-				nivel_0();
-				break;
-			case 1:
-				nivel_1();
-				break;
-			default:
-				nivel_1();
-				break;
-		}
+		nivelT = nivel;
+		
 		
 		this.largura = tiroImg.getWidth(null);
 		this.altura = tiroImg.getHeight(null);
@@ -54,11 +46,30 @@ public class Tiro {
 	
 	public void mover() {
 	
-		this.y -= VELOCIDADE_TIRO;
-		if(this.y > COMPRIMENTO_TELA) {
-			isVisivel = false;		
-		}	
-			
+		switch(nivelT){
+			case 0: this.y -= VELOCIDADE_TIRO;
+					if(this.y > COMPRIMENTO_TELA) {
+						isVisivel = false;		
+					}	
+					break;
+					
+			case 1:
+					this.y -= VELOCIDADE_TIRO;
+					this.x -= VELOCIDADE_TIRO;
+					if(this.y > COMPRIMENTO_TELA) {
+						isVisivel = false;		
+					}
+					break;
+			case 2:
+				this.y -= VELOCIDADE_TIRO;
+				this.x += VELOCIDADE_TIRO;
+				if(this.y > COMPRIMENTO_TELA) {
+					isVisivel = false;		
+				}
+				break;
+				default:
+					break;
+		}
 	}
 	
 	public void moverTiroBoss() {
@@ -102,11 +113,4 @@ public class Tiro {
 		this.finalize();
 	}
 	
-	public void nivel_0(){
-		VELOCIDADE_TIRO = 1;
-	}
-	
-	public void nivel_1(){
-		VELOCIDADE_TIRO = 4;
-	}
 }
