@@ -23,9 +23,12 @@ public class Boss {
 	private static final double VELOCIDADE_BOSS = 0.5;
 	
 	private static int contador = 0;
+	public int dir;
+	public int dir2;
 	
 	public Boss(int x, int y){
 		
+		dir = 0;
 		this.x = x;
 		this.y = y;
 		
@@ -40,45 +43,48 @@ public class Boss {
 	}
 	
 	public void Direita() {
-		if (this.x == 600) {
-			this.x = COMPRIMENTO_TELA;
+		if (this.x < 600 - largura) {
+			this.x += VELOCIDADE_BOSS; 
 		}
 		else {
-			this.x += VELOCIDADE_BOSS; 
+			this.x -= VELOCIDADE_BOSS; 
+			dir2 = 1;
 		}
 		
 	}
 	
 	public void Esquerda() {
-		if (this.x == 1) {
-			this.x = COMPRIMENTO_TELA;
+		if (this.x > 1) {
+			this.x -= VELOCIDADE_BOSS;
 		}
 		else {
-			this.x -= VELOCIDADE_BOSS; 
+			this.x += VELOCIDADE_BOSS; 
+			dir2 = 0;
 		}
 		
 	}
 	
 	public void Baixo() {	
-		if (this.y > 600) {
-			this.y = COMPRIMENTO_TELA;
-			this.setVisivel(false);
+		if (this.y < 600 - altura ) {
+			this.y += VELOCIDADE_BOSS;
 		}
 		else {
-			this.y += VELOCIDADE_BOSS; 
+			this.y -= VELOCIDADE_BOSS; 
+			dir = 1;
 		}
 		
 	}
 	
 	public void Cima() {
-		if (this.y == 1) {
-			this.y = COMPRIMENTO_TELA;
+		if (this.y > 1) {
+			this.y -= VELOCIDADE_BOSS; 
 		}
 		else {
-			this.y -= VELOCIDADE_BOSS; 
+			dir = 0;
 		}
 		
 	}
+	
 	
 	public boolean isVisivel() {
 	    return isVisivel;

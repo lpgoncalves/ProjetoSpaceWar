@@ -59,7 +59,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int inimigoFrenesiQnt = 900;
 	private int repetir = 0;
 	private int pontos = 0;
-	private int vidas = 1;
+	private int vidas = 40;
 	private int intShadow;
 	private int indexBack = 0;
 	private int nivelTiro = 0;
@@ -191,6 +191,9 @@ public class Fase extends JPanel implements ActionListener {
 			inimigoQnt = inimigoQnt - 50;
 			novosEnemies.setDelay(inimigoQnt);
 			boolFrenesi = frenesi;
+			addBoss.setVisivel(false);
+			addBoss = null;
+			novosTirosBoss.stop();
 			mudarBack();
 		}
 	}
@@ -255,7 +258,6 @@ public class Fase extends JPanel implements ActionListener {
 			
 		}
 	}
-	
 	
 		public void criarBoss () {
 				addBoss = new Boss(1 + (int) (550 * Math.random()), -80);		
@@ -483,11 +485,26 @@ public class Fase extends JPanel implements ActionListener {
 		
 		if(boolFrenesi && addBoss != null){
 			if (addBoss.isVisivel()) {
-				addBoss.Baixo();
+				switch(addBoss.dir){
+					case 0:
+						addBoss.Baixo();
+						break;
+					case 1: 
+						addBoss.Cima();
+						break;
+				}
+				
+				switch(addBoss.dir2){
+					case 0:
+						addBoss.Direita();
+						break;
+					case 1: 
+						addBoss.Esquerda();
+						break;
+				}
 			} else {
 				addBoss.setVisivel(false);
 				addBoss = null;
-				novosTirosBoss.stop();
 			}
 		}
 
@@ -530,8 +547,9 @@ public class Fase extends JPanel implements ActionListener {
 			retTiroBoss = tempTiroBoss.getBounds();
 			
 			if (retTiroBoss.intersects(retNave)){
-				menosVidas();
-				
+				if(tempo.shadow == 0){
+					menosVidas();
+				}
 			}
 			
 			if (vidas < 0) {
