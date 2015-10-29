@@ -12,26 +12,28 @@ public class Tiro {
 	private Image tiroBossImg;
 	private int x;
 	private int y;
-	private int nivelT;
+	private int direcao;
 	private int altura, alturaBoss;
 	private int largura, larguraBoss;
 	
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
-	private static int VELOCIDADE_TIRO = 2;
+	public int VELOCIDADE_TIRO;
 	
-	public Tiro(double x, double y, int nivel){
+	public Tiro(double x, double y, int nivel,int velocidade){
 		
 		this.x = (int) x;
 		this.y = (int) y;
+		
+		VELOCIDADE_TIRO = velocidade;
 		
 		ImageIcon referencia1 = new ImageIcon("res\\tiro.png");
 		ImageIcon referencia2 = new ImageIcon("res\\tiroboss.png");
 		tiroImg = referencia1.getImage();
 		tiroBossImg = referencia2.getImage();
 		
-		nivelT = nivel;
+		direcao = nivel;
 		
 		
 		this.largura = tiroImg.getWidth(null);
@@ -46,7 +48,7 @@ public class Tiro {
 	
 	public void mover() {
 	
-		switch(nivelT){
+		switch(direcao){
 			case 0: this.y -= VELOCIDADE_TIRO;
 					if(this.y > COMPRIMENTO_TELA) {
 						isVisivel = false;		

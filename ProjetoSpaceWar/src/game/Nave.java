@@ -101,23 +101,22 @@ public class Nave {
 	public void atirar() {
 		switch(nivelTiro){
 			case 0:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, (int) nivelTiro));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, 0, 1));
 				break;
 			case 1:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() + -1 * altura, (int) nivelTiro));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, (int) nivelTiro));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, 0, 2));
 				break;
 			case 2:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() + -1 * altura, 0));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() + -1 * altura, 1));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() + -1 * altura, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() + -1 * altura, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0, 2));
+				break;
+			case 3:
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() + -1 * altura, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() + -1 * altura, 1, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() + -1 * altura, 2, 2));
 				break;
 			default:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() + -1 * altura, 0));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() + -1 * altura, 1));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() + -1 * altura, 2));
 				break;
 		}
 

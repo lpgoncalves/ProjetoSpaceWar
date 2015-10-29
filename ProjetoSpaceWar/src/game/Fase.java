@@ -117,7 +117,7 @@ public class Fase extends JPanel implements ActionListener {
 		novasLifes = new Timer(10000, new criarVidas());
 		novasLifes.start();
 		
-	    novosTirosBoss = new Timer(500, new criarTirosBoss());
+	    novosTirosBoss = new Timer(800, new criarTirosBoss());
 		
 		nave = new Nave();
 		inicializarInimigos();
@@ -183,7 +183,7 @@ public class Fase extends JPanel implements ActionListener {
 	private void modeFrenesi(boolean frenesi){
 		if(frenesi == true){
 			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
-			vidaBoss = vidaBoss + 15;
+			vidaBoss = vidaBoss + 5;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
 			criarBoss();
 			boolFrenesi = frenesi;
@@ -238,6 +238,8 @@ public class Fase extends JPanel implements ActionListener {
 		tiros.clear();
 		addVida.clear();
 		addBoss = null;
+		tirosBoss.clear();
+		tiros.clear();
 		
 		timer.stop();
 		novosEnemies.stop();
@@ -249,7 +251,7 @@ public class Fase extends JPanel implements ActionListener {
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
 			
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -80));
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30));
 			
 		}
 	}
@@ -270,9 +272,8 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			tirosBoss.add(new Tiro(1 + (int) (500 * Math.random()), -80, 0));	
-			tirosBoss.add(new Tiro(1 + (int) (300 * Math.random()), -80, 0));	
-			tirosBoss.add(new Tiro(1 + (int) (100 * Math.random()), -80, 0));	
+			tirosBoss.add(new Tiro(1 + (int) (500 * Math.random()), -10, 0, 1));	
+			tirosBoss.add(new Tiro(1 + (int) (300 * Math.random()), -10, 0, 1));		
 	    }
 	}
 	
@@ -411,7 +412,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(tempo.segundos == 10 && boolFrenesi == false){
+		if(tempo.segundos == 40 && boolFrenesi == false){
 			modeFrenesi(true);
 		}
 		
@@ -567,7 +568,8 @@ public class Fase extends JPanel implements ActionListener {
 						addBoss.removeVidaBoss(1);
 						
 						if (addBoss.getVidaBoss() == 0) {
-							nivelTiro++;
+							if(nivelTiro < 3)
+								nivelTiro++;
 							nave.setNivelTiro(nivelTiro);
 							addBoss.setVisivel(false);
 							
