@@ -64,6 +64,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int indexBack = 0;
 	private int nivelTiro = 0;
 	private int vidaBoss = 10;
+	private int tipoBoss = 0;
 
 	
 	private ImageIcon seta;
@@ -191,9 +192,11 @@ public class Fase extends JPanel implements ActionListener {
 			inimigoQnt = inimigoQnt - 50;
 			novosEnemies.setDelay(inimigoQnt);
 			boolFrenesi = frenesi;
-			addBoss.setVisivel(false);
 			addBoss = null;
-			novosTirosBoss.stop();
+			if(tipoBoss < 5)
+				tipoBoss++;
+			else
+				tipoBoss = 0;
 			mudarBack();
 		}
 	}
@@ -260,7 +263,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 	
 		public void criarBoss () {
-				addBoss = new Boss(1 + (int) (550 * Math.random()), -80);		
+				addBoss = new Boss(1 + (int) (550 * Math.random()), -80, tipoBoss);		
 				addBoss.setVidaBoss(vidaBoss);
 				novosTirosBoss.start();
 		}
@@ -274,8 +277,8 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			tirosBoss.add(new Tiro(1 + (int) (500 * Math.random()), -10, 0, 1));	
-			tirosBoss.add(new Tiro(1 + (int) (300 * Math.random()), -10, 0, 1));		
+			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.getX() / 2) - 10, addBoss.getY() + addBoss.GetAltura(), 0, 2));	
+			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.getX() / 2) + 50, addBoss.getY() + addBoss.GetAltura(), 0, 2));		
 	    }
 	}
 	
@@ -414,7 +417,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(tempo.segundos == 40 && boolFrenesi == false){
+		if(tempo.segundos == 10 && boolFrenesi == false){
 			modeFrenesi(true);
 		}
 		
@@ -503,7 +506,6 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 				}
 			} else {
-				addBoss.setVisivel(false);
 				addBoss = null;
 			}
 		}
@@ -590,7 +592,7 @@ public class Fase extends JPanel implements ActionListener {
 								nivelTiro++;
 							nave.setNivelTiro(nivelTiro);
 							addBoss.setVisivel(false);
-							
+							novosTirosBoss.stop();
 						}
 					}
 				}

@@ -22,18 +22,41 @@ public class Boss {
 	private static final int Y_MINIMO = 0;
 	private static final double VELOCIDADE_BOSS = 0.5;
 	
+	private ImageIcon referencia;
+	
 	private static int contador = 0;
 	public int dir;
 	public int dir2;
 	
-	public Boss(int x, int y){
+	public Boss(int x, int y, int tipoBoss){
 		
 		dir = 0;
 		this.x = x;
 		this.y = y;
 		
-		ImageIcon referencia = new ImageIcon ("res\\boss.png");//Definimos o diretorio da imagem do boss.
-	    bossImg = referencia.getImage();
+	    
+	    switch(tipoBoss){
+		    case 0:
+		    	referencia = new ImageIcon ("res\\boss-0.png");//Definimos o diretorio da imagem do boss.
+		    	bossImg = referencia.getImage();
+		    	break;
+		    case 1:
+		    	referencia = new ImageIcon ("res\\boss-1.png");//Definimos o diretorio da imagem do boss.
+		    	bossImg = referencia.getImage();
+		    	break;
+		    case 2:
+		    	referencia = new ImageIcon ("res\\boss-2.png");//Definimos o diretorio da imagem do boss.
+		    	bossImg = referencia.getImage();
+		    	break;
+		    case 3:
+		    	referencia = new ImageIcon ("res\\boss-3.png");//Definimos o diretorio da imagem do boss.
+		    	bossImg = referencia.getImage();
+		    	break;
+		    case 4:
+		    	referencia = new ImageIcon ("res\\boss-4.png");//Definimos o diretorio da imagem do boss.
+		    	bossImg = referencia.getImage();
+		    	break;
+	    }
 		
 		this.altura = bossImg.getHeight(null);
 		this.largura = bossImg.getWidth(null);
@@ -83,6 +106,14 @@ public class Boss {
 			dir = 0;
 		}
 		
+	}
+	
+	public int GetAltura(){
+		return altura;
+	}
+	
+	public int GetLargura(){
+		return largura;
 	}
 	
 	
