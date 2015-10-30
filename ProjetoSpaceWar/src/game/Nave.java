@@ -19,7 +19,7 @@ public class Nave {
 	private int nivelTiro;
 	private boolean isVisivel;
 
-	private static final int VELOCIDADE_NAVE = 2;
+	private static int VELOCIDADE_NAVE = 2;
 	
 	private Image naveImg;
 	private List<Tiro> tiros;
@@ -64,6 +64,14 @@ public class Nave {
 			y = 537;
 		}
 		
+	}
+	
+	public void upgradeVelocidade(){
+		VELOCIDADE_NAVE++;
+	}
+	
+	public void upgradeTiro(){
+		nivelTiro++;
 	}
 	
 	public List<Tiro> getTiros() {

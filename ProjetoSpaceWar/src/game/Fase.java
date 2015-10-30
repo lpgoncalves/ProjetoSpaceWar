@@ -53,7 +53,11 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean pause;
 	private boolean up;
 	private boolean down;
+	private boolean left;
+	private boolean middle;
+	private boolean right;
 	private boolean boolFrenesi;
+	private boolean pitStop;
 	
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
@@ -127,6 +131,7 @@ public class Fase extends JPanel implements ActionListener {
 		jogoAndamento = true;
 		up = true;
 		down = false;
+		pitStop = false;
 
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
@@ -140,6 +145,7 @@ public class Fase extends JPanel implements ActionListener {
 		nave.setNaveImg(naveVisivel);
 		up = true;
 		down = false;
+		pitStop = false;
 		nave = new Nave();
 		inicializarInimigos();
 		
@@ -366,6 +372,35 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(pause.getImage(), 275, 275, null);
 			}
 			
+			if (pitStop == true) {
+				
+				timer.stop();
+				novosEnemies.stop();
+				novasLifes.stop();
+				repetirFundo.stop();
+				tempo.pararTimer();
+				novosTirosBoss.stop();
+				tiros.clear();
+				tirosBoss.clear();
+				
+				ImageIcon pitstop = new ImageIcon("res\\pitstop.png");
+				graficos.drawImage(pitstop.getImage(), 0, 18, null);
+				
+				addKeyListener(new EventoPitStop());
+				ImageIcon pointer = new ImageIcon("res\\pointer.png");
+				if (left == true) {
+					graficos.drawImage(pointer.getImage(), 50, 400, null);
+				}
+				if (middle == true) {
+					graficos.drawImage(pointer.getImage(), 250, 400, null);
+				}
+				
+				if (right == true) {
+					graficos.drawImage(pointer.getImage(), 500, 400, null);
+				}
+				
+			}
+			
 				
 		} else {
 			
@@ -534,6 +569,7 @@ public class Fase extends JPanel implements ActionListener {
 				if(tempo.shadow == 0){
 					menosVidas();
 					tempInimigos.setVisivel(false);
+					pitStop = true;
 				}
 				if (vidas < 0) {
 					
@@ -713,6 +749,50 @@ public class Fase extends JPanel implements ActionListener {
 				   
 			  	}
 			}
+	}
+	
+	private class EventoPitStop extends KeyAdapter {
+		@Override
+		public void keyPressed(KeyEvent e) {
+
+			if (e.getKeyCode() == KeyEvent.VK_4) {
+				  left = true;
+				  middle = false;
+				  right = false;
+				  }
+			  
+			  if (e.getKeyCode() == KeyEvent.VK_5) {
+
+				  left = false;
+				  middle = true;
+				  right = false;
+				  } 
+			  
+			  if (e.getKeyCode() == KeyEvent.VK_6) {
+				  left = false;
+				  middle = false;
+				  right = true;
+				  } 
+			    
+			  if (e.getKeyCode() == KeyEvent.VK_ENTER){
+		
+				  if (left == true) {
+					  nave.upgradeVelocidade();
+					  pitStop = false;
+				  	}
+				  
+				  if (middle == true) {
+					  nave.upgradeTiro();
+					  pitStop = false;
+ 				  	}
+				  
+				  if (right == true) {
+					  maisVidas(); 
+					  pitStop = false;
+				  }
+				   
+			  }
+		}
 	}
 
 }
