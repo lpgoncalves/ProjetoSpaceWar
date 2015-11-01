@@ -257,6 +257,7 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies.stop();
 		novasLifes.stop();
 		repetirFundo.stop();
+		novosTirosBoss.stop();
 		
 	}
 	
@@ -283,8 +284,8 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
-			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.getX() / 2) - 10, addBoss.getY() + addBoss.GetAltura(), 0, 2));	
-			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.getX() / 2) + 50, addBoss.getY() + addBoss.GetAltura(), 0, 2));		
+			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) - 35, addBoss.getY() + addBoss.GetAltura(), 0, 2));	
+			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) + 25, addBoss.getY() + addBoss.GetAltura(), 0, 2));		
 	    }
 	}
 	
@@ -370,10 +371,7 @@ public class Fase extends JPanel implements ActionListener {
 			if (pause == true) {
 				ImageIcon pause = new ImageIcon("res\\pause.png");
 				graficos.drawImage(pause.getImage(), 275, 275, null);
-			}
-			
-	
-				
+			}		
 		} else {
 			
 			try {
@@ -424,7 +422,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(tempo.segundos == 40 && boolFrenesi == false){
+		if(tempo.segundos == 10 && boolFrenesi == false){
 			modeFrenesi(true);
 		}
 		
