@@ -52,16 +52,16 @@ public class Nave {
 			x = 1;
 		}
 		
-		if (this.x > 532){
-			x = 532;
+		if (this.x > 502){
+			x = 502;
 		}
 		
-		if (this.y < 1){
-			y = 1;
+		if (this.y < 20){
+			y = 20;
 		}
 		
-		if(this.y > 537){
-			y = 537;
+		if(this.y > 480){
+			y = 480;
 		}
 		
 	}
