@@ -113,17 +113,17 @@ public class Nave {
 				System.out.println(altura);
 				break;
 			case 1:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 50, 0, 2));
 				break;
 			case 2:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() + -1 * altura, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() - altura + 50, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 50, 0, 2));
 				break;
 			case 3:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() + -1 * altura, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() + -1 * altura, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() + -1 * altura, 1, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() + -1 * altura, 2, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) +  0, getY() - altura + 50, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 50, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() - altura + 50, 1, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() - altura + 50, 2, 2));
 				break;
 			default:
 				break;
