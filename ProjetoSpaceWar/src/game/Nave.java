@@ -26,7 +26,7 @@ public class Nave {
 	
 	public Nave() {
 		
-		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
+		ImageIcon referencia = new ImageIcon ("res\\nave.jpg");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
 	
 		this.altura = naveImg.getHeight(null);
@@ -109,7 +109,8 @@ public class Nave {
 	public void atirar() {
 		switch(nivelTiro){
 			case 0:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, 0, 1));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 60, 0, 1));
+				System.out.println(altura);
 				break;
 			case 1:
 				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() + -1 * altura, 0, 2));

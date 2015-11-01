@@ -30,7 +30,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Nave nave;
 	private Tiro tiro;
 	
-	ImageIcon naveVisivel = new ImageIcon ("res\\nave.gif");
+	ImageIcon naveVisivel = new ImageIcon ("res\\nave.jpg");
 	ImageIcon naveInvisivel = new ImageIcon ("");
 	
 	private Timer timer;
