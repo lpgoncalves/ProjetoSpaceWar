@@ -109,7 +109,7 @@ public class Nave {
 	public void atirar() {
 		switch(nivelTiro){
 			case 0:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 60, 0, 1));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 50, 0, 1));
 				System.out.println(altura);
 				break;
 			case 1:
