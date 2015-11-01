@@ -149,7 +149,7 @@ public class Fase extends JPanel implements ActionListener {
 		
 		indexBack = 0;
 		pontos = 0;
-		vidas = 1;
+		vidas = 3;
 		inimigoFrenesiQnt = 900;
 		inimigoQnt = 1000;
 		nivelTiro = 0;
@@ -251,6 +251,7 @@ public class Fase extends JPanel implements ActionListener {
 		addBoss = null;
 		tirosBoss.clear();
 		tiros.clear();
+		explosoes.clear();
 		
 		timer.stop();
 		novosEnemies.stop();
@@ -696,12 +697,12 @@ public class Fase extends JPanel implements ActionListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			 
-			if (e.getKeyCode() == KeyEvent.VK_W) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				  up = true;
 				  down = false;
 				  }
 			  
-			  if (e.getKeyCode() == KeyEvent.VK_S) {
+			  if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				  down = true;
 				  up = false;
 				  } 
