@@ -23,7 +23,7 @@ public class Vida {
 		this.x = x;
 		this.y = y;
 		
-		ImageIcon referencia = new ImageIcon ("res\\vida.gif");//Definimos o diretorio da imagem da nave.
+		ImageIcon referencia = new ImageIcon ("res\\life.gif");//Definimos o diretorio da imagem da nave.
 		vidaImg = referencia.getImage();
 		
 		this.altura = vidaImg.getHeight(null);

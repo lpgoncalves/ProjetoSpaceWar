@@ -50,7 +50,7 @@ public class SelectNave extends JPanel {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				nave2.setIcon(new ImageIcon("res\\nave-borda.jpg"));
+				nave2.setIcon(new ImageIcon("res\\nave.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -70,7 +70,7 @@ public class SelectNave extends JPanel {
 			}
 
 			public void mouseExited(MouseEvent e) {
-				nave3.setIcon(new ImageIcon("res\\nave-borda.jpg"));
+				nave3.setIcon(new ImageIcon("res\\nave.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -83,8 +83,9 @@ public class SelectNave extends JPanel {
 			}
 		});
 		
-		setBounds(40, 250, 500, 100);	
+		setBounds(150, 250, 300, 100);
 		setBackground(new Color(0,0,0,65));
+        setOpaque(false);
 	}
 	
 }

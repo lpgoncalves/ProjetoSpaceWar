@@ -29,10 +29,10 @@ public class Menu extends JLabel {
 		
 		JLabel menu = this;
 		
-		JLabel keysWASD = new JLabel(new ImageIcon("res\\teste.png"));
-		keysWASD.setBounds(200, 50, 300, 300);	
-		keysWASD.setVisible(false);
-		frame.add(keysWASD);
+		JLabel keysMovement = new JLabel(new ImageIcon("res\\teste.png"));
+		keysMovement.setBounds(200, 50, 300, 300);	
+		keysMovement.setVisible(false);
+		frame.add(keysMovement);
 		
 		SelectNave panel = new SelectNave(frame, menu);
 		panel.setVisible(false);
@@ -105,7 +105,7 @@ public class Menu extends JLabel {
 			public void mouseClicked(MouseEvent e) {
 
 				setVisible(false);
-				keysWASD.setVisible(true);
+				keysMovement.setVisible(true);
 			}
 		});
 
