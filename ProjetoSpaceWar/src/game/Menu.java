@@ -42,7 +42,7 @@ public class Menu extends JLabel {
 		jogar.setForeground(FontGame.DefaultColor());
 		jogar.setFont(FontGame.Get());
 		jogar.setBounds(0, 0, 130, 20);
-
+		
 		
 		menu.add(jogar);
 
