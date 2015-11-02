@@ -26,11 +26,11 @@ public class SelectNave extends JPanel {
 		nave1.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				
+				nave1.setIcon(new ImageIcon("res\\nave-borda.jpg"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				
+				nave1.setIcon(new ImageIcon("res\\nave.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -38,7 +38,7 @@ public class SelectNave extends JPanel {
 				frame.add(game);
 				setVisible(false);
 				game.setFocusable(true);
-				
+				game.grabFocus();
 				game = null;
 			}
 		});
@@ -46,30 +46,40 @@ public class SelectNave extends JPanel {
 		nave2.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				
+				nave2.setIcon(new ImageIcon("res\\nave-borda.jpg"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				
+				nave2.setIcon(new ImageIcon("res\\nave-borda.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
+				Fase game = new Fase(menu);
+				frame.add(game);
+				setVisible(false);
+				game.setFocusable(true);
+				game.grabFocus();
+				game = null;
 			}
 		});
 		
 		nave3.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				
+				nave3.setIcon(new ImageIcon("res\\nave-borda.jpg"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				
+				nave3.setIcon(new ImageIcon("res\\nave-borda.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
+				Fase game = new Fase(menu);
+				frame.add(game);
+				setVisible(false);
+				game.setFocusable(true);
+				game.grabFocus();
+				game = null;
 			}
 		});
 		
