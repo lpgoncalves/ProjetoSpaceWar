@@ -26,12 +26,24 @@ public class Menu extends JLabel {
 	 */
 
 	public Menu(JFrame frame) {
+		
+		JLabel menu = this;
+		
+		JLabel keysWASD = new JLabel(new ImageIcon("res\\teste.png"));
+		keysWASD.setBounds(200, 50, 300, 300);	
+		keysWASD.setVisible(false);
+		frame.add(keysWASD);
+		
+		SelectNave panel = new SelectNave(frame, menu);
+		panel.setVisible(false);
+		frame.add(panel);
 
 		JButton jogar = new JButton("JOGAR");
 		jogar.setForeground(FontGame.DefaultColor());
 		jogar.setFont(FontGame.Get());
 		jogar.setBounds(0, 0, 130, 20);
-		JLabel menu = this;
+
+		
 		menu.add(jogar);
 
 		jogar.addMouseListener(new MouseAdapter() {
@@ -46,11 +58,13 @@ public class Menu extends JLabel {
 
 			public void mouseClicked(MouseEvent e) {
 
-				Fase game = new Fase(menu);
+				panel.setVisible(true);
+				setVisible(false);
+				/*Fase game = new Fase(menu);
 				frame.add(game);
 				setVisible(false);
 				game.setFocusable(true);
-				game = null;
+				game = null;*/
 
 			}
 		});
@@ -90,9 +104,8 @@ public class Menu extends JLabel {
 
 			public void mouseClicked(MouseEvent e) {
 
-				Menu_Help help = new Menu_Help(frame);
-				frame.add(help);
 				setVisible(false);
+				keysWASD.setVisible(true);
 			}
 		});
 

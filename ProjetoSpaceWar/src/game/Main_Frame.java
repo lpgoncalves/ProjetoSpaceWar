@@ -30,12 +30,7 @@ public class Main_Frame extends JFrame {
 		LabelMenu.setBounds(240,250, 210, 513);
 		LabelMenu.setVisible(true);
 		add(LabelMenu);
-		
-		Menu_Help menuHelp = new Menu_Help(this);
-		menuHelp.setForeground(SystemColor.textHighlight);
-		menuHelp.setBounds(240,250, 210, 513);
-		menuHelp.setVisible(false);
-		add(menuHelp);
+	
 		
 		this.logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
 		logo.setBounds(130, 50 , 350, 100); //Setar posição X, Y, Largura e Altura do logo
@@ -43,6 +38,7 @@ public class Main_Frame extends JFrame {
 		
 		JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg")); //Seta a imagem de Background para o Menu Inicial
 		add(background);
+		
 		
 		setTitle("Runiverse");//Seta o titulo para o frame.
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
