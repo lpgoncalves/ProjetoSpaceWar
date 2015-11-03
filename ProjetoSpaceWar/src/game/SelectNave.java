@@ -34,7 +34,7 @@ public class SelectNave extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu);
+				Fase game = new Fase(menu, 1);
 				frame.add(game);
 				setVisible(false);
 				game.setFocusable(true);
@@ -54,7 +54,7 @@ public class SelectNave extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu);
+				Fase game = new Fase(menu, 2);
 				frame.add(game);
 				setVisible(false);
 				game.setFocusable(true);
@@ -74,7 +74,7 @@ public class SelectNave extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu);
+				Fase game = new Fase(menu, 3);
 				frame.add(game);
 				setVisible(false);
 				game.setFocusable(true);

@@ -30,7 +30,6 @@ public class Fase extends JPanel implements ActionListener {
 	private Nave nave;
 	private Tiro tiro;
 	
-	ImageIcon naveVisivel = new ImageIcon ("res\\nave3.gif");
 	ImageIcon naveInvisivel = new ImageIcon ("");
 	
 	private Timer timer;
@@ -68,6 +67,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int nivelTiro = 0;
 	private int vidaBoss = 10;
 	private int tipoBoss = 0;
+	private int idNave;
 
 	
 	private ImageIcon seta;
@@ -80,12 +80,13 @@ public class Fase extends JPanel implements ActionListener {
     Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
     Graphics2D graficos;
 	
-	public Fase(JLabel menu) {
+	public Fase(JLabel menu, int idNave) {
 		
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para as teclas do teclado.
 
+		this.idNave = idNave;
 		this.menu = menu;
 		
 		//ImageIcon referencia1 = new ImageIcon("res\\background.png");
@@ -124,7 +125,7 @@ public class Fase extends JPanel implements ActionListener {
 		
 	    novosTirosBoss = new Timer(800, new criarTirosBoss());
 		
-		nave = new Nave();
+		nave = new Nave(idNave);
 		inicializarInimigos();
 
 		boolFrenesi = false;
@@ -142,10 +143,10 @@ public class Fase extends JPanel implements ActionListener {
 		jogoAndamento = true;
 		boolFrenesi = false;
 		tempoShadow.stop();
-		nave.setNaveImg(naveVisivel);
+		nave.setNaveImg(nave.referencia);
 		up = true;
 		down = false;
-		nave = new Nave();
+		nave = new Nave(idNave);
 		inicializarInimigos();
 		
 		indexBack = 0;
@@ -223,11 +224,11 @@ public class Fase extends JPanel implements ActionListener {
 	    	  }
 	    	  else{
 	    		  nave.setVisivel(true);
-	    		  nave.setNaveImg(naveVisivel);
+	    		  nave.setNaveImg(nave.referencia);
 	    	  }
 	    	  intShadow++;
 	    	  if(intShadow == 10){
-	    		  nave.setNaveImg(naveVisivel);
+	    		  nave.setNaveImg(nave.referencia);
 	    		  tempoShadow.stop();
 	    	  }
 	      }
@@ -656,7 +657,7 @@ public class Fase extends JPanel implements ActionListener {
 				pontos = 0;
 				vidas = 1;
 				tempo = new Tempo();
-				nave = new Nave();
+				nave = new Nave(idNave);
 				novosEnemies.start();
 				novasLifes.start();
 				inicializarInimigos();

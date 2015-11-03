@@ -18,15 +18,28 @@ public class Nave {
 	private int largura;
 	private int nivelTiro;
 	private boolean isVisivel;
+	
+	public ImageIcon referencia;
 
 	private static int VELOCIDADE_NAVE = 2;
 	
 	private Image naveImg;
 	private List<Tiro> tiros;
 	
-	public Nave() {
+	public Nave(int idNave) {
 		
-		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
+		switch(idNave){
+			case 1: 
+				referencia = new ImageIcon ("res\\nave.jpg");//Definimos o diretorio da imagem da nave.
+				break;
+			case 2:
+				referencia = new ImageIcon ("res\\nave2.jpg");//Definimos o diretorio da imagem da nave.
+				break;
+			case 3:
+				referencia = new ImageIcon ("res\\nave3.png");//Definimos o diretorio da imagem da nave.
+				break;
+		}
+		
 		naveImg = referencia.getImage();
 	
 		this.altura = naveImg.getHeight(null);
