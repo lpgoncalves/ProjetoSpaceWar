@@ -17,8 +17,8 @@ public class SelectNave extends JPanel {
 	public SelectNave(JFrame frame, JLabel menu) {
 		
 		JLabel nave1 = new JLabel(new ImageIcon("res\\nave.jpg"));
-		JLabel nave2 = new JLabel(new ImageIcon("res\\nave.jpg"));
-		JLabel nave3 = new JLabel(new ImageIcon("res\\nave.jpg"));
+		JLabel nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
+		JLabel nave3 = new JLabel(new ImageIcon("res\\nave3.png"));
 		add(nave1);
 		add(nave2);
 		add(nave3);
@@ -26,7 +26,7 @@ public class SelectNave extends JPanel {
 		nave1.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				nave1.setIcon(new ImageIcon("res\\nave-borda.jpg"));
+				nave1.setIcon(new ImageIcon("res\\nave-1-borda.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
@@ -46,11 +46,11 @@ public class SelectNave extends JPanel {
 		nave2.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				nave2.setIcon(new ImageIcon("res\\nave-borda.jpg"));
+				nave2.setIcon(new ImageIcon("res\\nave-2-borda.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				nave2.setIcon(new ImageIcon("res\\nave.jpg"));
+				nave2.setIcon(new ImageIcon("res\\nave2.jpg"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -66,11 +66,11 @@ public class SelectNave extends JPanel {
 		nave3.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				nave3.setIcon(new ImageIcon("res\\nave-borda.jpg"));
+				nave3.setIcon(new ImageIcon("res\\nave-3-borda.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				nave3.setIcon(new ImageIcon("res\\nave.jpg"));
+				nave3.setIcon(new ImageIcon("res\\nave3.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {

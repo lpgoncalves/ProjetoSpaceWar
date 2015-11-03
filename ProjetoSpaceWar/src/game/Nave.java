@@ -26,7 +26,7 @@ public class Nave {
 	
 	public Nave() {
 		
-		ImageIcon referencia = new ImageIcon ("res\\nave.jpg");//Definimos o diretorio da imagem da nave.
+		ImageIcon referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 		naveImg = referencia.getImage();
 	
 		this.altura = naveImg.getHeight(null);

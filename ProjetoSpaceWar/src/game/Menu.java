@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.nio.channels.NetworkChannel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,10 +39,10 @@ public class Menu extends JLabel {
 		panel.setVisible(false);
 		frame.add(panel);
 
-		JButton jogar = new JButton("JOGAR");
-		jogar.setForeground(FontGame.DefaultColor());
+		JLabel jogar = new JLabel("");
+		jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 		jogar.setFont(FontGame.Get());
-		jogar.setBounds(0, 0, 130, 20);
+		jogar.setBounds(100, 0, 310, 40);
 		
 		
 		menu.add(jogar);
@@ -49,11 +50,13 @@ public class Menu extends JLabel {
 		jogar.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				jogar.setForeground(FontGame.SelectedColor());
+				//jogar.setForeground(FontGame.SelectedColor());
+				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar1.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				jogar.setForeground(FontGame.DefaultColor());
+				//jogar.setForeground(FontGame.DefaultColor());
+				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -69,18 +72,21 @@ public class Menu extends JLabel {
 			}
 		});
 
-		JButton recordes = new JButton("RECORDES");
+		JLabel recordes = new JLabel("");
+		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes1.png"));
 		recordes.setFont(FontGame.Get());
-		recordes.setBounds(0, 30, 130, 20);
+		recordes.setBounds(100, 45, 320, 40);
 		add(recordes);
 		recordes.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				recordes.setForeground(FontGame.SelectedColor());
+				//recordes.setForeground(FontGame.SelectedColor());
+				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				recordes.setForeground(FontGame.DefaultColor());
+				//recordes.setForeground(FontGame.DefaultColor());
+				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes1.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -88,18 +94,21 @@ public class Menu extends JLabel {
 			}
 		});
 
-		JButton opcoes = new JButton("AJUDA");
-		opcoes.setFont(FontGame.Get());
-		opcoes.setBounds(0, 60, 130, 20);
-		add(opcoes);
-		opcoes.addMouseListener(new MouseAdapter() {
+		JLabel ajuda = new JLabel("");
+		ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda1.png"));
+		ajuda.setFont(FontGame.Get());
+		ajuda.setBounds(100, 90, 320, 40);
+		add(ajuda);
+		ajuda.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				opcoes.setForeground(FontGame.SelectedColor());
+				//ajuda.setForeground(FontGame.SelectedColor());
+				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				opcoes.setForeground(FontGame.DefaultColor());
+				//ajuda.setForeground(FontGame.DefaultColor());
+				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda1.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {

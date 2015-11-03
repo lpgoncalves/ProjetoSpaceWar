@@ -30,7 +30,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Nave nave;
 	private Tiro tiro;
 	
-	ImageIcon naveVisivel = new ImageIcon ("res\\nave.jpg");
+	ImageIcon naveVisivel = new ImageIcon ("res\\nave3.gif");
 	ImageIcon naveInvisivel = new ImageIcon ("");
 	
 	private Timer timer;
@@ -88,7 +88,8 @@ public class Fase extends JPanel implements ActionListener {
 
 		this.menu = menu;
 		
-		ImageIcon referencia1 = new ImageIcon("res\\background.png");
+		//ImageIcon referencia1 = new ImageIcon("res\\background.png");
+		ImageIcon referencia1 = new ImageIcon("res\\fase1.gif");
 		ImageIcon referencia2 = new ImageIcon("res\\background2.jpg");
 		ImageIcon referencia3 = new ImageIcon("res\\background3.jpg");
 		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
@@ -383,7 +384,7 @@ public class Fase extends JPanel implements ActionListener {
 			
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
-			ImageIcon gameover = new ImageIcon("res\\game_over.gif");
+			ImageIcon gameover = new ImageIcon("res\\game-over.gif");
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
 			
