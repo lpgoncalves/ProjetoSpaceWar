@@ -18,26 +18,31 @@ public class Inimigos {
 	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static double velocidade_inimigo = 1;
-	//private int VELOCIDADE_X = (int)((Math.random() * 4) - 2); 
 	
-	private static int contador = 0;
+	public int dir;
+	public int dir2;
+	private int tipoInimigo;
 	
-	public Inimigos(int x, int y){
+	public Inimigos(int x, int y, int tipoInimigo){
 		
+		dir = 0;
 		this.x = x;
 		this.y = y;
 		
 		ImageIcon referencia;
-
-		if(contador++ % 3 == 0){
-			referencia = new ImageIcon("res\\inimigo2.png");
+	    
+		switch(tipoInimigo){
+	    case 0:
+	    	referencia = new ImageIcon ("res\\inimigo2.png");//Definimos o diretorio da imagem do boss.
+	    	inimigoImg = referencia.getImage();
+	    	break;
+	    case 1:
+	    	referencia = new ImageIcon ("res\\asteroide.gif");//Definimos o diretorio da imagem do boss.
+	    	inimigoImg = referencia.getImage();
+	    	break;
+    }
 		
-		} else {
-			
-			referencia = new ImageIcon("res\\inimigo2.png");
-		}
-		
-		inimigoImg = referencia.getImage();
+		this.tipoInimigo = tipoInimigo;
 		
 		this.altura = inimigoImg.getHeight(null);
 		this.largura = inimigoImg.getWidth(null);
@@ -46,8 +51,12 @@ public class Inimigos {
 		
 	}
 	
-	public void mover() {
+	public int getTipoInimigo () {
+		return tipoInimigo;
+	}
 	
+	public void mover() {
+		
 		if ((this.y == 600 || this.x == 600)){
 			this.y = COMPRIMENTO_TELA;
 			this.x = COMPRIMENTO_TELA;
@@ -55,22 +64,50 @@ public class Inimigos {
 		else {
 			this.y += velocidade_inimigo;
 		}
-		//-----------MOVIMENTAÇÃO NO VETOR X-----------------
-		/*else if (VELOCIDADE_X == 0) {
-			this.y += VELOCIDADE_INIMIGO;
-			this.x += 0;
-		}
-		else if (VELOCIDADE_X == -1) {
-			this.y += VELOCIDADE_INIMIGO;
-			this.x += -0.1;
-		}
-		else {
-			this.y += VELOCIDADE_INIMIGO;
-			this.x += 0.1;
-		}*/
-		//-----------------------------------------------------
 	}
 	
+	public void Direita() {
+		if (this.x < 600 - largura) {
+			this.x += velocidade_inimigo; 
+		}
+		else {
+			this.x -= velocidade_inimigo; 
+			dir2 = 1;
+		}
+		
+	}
+	
+	public void Esquerda() {
+		if (this.x > 1) {
+			this.x -= velocidade_inimigo;
+		}
+		else {
+			this.x += velocidade_inimigo; 
+			dir2 = 0;
+		}
+		
+	}
+	
+	public void Baixo() {	
+		if (this.y < 600 - altura ) {
+			this.y += velocidade_inimigo;
+		}
+		else {
+			this.y -= velocidade_inimigo; 
+			dir = 1;
+		}
+		
+	}
+	
+	public void Cima() {
+		if (this.y > 1) {
+			this.y -= velocidade_inimigo; 
+		}
+		else {
+			dir = 0;
+		}
+		
+	}
 	public boolean isVisivel() {
 	    return isVisivel;
 	}

@@ -21,6 +21,7 @@ import javax.swing.Timer;
 import game.Fase.criarInimigos;
 
 import music.SomExpNave;
+import music.SomFundo;
 
 import java.util.TimerTask;
 
@@ -34,7 +35,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	private Timer tempoShadow;
-	private static Timer novosEnemies;
+	private static Timer novosEnemies, novosEnemies2;
 	Tempo tempo;
 	private Timer novasLifes;
 	private Timer repetirFundo;
@@ -68,6 +69,8 @@ public class Fase extends JPanel implements ActionListener {
 	private int vidaBoss = 10;
 	private int tipoBoss = 0;
 	private int idNave;
+	
+	SomFundo somFundo = new SomFundo();
 
 	
 	private ImageIcon seta;
@@ -118,7 +121,9 @@ public class Fase extends JPanel implements ActionListener {
 		repetirFundo.start();
 		
 		novosEnemies = new Timer(inimigoQnt, new criarInimigos());
+		novosEnemies2 = new Timer(5000, new criarInimigos2());
 		novosEnemies.start();
+		novosEnemies2.start();
 		
 		novasLifes = new Timer(10000, new criarVidas());
 		novasLifes.start();
@@ -136,6 +141,8 @@ public class Fase extends JPanel implements ActionListener {
 
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
+		
+		somFundo.main(null);
 
 	}
 	
@@ -157,6 +164,7 @@ public class Fase extends JPanel implements ActionListener {
 		nivelTiro = 0;
 		
 		novosEnemies.restart();
+		novosEnemies2.restart();
 		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
@@ -188,6 +196,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 	
 	private void modeFrenesi(boolean frenesi){
+		
 		if(frenesi == true){
 			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
 			vidaBoss = vidaBoss + 5;
@@ -200,10 +209,12 @@ public class Fase extends JPanel implements ActionListener {
 			boolFrenesi = frenesi;
 			novosTirosBoss.stop();
 			addBoss = null;
-			if(tipoBoss < 5)
+			
+			if(tipoBoss < 5){
 				tipoBoss++;
-			else
+			} else {
 				tipoBoss = 0;
+			}
 			mudarBack();
 		}
 	}
@@ -257,6 +268,7 @@ public class Fase extends JPanel implements ActionListener {
 		
 		timer.stop();
 		novosEnemies.stop();
+		novosEnemies2.stop();
 		novasLifes.stop();
 		repetirFundo.stop();
 		novosTirosBoss.stop();
@@ -265,14 +277,21 @@ public class Fase extends JPanel implements ActionListener {
 	
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed (ActionEvent e) {
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0));	
 			
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30));
+		}
+	}
+	
+	public class criarInimigos2 implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 1));
 			
 		}
 	}
 	
 		public void criarBoss () {
-				addBoss = new Boss(1 + (int) (550 * Math.random()), -80, tipoBoss);		
+				addBoss = new Boss(1 + (int) (550 * Math.random()), -80, tipoBoss);	
+				 System.out.println(tipoBoss);
 				addBoss.setVidaBoss(vidaBoss);
 				novosTirosBoss.start();
 		}
@@ -406,6 +425,9 @@ public class Fase extends JPanel implements ActionListener {
             } else {
             	
             }
+            
+			somFundo.setAndamentoMusica(false);
+			somFundo.main(null);
 			
 	        graficos.setFont(pontuacaoFinal);
 	        graficos.drawString("Jogar Novamente", 170, 490);
@@ -462,7 +484,30 @@ public class Fase extends JPanel implements ActionListener {
 			Inimigos enemies = inimigos.get(i);
 
 			if (enemies.isVisivel()) {
-				enemies.mover();
+				if (enemies.getTipoInimigo() == 0){
+					enemies.mover();
+				}
+				
+				if (enemies.getTipoInimigo() == 1){
+					switch(enemies.dir){
+					case 0:
+						enemies.Baixo();
+						break;
+					case 1: 
+						enemies.Cima();
+						break;
+					}
+					
+					switch(enemies.dir2){
+					case 0:
+						enemies.Direita();
+						break;
+					case 1: 
+						enemies.Esquerda();
+						break;
+					}
+				}
+				
 			} else {
 				inimigos.remove(i);
 				
@@ -495,23 +540,56 @@ public class Fase extends JPanel implements ActionListener {
 		
 		if(boolFrenesi && addBoss != null){
 			if (addBoss.isVisivel()) {
-				switch(addBoss.dir){
-					case 0:
-						addBoss.Baixo();
-						break;
-					case 1: 
-						addBoss.Cima();
-						break;
+				if (addBoss.getTipoBoss() == 0) {
+					if ((tempo.segundos > 15) && (tempo.segundos < 20)){
+						addBoss.VELOCIDADE_BOSS = 3;
+					} else {
+						addBoss.VELOCIDADE_BOSS = 0.5;
+					}
+					
+					addBoss.BaixoMetade();
+					switch(addBoss.dir2){
+					  case 0:
+						  addBoss.Direita();
+						  break;
+					  case 1: 
+						  addBoss.Esquerda();
+						  break;
+				  }
 				}
 				
-				switch(addBoss.dir2){
-					case 0:
-						addBoss.Direita();
-						break;
-					case 1: 
-						addBoss.Esquerda();
-						break;
+				if (addBoss.getTipoBoss() == 1 || addBoss.getTipoBoss() == 3) {
+				  switch(addBoss.dir){
+					  case 0:
+						  addBoss.Baixo();
+						  break;
+					  case 1: 
+						  addBoss.Cima();
+						  break;
+				  }
+				
+				  switch(addBoss.dir2){
+					  case 0:
+						  addBoss.Direita();
+						  break;
+					  case 1: 
+						  addBoss.Esquerda();
+						  break;
+				  }
 				}
+				
+				if (addBoss.getTipoBoss() == 2 || addBoss.getTipoBoss() == 4  ) {
+					addBoss.BaixoMetade();
+					switch(addBoss.dir2){
+					  case 0:
+						  addBoss.Direita();
+						  break;
+					  case 1: 
+						  addBoss.Esquerda();
+						  break;
+				      }
+				}
+				
 			} else {
 				addBoss = null;
 			}
@@ -546,6 +624,7 @@ public class Fase extends JPanel implements ActionListener {
 				if (vidas < 0) {
 					
 					jogoAndamento = false;
+
 				}
 			}
 			
@@ -564,6 +643,7 @@ public class Fase extends JPanel implements ActionListener {
 			
 			if (vidas < 0) {
 				jogoAndamento = false;
+
 			}
 		}
 		
@@ -619,6 +699,7 @@ public class Fase extends JPanel implements ActionListener {
 					if (vidas < 0) {
 						
 						jogoAndamento = false;
+						
 					}
 				}
 			}
@@ -659,6 +740,7 @@ public class Fase extends JPanel implements ActionListener {
 				tempo = new Tempo();
 				nave = new Nave(idNave);
 				novosEnemies.start();
+				novosEnemies2.start();
 				novasLifes.start();
 				inicializarInimigos();
 			}
@@ -668,6 +750,7 @@ public class Fase extends JPanel implements ActionListener {
 					pause = false;
 					timer.start();
 					novosEnemies.start();
+					novosEnemies2.start();
 					novasLifes.start();
 					repetirFundo.start();
                     tempo.comecarTimer();
@@ -676,6 +759,7 @@ public class Fase extends JPanel implements ActionListener {
 					pause = true;
 					timer.stop();
 					novosEnemies.stop();
+					novosEnemies2.stop();
 					novasLifes.stop();
 					repetirFundo.stop();
 					tempo.pararTimer();

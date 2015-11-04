@@ -2,29 +2,32 @@ package game;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 
 public class Boss {
 
+	private Nave nave;
 	private Image bossImg;
 	private double x;
 	private double y;
 	private int altura;
 	private int largura;
 	private int vidaBoss;
+	private int tipoBoss;
 	
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static final int Y_MAXIMO = 400;
 	private static final int Y_MINIMO = 0;
-	private static final double VELOCIDADE_BOSS = 0.5;
+	public double VELOCIDADE_BOSS = 0.5;
 	
 	private ImageIcon referencia;
 	
-	private static int contador = 0;
 	public int dir;
 	public int dir2;
 	
@@ -56,13 +59,21 @@ public class Boss {
 		    	referencia = new ImageIcon ("res\\boss-4.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
+		    default :
+		      tipoBoss = 0;
 	    }
+	    
+	    this.tipoBoss = tipoBoss;
 		
 		this.altura = bossImg.getHeight(null);
 		this.largura = bossImg.getWidth(null);
 		
 		isVisivel = true;
 		
+	}
+	
+	public int getTipoBoss() {
+		return tipoBoss;
 	}
 	
 	public void Direita() {
@@ -107,6 +118,29 @@ public class Boss {
 		}
 		
 	}
+	
+	public void BaixoMetade() {
+		if (this.y < 300 - altura ) {
+			this.y += VELOCIDADE_BOSS;
+		}
+		else {
+			this.y = 300 - altura; 
+		}
+	}
+	
+	public void seguirPlayer() {
+		if (x > nave.getX() - largura) {
+			x -= VELOCIDADE_BOSS;
+		} else {
+			x += VELOCIDADE_BOSS;
+		}
+		if (y > nave.getY() - altura) {
+			y -= VELOCIDADE_BOSS;
+		} else {
+			y += VELOCIDADE_BOSS;
+		}
+	}
+        
 	
 	public int GetAltura(){
 		return altura;
