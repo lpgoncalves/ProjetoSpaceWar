@@ -30,7 +30,7 @@ public class Nave {
 		
 		switch(idNave){
 			case 1: 
-				referencia = new ImageIcon ("res\\nave.jpg");//Definimos o diretorio da imagem da nave.
+				referencia = new ImageIcon ("res\\nave.gif");//Definimos o diretorio da imagem da nave.
 				break;
 			case 2:
 				referencia = new ImageIcon ("res\\nave2.jpg");//Definimos o diretorio da imagem da nave.

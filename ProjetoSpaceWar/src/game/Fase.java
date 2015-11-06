@@ -18,13 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import music.AllMusic;
 
-import game.Fase.criarInimigos;
-
-import music.SomExpNave;
-import music.SomFundo;
-
-import java.util.TimerTask;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -66,6 +61,7 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean right;
 	private boolean boolFrenesi;
 	private boolean gravadoRc;
+	private boolean jogoApagado;
 	
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
@@ -79,7 +75,10 @@ public class Fase extends JPanel implements ActionListener {
 	private int tipoBoss = 0;
 	private int idNave;
 	
-	SomFundo somFundo = new SomFundo();
+	private String path = "res\\sons\\Musica_Fase.mp3";
+	private String path1 = "res\\sons\\Explosao_Nave.mp3";
+	private AllMusic somFundo;
+	
 
 	
 	private ImageIcon seta;
@@ -143,6 +142,7 @@ public class Fase extends JPanel implements ActionListener {
 		inicializarInimigos();
 
 		gravadoRc = false;
+		jogoApagado = false;
 		boolFrenesi = false;
 		jogoAndamento = true;
 		up = true;
@@ -152,12 +152,14 @@ public class Fase extends JPanel implements ActionListener {
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
 		
-		somFundo.main(null);
-
+		somFundo = new AllMusic(path);
+		somFundo.setloop(true);
+		somFundo.start();
 	}
 	
 	private void StartFase() {
 		jogoAndamento = true;
+		jogoApagado = false;
 		gravadoRc = false;
 		boolFrenesi = false;
 		tempoShadow.stop();
@@ -173,6 +175,7 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoFrenesiQnt = 900;
 		inimigoQnt = 1000;
 		nivelTiro = 0;
+		
 		
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -267,6 +270,8 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 	
+
+	@SuppressWarnings("deprecation")
 	private void ApagaGame() throws Throwable{
 		
 		inimigos.clear();	
@@ -276,6 +281,9 @@ public class Fase extends JPanel implements ActionListener {
 		tirosBoss.clear();
 		tiros.clear();
 		explosoes.clear();
+		
+		
+		somFundo.close();
 		
 		timer.stop();
 		novosEnemies.stop();
@@ -406,13 +414,16 @@ public class Fase extends JPanel implements ActionListener {
 			}		
 		} else {
 			
-			try {
-				ApagaGame();
-			} catch (Throwable e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			
+				try {
+					if(jogoApagado == false){
+						ApagaGame();
+						jogoApagado = true;
+					}
+				} catch (Throwable e1) {
+					
+					e1.printStackTrace();
+				}
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
 			ImageIcon gameover = new ImageIcon("res\\game-over.gif");
@@ -446,9 +457,7 @@ public class Fase extends JPanel implements ActionListener {
             	
             }
             
-			somFundo.setAndamentoMusica(false);
-			somFundo.main(null);
-			
+            
 	        graficos.setFont(pontuacaoFinal);
 	        graficos.drawString("Jogar Novamente", 170, 490);
 	        graficos.drawString("Voltar ao Menu Principal", 170, 510);
@@ -532,8 +541,9 @@ public class Fase extends JPanel implements ActionListener {
 				inimigos.remove(i);
 				
 				// -- Som --
-				SomExpNave som = new SomExpNave();
-				som.main(null);
+				AllMusic somExplosao = new AllMusic(path1);
+				somExplosao.setloop(false);
+				somExplosao.start();
 				
 				// -- Explosao --
 				gX =  enemies.getX();
