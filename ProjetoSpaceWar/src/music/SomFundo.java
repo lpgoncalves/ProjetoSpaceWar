@@ -82,8 +82,7 @@ public class SomFundo {
 					FileInputStream fis = new FileInputStream(mp3);
 					BufferedInputStream bis = new BufferedInputStream(fis);
 					this.player = new Player(bis);
-					this.player.play();
-					
+					this.player.play(); 
 					if (andamentoMusica == false) {
 						andamentoMusica = false;
 						player.close();

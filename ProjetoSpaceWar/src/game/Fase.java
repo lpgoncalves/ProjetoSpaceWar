@@ -18,12 +18,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
 import game.Fase.criarInimigos;
 
 import music.SomExpNave;
 import music.SomFundo;
 
 import java.util.TimerTask;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException; 
+import java.io.PrintWriter; 
+
 
 public class Fase extends JPanel implements ActionListener {
 
@@ -57,6 +65,7 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean middle;
 	private boolean right;
 	private boolean boolFrenesi;
+	private boolean gravadoRc;
 	
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
@@ -133,6 +142,7 @@ public class Fase extends JPanel implements ActionListener {
 		nave = new Nave(idNave);
 		inicializarInimigos();
 
+		gravadoRc = false;
 		boolFrenesi = false;
 		jogoAndamento = true;
 		up = true;
@@ -148,6 +158,7 @@ public class Fase extends JPanel implements ActionListener {
 	
 	private void StartFase() {
 		jogoAndamento = true;
+		gravadoRc = false;
 		boolFrenesi = false;
 		tempoShadow.stop();
 		nave.setNaveImg(nave.referencia);
@@ -411,6 +422,15 @@ public class Fase extends JPanel implements ActionListener {
 			addKeyListener(new EventoMenuFinal());
 			seta = new ImageIcon("res\\seta.gif");
 			ImageIcon preto = new ImageIcon("res\\preto.png");
+			
+			try {
+				if(gravadoRc == false){
+					gravadoRc = true;
+					GravarRecord(pontos);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
             if (up == true) {
 			graficos.drawImage(seta.getImage(), 80, 457, null);
@@ -726,6 +746,42 @@ public class Fase extends JPanel implements ActionListener {
 			else
 				repetir = 0;
 		}
+	}
+	
+	private void GravarRecord(int pontos) throws IOException{
+		BufferedReader buffRead = new BufferedReader(new FileReader("res\\recorde.txt"));
+		String linha;
+		int[] record = new int[] {0,0,0,0,0};
+		int i = 0;
+		while((linha = buffRead.readLine()) != null){
+			record[i] = Integer.parseInt(linha);
+			i++;
+		}
+		buffRead.close();
+		
+		BufferedWriter arquivo = new BufferedWriter(new FileWriter("res\\recorde.txt"));
+
+		for(i = 0; i < 5; i++){
+			if(record[i] > pontos){
+				linha = Integer.toString(record[i]);
+				arquivo.append(linha);
+				arquivo.newLine();
+			}else{
+				linha = Integer.toString(pontos);
+				arquivo.append(linha);
+				arquivo.newLine();
+				break;
+			}
+		}
+		
+		while(i < 4){
+			linha = Integer.toString(record[i]);
+			arquivo.append(linha);
+			arquivo.newLine();
+			i++;
+		}
+
+		arquivo.close();
 	}
 
 	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas na fase.
