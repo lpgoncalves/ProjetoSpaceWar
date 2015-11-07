@@ -40,7 +40,7 @@ public class Menu extends JLabel {
 		frame.add(panel);
 
 		JLabel jogar = new JLabel("");
-		jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
+		jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
 		jogar.setFont(FontGame.Get());
 		jogar.setBounds(100, 0, 310, 40);
 		
@@ -51,12 +51,12 @@ public class Menu extends JLabel {
 
 			public void mouseEntered(MouseEvent e) {
 				//jogar.setForeground(FontGame.SelectedColor());
-				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar1.png"));
+				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
 				//jogar.setForeground(FontGame.DefaultColor());
-				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
+				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -73,7 +73,7 @@ public class Menu extends JLabel {
 		});
 
 		JLabel recordes = new JLabel("");
-		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes1.png"));
+		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 		recordes.setFont(FontGame.Get());
 		recordes.setBounds(100, 45, 320, 40);
 		add(recordes);
@@ -86,7 +86,7 @@ public class Menu extends JLabel {
 
 			public void mouseExited(MouseEvent e) {
 				//recordes.setForeground(FontGame.DefaultColor());
-				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes1.png"));
+				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
@@ -95,7 +95,7 @@ public class Menu extends JLabel {
 		});
 
 		JLabel ajuda = new JLabel("");
-		ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda1.png"));
+		ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 		ajuda.setFont(FontGame.Get());
 		ajuda.setBounds(100, 90, 320, 40);
 		add(ajuda);
@@ -108,7 +108,7 @@ public class Menu extends JLabel {
 
 			public void mouseExited(MouseEvent e) {
 				//ajuda.setForeground(FontGame.DefaultColor());
-				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda1.png"));
+				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
