@@ -11,6 +11,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -27,6 +29,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 
 public class Fase extends JPanel implements ActionListener {
 
@@ -89,6 +93,8 @@ public class Fase extends JPanel implements ActionListener {
 	private JLabel menu;
 
 	public JLabel somLabel;
+
+	public long dataMudo;
 
 	Font pontuacaoFinal = new Font(FontGame.GetFontArcade(), Font.BOLD, 15);
 	Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
@@ -445,10 +451,15 @@ public class Fase extends JPanel implements ActionListener {
 			}
 
 			if (mute == true) {
-				graficos.drawImage(noSound.getImage(), 550, 45, null);
-				somLabel.setVisible(true);
+				long end = dataMudo + 3000;
+				if (System.currentTimeMillis() < end) {
+					graficos.drawImage(noSound.getImage(), 550, 45, null);
+				}
 			} else {
-				graficos.drawImage(sound.getImage(), 550, 45, null);
+				long end = dataMudo + 3000;
+				if (System.currentTimeMillis() < end) {
+					graficos.drawImage(sound.getImage(), 550, 45, null);
+				}
 			}
 
 		} else {
@@ -833,19 +844,17 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	public void Mute() {
-		if (!pause) 
-		{
-			if (mute) 
-			{
+		if (!pause) {
+			if (mute) {
 				mute = false;
 				somFundo = new AllMusic(pathMusica);
 				somFundo.setloop(true);
 				somFundo.start();
-			} 
-			else {
+			} else {
 				mute = true;
 				somFundo.close();
 			}
+			dataMudo = System.currentTimeMillis();
 		}
 	}
 
@@ -856,12 +865,11 @@ public class Fase extends JPanel implements ActionListener {
 			somFundo = new AllMusic(pathMusica);
 			somFundo.setloop(true);
 			somFundo.start();
-
-			paint((Graphics) graficos);
 		} else {
 			mute = true;
 			somFundo.close();
 		}
+
 	}
 
 	private class TeclaAdapter extends KeyAdapter { // Classe responsável por
