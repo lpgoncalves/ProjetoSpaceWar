@@ -857,17 +857,10 @@ public class Fase extends JPanel implements ActionListener {
 			somFundo.setloop(true);
 			somFundo.start();
 
-			somExplosao = new AllMusic(pathExplosaoNave);
-			somExplosao.setloop(false);
-			somExplosao.start();
-
 			paint((Graphics) graficos);
 		} else {
 			mute = true;
 			somFundo.close();
-			if (somExplosao != null) {
-				somExplosao.close();
-			}
 		}
 	}
 

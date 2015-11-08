@@ -69,8 +69,8 @@ public class Menu extends JLabel implements ActionListener {
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
-		Menu.this.menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuRecordes.png"));
-		menuRecordes.setBounds(0, 20, 600, 600);
+		Menu.this.menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-recordes.png"));
+		menuRecordes.setBounds(70, 25, 500, 500);
 		menuRecordes.setVisible(true);
 		panelRecordes.add(menuRecordes);
 		frame.add(panelRecordes);
@@ -104,6 +104,7 @@ public class Menu extends JLabel implements ActionListener {
 
 			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(true);
+				//Menu.this.mFrame.background.setVisible(false);
 				setVisible(false);
 			}
 		});		
@@ -171,8 +172,8 @@ public class Menu extends JLabel implements ActionListener {
 		
 		switch (coluna) {
 		case "posicao":
-			x = 100;
-			y = 285;
+			x = 140;
+			y = 230;
 			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
@@ -187,8 +188,8 @@ public class Menu extends JLabel implements ActionListener {
 			break;
 
 		case "tempo":
-			x = 200;
-			y = 285;
+			x = 240;
+			y = 230;
 			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
@@ -202,8 +203,8 @@ public class Menu extends JLabel implements ActionListener {
 			break;
 			
 		case "pontos":
-			x = 400;
-			y = 285;
+			x = 410;
+			y = 230;
 			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
@@ -231,6 +232,7 @@ public class Menu extends JLabel implements ActionListener {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
 					Menu.this.mFrame.setLogoLabelVisible(true);
+					//Menu.this.mFrame.background.setVisible(false);
 					Menu.this.menuAjuda.setVisible(false);
 					Menu.this.panelRecordes.setVisible(false);
 					returnLabel.setVisible(false);

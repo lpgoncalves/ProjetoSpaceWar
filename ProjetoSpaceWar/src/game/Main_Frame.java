@@ -23,6 +23,8 @@ public class Main_Frame extends JFrame {
 	Color corNaoSelecionado = new Color(0, 0, 0); // COR PRETA para o item que não está selecionado
 	public JLabel logo;
 	
+	public JLabel background;
+	
     public void setLogoLabelVisible(Boolean flag) {
          this.logo.setVisible(flag);
     }
@@ -37,8 +39,8 @@ public class Main_Frame extends JFrame {
 		add(LabelMenu);*/
 	
 		
-		logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
-		logo.setBounds(130, 50 , 350, 100); //Setar posição X, Y, Largura e Altura do logo
+		logo = new JLabel( new ImageIcon("res\\Logo.png")); //Setar o logo
+		logo.setBounds(80, 50 , 450, 200); //Setar posição X, Y, Largura e Altura do logo
 		add(logo);
 		
 		Menu LabelMenu = new Menu(this);
@@ -47,7 +49,8 @@ public class Main_Frame extends JFrame {
 		LabelMenu.setVisible(true);
 		add(LabelMenu);
 		
-		JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg")); //Seta a imagem de Background para o Menu Inicial
+		//JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg"));
+		background = new JLabel( new ImageIcon("res\\fase1.gif"));//Seta a imagem de Background para o Menu Inicial
 		add(background);
 		
 		

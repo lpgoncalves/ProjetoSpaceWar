@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,9 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import game.Main_Frame;
+
 public class SelectNave extends JPanel {
 
+	private Main_Frame mFrame;
+	
 	public SelectNave(JFrame frame, JLabel menu) {
+		
+		SelectNave.this.mFrame = (Main_Frame) frame;
 		
 		JLabel nave1 = new JLabel(new ImageIcon("res\\nave.jpg"));
 		JLabel nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
@@ -37,6 +44,7 @@ public class SelectNave extends JPanel {
 				Fase game = new Fase(menu, 1);
 				frame.add(game);
 				setVisible(false);
+				SelectNave.this.mFrame.background.setVisible(false);
 				game.setFocusable(true);
 				game.grabFocus();
 				game = null;
@@ -57,6 +65,7 @@ public class SelectNave extends JPanel {
 				Fase game = new Fase(menu, 2);
 				frame.add(game);
 				setVisible(false);
+				SelectNave.this.mFrame.background.setVisible(false);
 				game.setFocusable(true);
 				game.grabFocus();
 				game = null;
@@ -77,6 +86,7 @@ public class SelectNave extends JPanel {
 				Fase game = new Fase(menu, 3);
 				frame.add(game);
 				setVisible(false);
+				SelectNave.this.mFrame.background.setVisible(false);
 				game.setFocusable(true);
 				game.grabFocus();
 				game = null;
