@@ -75,8 +75,8 @@ public class Fase extends JPanel implements ActionListener {
 	private int tipoBoss = 0;
 	private int idNave;
 	
-	private String path = "res\\sons\\Musica_Fase.mp3";
-	private String path1 = "res\\sons\\Explosao_Nave.mp3";
+	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
+	private String pathExplosaoNave = "res\\sons\\Explosao_Nave.mp3";
 	private AllMusic somFundo;
 	
 
@@ -152,7 +152,7 @@ public class Fase extends JPanel implements ActionListener {
 		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
 		
-		somFundo = new AllMusic(path);
+		somFundo = new AllMusic(pathMusica);
 		somFundo.setloop(true);
 		somFundo.start();
 	}
@@ -541,7 +541,7 @@ public class Fase extends JPanel implements ActionListener {
 				inimigos.remove(i);
 				
 				// -- Som --
-				AllMusic somExplosao = new AllMusic(path1);
+				AllMusic somExplosao = new AllMusic(pathExplosaoNave);
 				somExplosao.setloop(false);
 				somExplosao.start();
 				

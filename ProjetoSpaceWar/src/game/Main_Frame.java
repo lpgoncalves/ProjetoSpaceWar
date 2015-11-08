@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.sun.org.apache.xerces.internal.util.NamespaceContextWrapper;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import sun.reflect.generics.reflectiveObjects.LazyReflectiveObjectGenerator;
 
@@ -22,19 +23,29 @@ public class Main_Frame extends JFrame {
 	Color corNaoSelecionado = new Color(0, 0, 0); // COR PRETA para o item que não está selecionado
 	public JLabel logo;
 	
+    public void setLogoLabelVisible(Boolean flag) {
+         this.logo.setVisible(flag);
+    }
+	
 	public Main_Frame() {
 
+		
+		//Menu LabelMenu = new Menu(this, logo);
+/*		LabelMenu.setForeground(SystemColor.textHighlight);
+		LabelMenu.setBounds(80,250, 400, 600);
+		LabelMenu.setVisible(true);
+		add(LabelMenu);*/
+	
+		
+		this.logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
+		logo.setBounds(130, 50 , 350, 100); //Setar posição X, Y, Largura e Altura do logo
+		add(logo);
 		
 		Menu LabelMenu = new Menu(this);
 		LabelMenu.setForeground(SystemColor.textHighlight);
 		LabelMenu.setBounds(80,250, 400, 600);
 		LabelMenu.setVisible(true);
 		add(LabelMenu);
-	
-		
-		this.logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
-		logo.setBounds(130, 50 , 350, 100); //Setar posição X, Y, Largura e Altura do logo
-		add(logo);
 		
 		JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg")); //Seta a imagem de Background para o Menu Inicial
 		add(background);
