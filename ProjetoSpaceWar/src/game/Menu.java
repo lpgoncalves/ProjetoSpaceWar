@@ -48,13 +48,12 @@ public class Menu extends JLabel implements ActionListener {
 	public JLabel returnLabel;
 	public JLabel menuAjuda;
 	public JLabel menuRecordes;
-	public JLabel tipoLabel;
+	public JLabel row;
 	public JPanel panelRecordes;
 
 	public Menu(JFrame frame) {
 
 		Menu.this.mFrame = (Main_Frame) frame;
-
 		Menu.this.mFrame.addKeyListener(new TeclaAdapter());
 
 		JLabel menu = this;
@@ -64,7 +63,6 @@ public class Menu extends JLabel implements ActionListener {
 		panelRecordes.setBounds(0, 0, 600, 600);
 		panelRecordes.setVisible(false);
 		panelRecordes.setOpaque(false);
-		
 
 		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuAjuda.png"));
 		menuAjuda.setBounds(0, 20, 600, 600);
@@ -74,7 +72,6 @@ public class Menu extends JLabel implements ActionListener {
 		Menu.this.menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuRecordes.png"));
 		menuRecordes.setBounds(0, 20, 600, 600);
 		menuRecordes.setVisible(true);
-		//frame.add(menuRecordes);
 		panelRecordes.add(menuRecordes);
 		frame.add(panelRecordes);
 
@@ -98,29 +95,18 @@ public class Menu extends JLabel implements ActionListener {
 		jogar.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				// jogar.setForeground(FontGame.SelectedColor());
 				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				// jogar.setForeground(FontGame.DefaultColor());
 				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
 				panel.setVisible(true);
 				setVisible(false);
-				/*
-				 * Fase game = new Fase(menu); frame.add(game);
-				 * setVisible(false); game.setFocusable(true); game = null;
-				 */
-
 			}
-		});
-
-
-		
+		});		
 		
 		JLabel recordes = new JLabel("");
 		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
@@ -130,25 +116,22 @@ public class Menu extends JLabel implements ActionListener {
 		recordes.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				// recordes.setForeground(FontGame.SelectedColor());
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				// recordes.setForeground(FontGame.DefaultColor());
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 			}
 
 			public void mouseClicked(MouseEvent e) {
 				mFrame.setLogoLabelVisible(false);
 				setVisible(false);
-				//menuRecordes.setVisible(true);
 				panelRecordes.setVisible(true);
 				returnLabel.setVisible(true);
 				
-				CreateLabels(panelRecordes, "posicao",  new String[]{ "1", "2", "3","4","5" });
-				CreateLabels(panelRecordes, "tempo",  new String[]{ "1:30", "2:02", "3:10","4:55","5:22" });
-				CreateLabels(panelRecordes, "pontos",  new String[]{ "112", "235", "373","412","587" });
+				CreateLabels(panelRecordes, "posicao",  new String[]{ "1º", "2º", "3º","4º","5º" }); 			/// QUANTIDADE DE REGISTROS (LINHAS)
+				CreateLabels(panelRecordes, "tempo",  new String[]{ "1:30", "2:02", "3:10","4:55","5:22" }); 	/// TEMPO
+				CreateLabels(panelRecordes, "pontos",  new String[]{ "112", "235", "373","412","587" });		/// PONTUAÇÃO
 			}
 		});
 
@@ -160,12 +143,10 @@ public class Menu extends JLabel implements ActionListener {
 		ajuda.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
-				// ajuda.setForeground(FontGame.SelectedColor());
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda2.png"));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				// ajuda.setForeground(FontGame.DefaultColor());
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 			}
 
@@ -183,23 +164,23 @@ public class Menu extends JLabel implements ActionListener {
 		setVisible(true);
 	}
 
-	private void CreateLabels(JPanel panel, String tipo, String[] values) {
-		//JLabel tipoLabel;
+	///Método responsável por criar os labels dos recordes, com as "colunas" posicao, tempo e pontos, para preencher a tabela fictícia
+	private void CreateLabels(JPanel panel, String coluna, String[] values) {
 		int x = 0;
 		int y = 0;
 		
-		switch (tipo) {
+		switch (coluna) {
 		case "posicao":
 			x = 100;
 			y = 285;
 			
 			for (int i = 0; i < values.length; i++) {
-				tipoLabel = new JLabel(values[i]);
-				tipoLabel.setFont(FontGame.Get());
-				tipoLabel.setBounds(x, y, 320, 40);
-				tipoLabel.setForeground(SystemColor.WHITE);
-				tipoLabel.setVisible(true);
-				panel.add(tipoLabel);
+				row = new JLabel(values[i]);
+				row.setFont(FontGame.Get());
+				row.setBounds(x, y, 320, 40);
+				row.setForeground(SystemColor.WHITE);
+				row.setVisible(true);
+				panel.add(row);
 				
 				y = y + 30;
 			}
@@ -210,12 +191,12 @@ public class Menu extends JLabel implements ActionListener {
 			y = 285;
 			
 			for (int i = 0; i < values.length; i++) {
-				tipoLabel = new JLabel(values[i]);
-				tipoLabel.setFont(FontGame.Get());
-				tipoLabel.setBounds(x, y, 320, 40);
-				tipoLabel.setForeground(SystemColor.WHITE);
-				tipoLabel.setVisible(true);
-				panel.add(tipoLabel);
+				row = new JLabel(values[i]);
+				row.setFont(FontGame.Get());
+				row.setBounds(x, y, 320, 40);
+				row.setForeground(SystemColor.WHITE);
+				row.setVisible(true);
+				panel.add(row);
 				y = y + 30;
 			}
 			break;
@@ -225,12 +206,12 @@ public class Menu extends JLabel implements ActionListener {
 			y = 285;
 			
 			for (int i = 0; i < values.length; i++) {
-				tipoLabel = new JLabel(values[i]);
-				tipoLabel.setFont(FontGame.Get());
-				tipoLabel.setBounds(x, y, 320, 40);
-				tipoLabel.setForeground(SystemColor.WHITE);
-				tipoLabel.setVisible(true);
-				panel.add(tipoLabel);
+				row = new JLabel(values[i]);
+				row.setFont(FontGame.Get());
+				row.setBounds(x, y, 320, 40);
+				row.setForeground(SystemColor.WHITE);
+				row.setVisible(true);
+				panel.add(row);
 				y = y + 30;
 			}
 			break;
