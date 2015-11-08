@@ -64,8 +64,8 @@ public class Menu extends JLabel implements ActionListener {
 		panelRecordes.setVisible(false);
 		panelRecordes.setOpaque(false);
 
-		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuAjuda.png"));
-		menuAjuda.setBounds(0, 20, 600, 600);
+		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-ajuda.png"));
+		menuAjuda.setBounds(70, 25, 500, 500);
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
