@@ -37,7 +37,7 @@ public class Main_Frame extends JFrame {
 		add(LabelMenu);*/
 	
 		
-		this.logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
+		logo = new JLabel( new ImageIcon("res\\Warcade.png")); //Setar o logo
 		logo.setBounds(130, 50 , 350, 100); //Setar posição X, Y, Largura e Altura do logo
 		add(logo);
 		

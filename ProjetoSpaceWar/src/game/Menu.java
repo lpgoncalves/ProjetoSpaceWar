@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,10 +18,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.sun.corba.se.spi.ior.iiop.IIOPProfileTemplate;
 
 import sun.java2d.pipe.AAShapePipe;
+import sun.swing.SwingAccessor;
 import sun.text.resources.cldr.mer.FormatData_mer;
 import sun.util.calendar.LocalGregorianCalendar;
 import sun.util.resources.cldr.am.CalendarData_am_ET;
@@ -39,21 +44,39 @@ public class Menu extends JLabel implements ActionListener {
 	// JFrame frame;
 
 	private Main_Frame mFrame;
+
 	public JLabel returnLabel;
 	public JLabel menuAjuda;
+	public JLabel menuRecordes;
+	public JLabel tipoLabel;
+	public JPanel panelRecordes;
 
 	public Menu(JFrame frame) {
-		
+
 		Menu.this.mFrame = (Main_Frame) frame;
 
 		Menu.this.mFrame.addKeyListener(new TeclaAdapter());
-		
+
 		JLabel menu = this;
+		
+		panelRecordes = new JPanel();
+		panelRecordes.setLayout(null);
+		panelRecordes.setBounds(0, 0, 600, 600);
+		panelRecordes.setVisible(false);
+		panelRecordes.setOpaque(false);
+		
 
 		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuAjuda.png"));
 		menuAjuda.setBounds(0, 20, 600, 600);
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
+
+		Menu.this.menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuRecordes.png"));
+		menuRecordes.setBounds(0, 20, 600, 600);
+		menuRecordes.setVisible(true);
+		//frame.add(menuRecordes);
+		panelRecordes.add(menuRecordes);
+		frame.add(panelRecordes);
 
 		Menu.this.returnLabel = new JLabel("Pressione ESC para voltar");
 		returnLabel.setBounds(400, 500, 150, 50);
@@ -96,6 +119,9 @@ public class Menu extends JLabel implements ActionListener {
 			}
 		});
 
+
+		
+		
 		JLabel recordes = new JLabel("");
 		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 		recordes.setFont(FontGame.Get());
@@ -114,7 +140,15 @@ public class Menu extends JLabel implements ActionListener {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
+				mFrame.setLogoLabelVisible(false);
+				setVisible(false);
+				//menuRecordes.setVisible(true);
+				panelRecordes.setVisible(true);
+				returnLabel.setVisible(true);
+				
+				CreateLabels(panelRecordes, "posicao",  new String[]{ "1", "2", "3","4","5" });
+				CreateLabels(panelRecordes, "tempo",  new String[]{ "1:30", "2:02", "3:10","4:55","5:22" });
+				CreateLabels(panelRecordes, "pontos",  new String[]{ "112", "235", "373","412","587" });
 			}
 		});
 
@@ -149,7 +183,66 @@ public class Menu extends JLabel implements ActionListener {
 		setVisible(true);
 	}
 
-	private class TeclaAdapter extends KeyAdapter { // Classe responsável por pegar as teclas pressionadas na fase.
+	private void CreateLabels(JPanel panel, String tipo, String[] values) {
+		//JLabel tipoLabel;
+		int x = 0;
+		int y = 0;
+		
+		switch (tipo) {
+		case "posicao":
+			x = 100;
+			y = 285;
+			
+			for (int i = 0; i < values.length; i++) {
+				tipoLabel = new JLabel(values[i]);
+				tipoLabel.setFont(FontGame.Get());
+				tipoLabel.setBounds(x, y, 320, 40);
+				tipoLabel.setForeground(SystemColor.WHITE);
+				tipoLabel.setVisible(true);
+				panel.add(tipoLabel);
+				
+				y = y + 30;
+			}
+			break;
+
+		case "tempo":
+			x = 200;
+			y = 285;
+			
+			for (int i = 0; i < values.length; i++) {
+				tipoLabel = new JLabel(values[i]);
+				tipoLabel.setFont(FontGame.Get());
+				tipoLabel.setBounds(x, y, 320, 40);
+				tipoLabel.setForeground(SystemColor.WHITE);
+				tipoLabel.setVisible(true);
+				panel.add(tipoLabel);
+				y = y + 30;
+			}
+			break;
+			
+		case "pontos":
+			x = 400;
+			y = 285;
+			
+			for (int i = 0; i < values.length; i++) {
+				tipoLabel = new JLabel(values[i]);
+				tipoLabel.setFont(FontGame.Get());
+				tipoLabel.setBounds(x, y, 320, 40);
+				tipoLabel.setForeground(SystemColor.WHITE);
+				tipoLabel.setVisible(true);
+				panel.add(tipoLabel);
+				y = y + 30;
+			}
+			break;
+			
+		default: 
+			break;
+		}
+	}
+
+	private class TeclaAdapter extends KeyAdapter { // Classe responsável por
+													// pegar as teclas
+													// pressionadas na fase.
 
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -158,11 +251,12 @@ public class Menu extends JLabel implements ActionListener {
 				if (!Menu.this.mFrame.logo.isVisible()) {
 					Menu.this.mFrame.setLogoLabelVisible(true);
 					Menu.this.menuAjuda.setVisible(false);
+					Menu.this.panelRecordes.setVisible(false);
 					returnLabel.setVisible(false);
 					setVisible(true);
 				}
 			}
-			
+
 			Menu.this.processKeyEvent(e);
 		}
 
@@ -170,8 +264,8 @@ public class Menu extends JLabel implements ActionListener {
 		public void keyReleased(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
-					Menu.this.mFrame.setLogoLabelVisible(true);
-					Menu.this.menuAjuda.setVisible(false);
+/*					Menu.this.mFrame.setLogoLabelVisible(true);
+					Menu.this.menuAjuda.setVisible(false);*/
 				}
 			}
 		}
@@ -181,6 +275,6 @@ public class Menu extends JLabel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
