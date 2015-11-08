@@ -27,7 +27,7 @@ import sun.util.resources.cldr.am.CalendarData_am_ET;
 
 import game.Main_Frame;
 
-public class Menu extends JLabel {
+public class Menu extends JLabel implements ActionListener {
 
 	/*
 	 * Font fonte = new Font(FontGame.GetFontArcade(), Font.TRUETYPE_FONT, 18);;
@@ -39,15 +39,15 @@ public class Menu extends JLabel {
 	// JFrame frame;
 
 	private Main_Frame mFrame;
-	
+	public JLabel returnLabel;
 	public JLabel menuAjuda;
 
 	public Menu(JFrame frame) {
-
-		Menu.this.mFrame = (Main_Frame) frame;
 		
-		Menu.this.addKeyListener(new TeclaAdapter());
+		Menu.this.mFrame = (Main_Frame) frame;
 
+		Menu.this.mFrame.addKeyListener(new TeclaAdapter());
+		
 		JLabel menu = this;
 
 		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\MenuAjuda.png"));
@@ -55,7 +55,7 @@ public class Menu extends JLabel {
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
-		JLabel returnLabel = new JLabel("Pressione ESC para voltar");
+		Menu.this.returnLabel = new JLabel("Pressione ESC para voltar");
 		returnLabel.setBounds(400, 500, 150, 50);
 		returnLabel.setForeground(SystemColor.WHITE);
 		returnLabel.setVisible(false);
@@ -158,6 +158,8 @@ public class Menu extends JLabel {
 				if (!Menu.this.mFrame.logo.isVisible()) {
 					Menu.this.mFrame.setLogoLabelVisible(true);
 					Menu.this.menuAjuda.setVisible(false);
+					returnLabel.setVisible(false);
+					setVisible(true);
 				}
 			}
 			
@@ -166,8 +168,19 @@ public class Menu extends JLabel {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if (!Menu.this.mFrame.logo.isVisible()) {
+					Menu.this.mFrame.setLogoLabelVisible(true);
+					Menu.this.menuAjuda.setVisible(false);
+				}
+			}
 		}
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
