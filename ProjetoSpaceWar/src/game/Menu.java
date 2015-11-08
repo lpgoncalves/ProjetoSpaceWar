@@ -223,7 +223,7 @@ public class Menu extends JLabel implements ActionListener {
 
 	private class TeclaAdapter extends KeyAdapter { // Classe responsável por
 													// pegar as teclas
-													// pressionadas na fase.
+													// pressionadas no menu.
 
 		@Override
 		public void keyPressed(KeyEvent e) {

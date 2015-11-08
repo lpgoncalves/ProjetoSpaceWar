@@ -36,6 +36,9 @@ public class Fase extends JPanel implements ActionListener {
 	
 	ImageIcon naveInvisivel = new ImageIcon ("");
 	
+	private ImageIcon sound = new ImageIcon("res\\Speaker-26.png");
+	private ImageIcon noSound = new ImageIcon("res\\Mute-26.png");
+	
 	private Timer timer;
 	private Timer tempoShadow;
 	private static Timer novosEnemies, novosEnemies2;
@@ -62,6 +65,7 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean boolFrenesi;
 	private boolean gravadoRc;
 	private boolean jogoApagado;
+	private boolean mute;
 	
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
@@ -78,6 +82,7 @@ public class Fase extends JPanel implements ActionListener {
 	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
 	private String pathExplosaoNave = "res\\sons\\Explosao_Nave.mp3";
 	private AllMusic somFundo;
+	private AllMusic somExplosao;
 	
 
 	
@@ -398,6 +403,8 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.setFont(pontimer);
 			graficos.drawString(" " + pontos, 20, 14);
 			
+			
+			
 			//--------------------------------------------------------------------------------
 			//Caso seja menor que 10 segundos no timer ele irá colocar um zero antes (ESTÉTICA)
 			if (tempo.segundos < 10) {		
@@ -541,9 +548,11 @@ public class Fase extends JPanel implements ActionListener {
 				inimigos.remove(i);
 				
 				// -- Som --
-				AllMusic somExplosao = new AllMusic(pathExplosaoNave);
-				somExplosao.setloop(false);
-				somExplosao.start();
+				if (!mute) {
+					somExplosao = new AllMusic(pathExplosaoNave);
+					somExplosao.setloop(false);
+					somExplosao.start();
+				}
 				
 				// -- Explosao --
 				gX =  enemies.getX();
@@ -830,6 +839,25 @@ public class Fase extends JPanel implements ActionListener {
 					repetirFundo.stop();
 					tempo.pararTimer();
 				
+				}
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_M) {
+				if (mute) {
+					mute = false;
+					somFundo = new AllMusic(pathMusica);
+					somFundo.setloop(true);
+					somFundo.start();
+					somExplosao = new AllMusic(pathExplosaoNave);
+					somExplosao.setloop(false);
+					somExplosao.start();
+					graficos.drawImage(sound.getImage(), 400, 40, null);
+				}
+				else {
+					mute = true;
+					somFundo.close();
+					somExplosao.close();
+					graficos.drawImage(noSound.getImage(), 400, 40, null);
 				}
 			}
 			
