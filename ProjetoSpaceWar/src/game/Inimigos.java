@@ -33,7 +33,7 @@ public class Inimigos {
 	    
 		switch(tipoInimigo){
 	    case 0:
-	    	referencia = new ImageIcon ("res\\inimigo2.png");//Definimos o diretorio da imagem do boss.
+	    	referencia = new ImageIcon ("res\\inimigo5.png");//Definimos o diretorio da imagem do boss.
 	    	inimigoImg = referencia.getImage();
 	    	break;
 	    case 1:
@@ -49,6 +49,10 @@ public class Inimigos {
 		
 		isVisivel = true;
 		
+	}
+	
+	public static void SetVel(double velocidade){
+		velocidade_inimigo = velocidade;
 	}
 	
 	public int getTipoInimigo () {

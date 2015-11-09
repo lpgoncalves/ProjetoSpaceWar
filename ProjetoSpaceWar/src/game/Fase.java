@@ -47,7 +47,6 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer tempoShadow;
 	private static Timer novosEnemies, novosEnemies2;
 	Tempo tempo;
-	private Timer novasLifes;
 	private Timer repetirFundo;
 	private Timer novosTirosBoss;
 
@@ -73,6 +72,8 @@ public class Fase extends JPanel implements ActionListener {
 
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
+	private double velInimigo = 1;
+	private double velFrenesiInimigo = 1;
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 3;
@@ -147,8 +148,6 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies.start();
 		novosEnemies2.start();
 
-		novasLifes = new Timer(10000, new criarVidas());
-		novasLifes.start();
 
 		novosTirosBoss = new Timer(800, new criarTirosBoss());
 
@@ -183,6 +182,10 @@ public class Fase extends JPanel implements ActionListener {
 		nave = new Nave(idNave);
 		inicializarInimigos();
 
+		velFrenesiInimigo = 1;
+		Inimigos.SetVel(velFrenesiInimigo);
+		velInimigo = 1;
+		Inimigos.SetVel(velInimigo);
 		indexBack = 0;
 		pontos = 0;
 		vidas = 3;
@@ -192,7 +195,6 @@ public class Fase extends JPanel implements ActionListener {
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
-		novasLifes.restart();
 		repetirFundo.restart();
 		timer.restart();
 		novosTirosBoss.stop();
@@ -208,14 +210,22 @@ public class Fase extends JPanel implements ActionListener {
 
 	private void maisPontos() {
 		pontos++;
+		if(pontos % 50 == 0){
+			criarVidas();
+		}
+	}
+	
+	private void maisPontosBoss(){
+		pontos = pontos + 50;
+			criarVidas();
 	}
 
 	private void menosVidas() {
 		vidas--;
-		if (nivelTiro > 0) {
+		/*if (nivelTiro > 0) {
 			nivelTiro--;
 			nave.setNivelTiro(nivelTiro);
-		}
+		}*/
 		tempo.iniciarShadow();
 		intShadow = 0;
 		tempoShadow.start();
@@ -225,13 +235,15 @@ public class Fase extends JPanel implements ActionListener {
 	private void modeFrenesi(boolean frenesi) {
 
 		if (frenesi == true) {
-			inimigoFrenesiQnt = inimigoFrenesiQnt - 100;
+			velFrenesiInimigo = velFrenesiInimigo + 0.7;
+			Inimigos.SetVel(velFrenesiInimigo);
 			vidaBoss = vidaBoss + 5;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
 			criarBoss();
 			boolFrenesi = frenesi;
 		} else {
-			inimigoQnt = inimigoQnt - 50;
+			velInimigo = velInimigo + 0.25;
+			Inimigos.SetVel(velInimigo);
 			novosEnemies.setDelay(inimigoQnt);
 			boolFrenesi = frenesi;
 			novosTirosBoss.stop();
@@ -282,7 +294,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
+
 	private void ApagaGame() throws Throwable {
 
 		inimigos.clear();
@@ -298,7 +310,6 @@ public class Fase extends JPanel implements ActionListener {
 		timer.stop();
 		novosEnemies.stop();
 		novosEnemies2.stop();
-		novasLifes.stop();
 		repetirFundo.stop();
 		novosTirosBoss.stop();
 
@@ -325,19 +336,16 @@ public class Fase extends JPanel implements ActionListener {
 		novosTirosBoss.start();
 	}
 
-	public class criarVidas implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));
-
-		}
+	public void criarVidas(){
+		addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));
 	}
 
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) - 35,
-					addBoss.getY() + addBoss.GetAltura(), 0, 2));
+					addBoss.getY() + addBoss.GetAltura(), 0, 1));
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) + 25,
-					addBoss.getY() + addBoss.GetAltura(), 0, 2));
+					addBoss.getY() + addBoss.GetAltura(), 0, 1));
 		}
 	}
 
@@ -392,6 +400,7 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(enemies.getInimigosImg(), enemies.getX(), enemies.getY(), this);
 
 			}
+			
 
 			for (int i = 0; i < addVida.size(); i++) {
 
@@ -524,7 +533,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (tempo.segundos == 10 && boolFrenesi == false) {
+		if (tempo.segundos == 40 && boolFrenesi == false) {
 			modeFrenesi(true);
 		}
 
@@ -762,6 +771,7 @@ public class Fase extends JPanel implements ActionListener {
 						nave.setNivelTiro(nivelTiro);
 						addBoss.setVisivel(false);
 						novosTirosBoss.stop();
+						maisPontosBoss();
 					}
 				}
 			}
@@ -887,7 +897,6 @@ public class Fase extends JPanel implements ActionListener {
 				nave = new Nave(idNave);
 				novosEnemies.start();
 				novosEnemies2.start();
-				novasLifes.start();
 				inicializarInimigos();
 			}
 
@@ -897,7 +906,6 @@ public class Fase extends JPanel implements ActionListener {
 					timer.start();
 					novosEnemies.start();
 					novosEnemies2.start();
-					novasLifes.start();
 					repetirFundo.start();
 					tempo.comecarTimer();
 					Mute(false);
@@ -907,7 +915,6 @@ public class Fase extends JPanel implements ActionListener {
 					timer.stop();
 					novosEnemies.stop();
 					novosEnemies2.stop();
-					novasLifes.stop();
 					repetirFundo.stop();
 					tempo.pararTimer();
 					Mute(true);
