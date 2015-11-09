@@ -47,6 +47,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer tempoShadow;
 	private static Timer novosEnemies, novosEnemies2;
 	Tempo tempo;
+	private String tempoString;
 	private Timer repetirFundo;
 	private Timer novosTirosBoss;
 
@@ -304,9 +305,10 @@ public class Fase extends JPanel implements ActionListener {
 		tirosBoss.clear();
 		tiros.clear();
 		explosoes.clear();
+		tempoExplosao.clear();
 
 		somFundo.close();
-
+		tempo.pararTimer();
 		timer.stop();
 		novosEnemies.stop();
 		novosEnemies2.stop();
@@ -479,7 +481,6 @@ public class Fase extends JPanel implements ActionListener {
 					jogoApagado = true;
 				}
 			} catch (Throwable e1) {
-
 				e1.printStackTrace();
 			}
 			ImageIcon black = new ImageIcon("res\\black.png");
@@ -495,6 +496,10 @@ public class Fase extends JPanel implements ActionListener {
 			try {
 				if (gravadoRc == false) {
 					gravadoRc = true;
+					if(tempo.segundos < 9 || tempo.segundos == 0)
+						tempoString = Integer.toString(tempo.minutos)+":0"+Integer.toString(tempo.segundos);
+					else
+						tempoString = Integer.toString(tempo.minutos)+":"+Integer.toString(tempo.segundos);
 					GravarRecord(pontos);
 				}
 			} catch (IOException e) {
@@ -820,10 +825,14 @@ public class Fase extends JPanel implements ActionListener {
 	private void GravarRecord(int pontos) throws IOException {
 		BufferedReader buffRead = new BufferedReader(new FileReader("res\\recorde.txt"));
 		String linha;
-		int[] record = new int[] { 0, 0, 0, 0, 0 };
+		String[] separadorLinha;
+		int[] pontoRecord = new int[] { 0, 0, 0, 0, 0 };
+		String[] tempoRecord = new String[] {"","","","",""};
 		int i = 0;
 		while ((linha = buffRead.readLine()) != null) {
-			record[i] = Integer.parseInt(linha);
+			separadorLinha = linha.split(";");
+			pontoRecord[i] = Integer.parseInt(separadorLinha[0]);
+			tempoRecord[i] = separadorLinha[1];
 			i++;
 		}
 		buffRead.close();
@@ -831,21 +840,21 @@ public class Fase extends JPanel implements ActionListener {
 		BufferedWriter arquivo = new BufferedWriter(new FileWriter("res\\recorde.txt"));
 
 		for (i = 0; i < 5; i++) {
-			if (record[i] > pontos) {
-				linha = Integer.toString(record[i]);
-				arquivo.append(linha);
+			if (pontoRecord[i] > pontos) {
+				linha = Integer.toString(pontoRecord[i]);
+				arquivo.append(linha+";"+tempoRecord[i]);
 				arquivo.newLine();
 			} else {
 				linha = Integer.toString(pontos);
-				arquivo.append(linha);
+				arquivo.append(linha+";"+tempoString);
 				arquivo.newLine();
 				break;
 			}
 		}
 
 		while (i < 4) {
-			linha = Integer.toString(record[i]);
-			arquivo.append(linha);
+			linha = Integer.toString(pontoRecord[i]);
+			arquivo.append(linha+";"+tempoRecord[i]);
 			arquivo.newLine();
 			i++;
 		}

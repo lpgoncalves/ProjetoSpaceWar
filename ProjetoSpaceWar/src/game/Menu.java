@@ -13,6 +13,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
@@ -151,10 +155,16 @@ public class Menu extends JLabel implements ActionListener {
 				setVisible(false);
 				panelRecordes.setVisible(true);
 				returnLabel.setVisible(true);
+				String[][] pontuacao = new String[2][5];
+				try {
+					pontuacao = GetRecord();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				
 				CreateLabels(panelRecordes, "posicao",  new String[]{ "1º", "2º", "3º","4º","5º" }); 			/// QUANTIDADE DE REGISTROS (LINHAS)
-				CreateLabels(panelRecordes, "tempo",  new String[]{ "1:30", "2:02", "3:10","4:55","5:22" }); 	/// TEMPO
-				CreateLabels(panelRecordes, "pontos",  new String[]{ "112", "235", "373","412","587" });		/// PONTUAÇÃO
+				CreateLabels(panelRecordes, "tempo",  pontuacao[1]); 	/// TEMPO
+				CreateLabels(panelRecordes, "pontos",  pontuacao[0]);		/// PONTUAÇÃO
 			}
 		});
 
@@ -188,6 +198,26 @@ public class Menu extends JLabel implements ActionListener {
 
 	public void MostraMenu() {
 		setVisible(true);
+	}
+	
+	public String[][] GetRecord() throws IOException{
+		BufferedReader buffRead = new BufferedReader(new FileReader("res\\recorde.txt"));
+		String linha;
+		String[] separadorLinha;
+		String[][] dados = new String[2][5];
+		String[] pontoRecord = new String[] { "0", "0", "0", "0", "0" };
+		String[] tempoRecord = new String[] {"","","","",""};
+		int i = 0;
+		while ((linha = buffRead.readLine()) != null) {
+			separadorLinha = linha.split(";");
+			pontoRecord[i] = separadorLinha[0];
+			tempoRecord[i] = separadorLinha[1];
+			i++;
+		}
+		buffRead.close();
+		dados[0] = pontoRecord;
+		dados[1] = tempoRecord;
+		return dados;
 	}
 
 	///Método responsável por criar os labels dos recordes, com as "colunas" posicao, tempo e pontos, para preencher a tabela fictícia
