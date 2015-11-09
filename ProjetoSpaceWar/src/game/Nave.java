@@ -41,12 +41,12 @@ public class Nave {
 														// da imagem da nave.
 			break;
 		case 2:
-			referencia = new ImageIcon("res\\nave2.jpg");// Definimos o
+			referencia = new ImageIcon("res\\nave2.gif");// Definimos o
 															// diretorio da
 															// imagem da nave.
 			break;
 		case 3:
-			referencia = new ImageIcon("res\\nave3.png");// Definimos o
+			referencia = new ImageIcon("res\\nave3.gif");// Definimos o
 															// diretorio da
 															// imagem da nave.
 			break;
