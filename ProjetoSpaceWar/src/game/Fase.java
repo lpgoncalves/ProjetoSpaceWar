@@ -92,7 +92,7 @@ public class Fase extends JPanel implements ActionListener {
 
 	private ImageIcon seta;
 
-	private JLabel menu;
+	private Menu menu;
 
 	public JLabel somLabel;
 
@@ -102,7 +102,7 @@ public class Fase extends JPanel implements ActionListener {
 	Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	public Graphics2D graficos;
 
-	public Fase(JLabel menu, int idNave) {
+	public Fase(Menu menu, int idNave) {
 
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais
 								// nitidez.
@@ -112,6 +112,7 @@ public class Fase extends JPanel implements ActionListener {
 
 		this.idNave = idNave;
 		this.menu = menu;
+
 
 		somLabel = new JLabel();
 		somLabel.setBounds(400, 40, 30, 30);
@@ -968,7 +969,7 @@ public class Fase extends JPanel implements ActionListener {
 
 				if (down == true) {
 					setVisible(false);
-					menu.setVisible(true);
+					menu.MostraMenu();
 				}
 
 			}

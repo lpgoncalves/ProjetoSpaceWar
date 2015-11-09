@@ -27,7 +27,7 @@ public class SelectNave extends JPanel {
 	
 	private JLabel naveName;
 	
-	public SelectNave(JFrame frame, JLabel menu) {
+	public SelectNave(JFrame frame, Menu menu) {
 		
 		SelectNave.this.mFrame = (Main_Frame) frame;
 		
@@ -72,6 +72,7 @@ public class SelectNave extends JPanel {
 				game.setFocusable(true);
 				game.grabFocus();
 				game = null;
+		
 			}
 		});
 		

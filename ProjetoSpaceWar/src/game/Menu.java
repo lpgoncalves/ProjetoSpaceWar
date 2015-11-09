@@ -52,13 +52,14 @@ public class Menu extends JLabel implements ActionListener {
 
 	// JFrame frame;
 
-	private Main_Frame mFrame;
+	
 
 	public JLabel returnLabel;
 	public JLabel menuAjuda;
 	public JLabel menuRecordes;
 	public JLabel row;
 	public JPanel panelRecordes;
+	private Main_Frame mFrame;
 	
 	private AllMusic selectOption;
 	private String pathSelectOption = "res\\sons\\Menu_Select.mp3";
@@ -66,16 +67,16 @@ public class Menu extends JLabel implements ActionListener {
 	//public AllMusic menuMusic;
 	//private String pathMenuMusic = "res\\sons\\Menu.mp3";
 
-	public Menu(JFrame frame) {
+	public Menu(Main_Frame frame) {
 		
 		/*menuMusic = new AllMusic(pathMenuMusic);
 		menuMusic.setloop(true);
 		menuMusic.start();*/
 		
-		Menu.this.mFrame = (Main_Frame) frame;
-		Menu.this.mFrame.addKeyListener(new TeclaAdapter());
+		mFrame = frame;
+		mFrame.addKeyListener(new TeclaAdapter());
 
-		JLabel menu = this;
+		
 		
 		panelRecordes = new JPanel();
 		panelRecordes.setLayout(null);
@@ -100,7 +101,7 @@ public class Menu extends JLabel implements ActionListener {
 		returnLabel.setVisible(false);
 		frame.add(returnLabel);
 
-		SelectNave panel = new SelectNave(frame, menu);
+		SelectNave panel = new SelectNave(frame, this);
 		panel.setLayout(null);
 		panel.setBounds(0, 0, 600, 600);
 		panel.setVisible(false);
@@ -111,7 +112,7 @@ public class Menu extends JLabel implements ActionListener {
 		jogar.setFont(FontGame.Get());
 		jogar.setBounds(100, 0, 310, 40);
 
-		menu.add(jogar);
+		add(jogar);
 
 		jogar.addMouseListener(new MouseAdapter() {
 
@@ -198,6 +199,13 @@ public class Menu extends JLabel implements ActionListener {
 
 	public void MostraMenu() {
 		setVisible(true);
+		mFrame.background.setVisible(true);
+		mFrame.setFocusable(true);
+		mFrame.hasFocus();
+		
+	}
+	public void MostraBackground(){
+		
 	}
 	
 	public String[][] GetRecord() throws IOException{

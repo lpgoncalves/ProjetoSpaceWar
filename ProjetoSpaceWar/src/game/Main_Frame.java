@@ -53,6 +53,7 @@ public class Main_Frame extends JFrame {
 		LabelMenu.setForeground(SystemColor.textHighlight);
 		LabelMenu.setBounds(65,250, 400, 600);
 		LabelMenu.setVisible(true);
+	
 		add(LabelMenu);
 		
 		//JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg"));
