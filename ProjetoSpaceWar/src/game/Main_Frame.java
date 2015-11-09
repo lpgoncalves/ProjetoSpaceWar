@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import com.sun.org.apache.xerces.internal.util.NamespaceContextWrapper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import music.AllMusic;
 import sun.reflect.generics.reflectiveObjects.LazyReflectiveObjectGenerator;
 
 public class Main_Frame extends JFrame {
@@ -25,15 +26,20 @@ public class Main_Frame extends JFrame {
 	
 	public JLabel background;
 	
+	public AllMusic menuMusic = new AllMusic("res\\sons\\Menu.mp3");
+	
+	
     public void setLogoLabelVisible(Boolean flag) {
          this.logo.setVisible(flag);
     }
 	
 	public Main_Frame() {
 
+		menuMusic.setloop(true);
+		menuMusic.start();
 		
-		//Menu LabelMenu = new Menu(this, logo);
-/*		LabelMenu.setForeground(SystemColor.textHighlight);
+/*		Menu LabelMenu = new Menu(this, logo);
+		LabelMenu.setForeground(SystemColor.textHighlight);
 		LabelMenu.setBounds(80,250, 400, 600);
 		LabelMenu.setVisible(true);
 		add(LabelMenu);*/

@@ -3,6 +3,8 @@ package game;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -14,12 +16,14 @@ import java.awt.event.MouseEvent;
 import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.corba.se.spi.ior.iiop.IIOPProfileTemplate;
@@ -31,6 +35,7 @@ import sun.util.calendar.LocalGregorianCalendar;
 import sun.util.resources.cldr.am.CalendarData_am_ET;
 
 import game.Main_Frame;
+import music.AllMusic;
 
 public class Menu extends JLabel implements ActionListener {
 
@@ -50,9 +55,19 @@ public class Menu extends JLabel implements ActionListener {
 	public JLabel menuRecordes;
 	public JLabel row;
 	public JPanel panelRecordes;
+	
+	private AllMusic selectOption;
+	private String pathSelectOption = "res\\sons\\Menu_Select.mp3";
+	
+	//public AllMusic menuMusic;
+	//private String pathMenuMusic = "res\\sons\\Menu.mp3";
 
 	public Menu(JFrame frame) {
-
+		
+		/*menuMusic = new AllMusic(pathMenuMusic);
+		menuMusic.setloop(true);
+		menuMusic.start();*/
+		
 		Menu.this.mFrame = (Main_Frame) frame;
 		Menu.this.mFrame.addKeyListener(new TeclaAdapter());
 
@@ -82,6 +97,8 @@ public class Menu extends JLabel implements ActionListener {
 		frame.add(returnLabel);
 
 		SelectNave panel = new SelectNave(frame, menu);
+		panel.setLayout(null);
+		panel.setBounds(0, 0, 600, 600);
 		panel.setVisible(false);
 		frame.add(panel);
 
@@ -95,6 +112,9 @@ public class Menu extends JLabel implements ActionListener {
 		jogar.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
+				selectOption = new AllMusic(pathSelectOption);
+				selectOption.setloop(false);
+				selectOption.start();
 				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 			}
 
@@ -104,7 +124,6 @@ public class Menu extends JLabel implements ActionListener {
 
 			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(true);
-				//Menu.this.mFrame.background.setVisible(false);
 				setVisible(false);
 			}
 		});		
@@ -117,6 +136,9 @@ public class Menu extends JLabel implements ActionListener {
 		recordes.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
+				selectOption = new AllMusic(pathSelectOption);
+				selectOption.setloop(false);
+				selectOption.start();
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes2.png"));
 			}
 
@@ -144,6 +166,9 @@ public class Menu extends JLabel implements ActionListener {
 		ajuda.addMouseListener(new MouseAdapter() {
 
 			public void mouseEntered(MouseEvent e) {
+				selectOption = new AllMusic(pathSelectOption);
+				selectOption.setloop(false);
+				selectOption.start();
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda2.png"));
 			}
 
