@@ -970,6 +970,7 @@ public class Fase extends JPanel implements ActionListener {
 				if (down == true) {
 					setVisible(false);
 					menu.MostraMenu();
+					menu.grabFocus();
 				}
 
 			}
