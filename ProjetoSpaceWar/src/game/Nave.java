@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import com.sun.org.apache.bcel.internal.generic.ICONST;
 import com.sun.xml.internal.ws.api.model.wsdl.editable.EditableWSDLService;
 
+import music.AllMusic;
+
 public class Nave {
 
 	private int idNave;
@@ -30,6 +32,9 @@ public class Nave {
 
 	private Image naveImg;
 	private List<Tiro> tiros;
+	
+	private String pathTiroNave = "res\\sons\\shoot01.mp3";
+	private AllMusic somTiroNave;
 
 	public Nave(int idNave) {
 
@@ -216,6 +221,9 @@ public class Nave {
 
 		if (codigo == KeyEvent.VK_SPACE) {
 			atirar();
+			somTiroNave = new AllMusic(pathTiroNave);
+			somTiroNave.setloop(false);
+			somTiroNave.start();
 		}
 
 		if (codigo == KeyEvent.VK_UP) { // Tecla "Seta para cima" para

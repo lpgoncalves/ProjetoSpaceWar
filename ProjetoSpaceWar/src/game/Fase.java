@@ -70,6 +70,7 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean gravadoRc;
 	private boolean jogoApagado;
 	private boolean mute;
+	private boolean bossIsDead = false;
 
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
@@ -87,16 +88,19 @@ public class Fase extends JPanel implements ActionListener {
 
 	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
 	private String pathExplosaoNave = "res\\sons\\Explosao_Nave.mp3";
+	private String pathTiroBoss = "res\\sons\\shoot01.mp3";
+	
 	private AllMusic somFundo;
 	private AllMusic somExplosao;
+	private AllMusic somTiroBoss;
 
 	private ImageIcon seta;
-
+	private ImageIcon hundredPoints = new ImageIcon("res\\MoreHundred.png");
 	private Menu menu;
-
 	public JLabel somLabel;
-
+	
 	public long dataMudo;
+	public long dataHundred;
 
 	Font pontuacaoFinal = new Font(FontGame.GetFontArcade(), Font.BOLD, 15);
 	Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
@@ -211,14 +215,14 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private void maisPontos() {
-		pontos++;
-		if(pontos % 50 == 0){
+		pontos = pontos + 10;
+		if(pontos % 350 == 0){
 			criarVidas();
 		}
 	}
 	
 	private void maisPontosBoss(){
-		pontos = pontos + 50;
+		pontos = pontos + 100;
 			criarVidas();
 	}
 
@@ -349,6 +353,8 @@ public class Fase extends JPanel implements ActionListener {
 					addBoss.getY() + addBoss.GetAltura(), 0, 1));
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) + 25,
 					addBoss.getY() + addBoss.GetAltura(), 0, 1));
+			
+
 		}
 	}
 
@@ -394,7 +400,6 @@ public class Fase extends JPanel implements ActionListener {
 
 				Tiro shoot = (Tiro) tiros.get(i);
 				graficos.drawImage(shoot.getTiroImg(), shoot.getX(), shoot.getY(), this);
-
 			}
 
 			for (int i = 0; i < inimigos.size(); i++) {
@@ -473,6 +478,17 @@ public class Fase extends JPanel implements ActionListener {
 					graficos.drawImage(sound.getImage(), 550, 45, null);
 				}
 			}
+			
+			if (boolFrenesi) {
+				graficos.drawString("MODO FRENEZI", 480, 550);
+			}
+			
+			if (bossIsDead) {
+				long end = dataHundred + 1500;
+				if (System.currentTimeMillis() < end) {
+				graficos.drawImage(hundredPoints.getImage(), 350, 45, null);
+				}
+			}
 
 		} else {
 
@@ -548,6 +564,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 
 		tiros = nave.getTiros();
+		
 		for (int i = 0; i < tiros.size(); i++) {
 
 			Tiro shoots = (Tiro) tiros.get(i);
@@ -558,8 +575,8 @@ public class Fase extends JPanel implements ActionListener {
 				tiros.remove(i);
 			}
 
-		}
-
+		}				
+		
 		for (int i = 0; i < tirosBoss.size(); i++) {
 
 			Tiro shootsboss = (Tiro) tirosBoss.get(i);
@@ -778,6 +795,8 @@ public class Fase extends JPanel implements ActionListener {
 						addBoss.setVisivel(false);
 						novosTirosBoss.stop();
 						maisPontosBoss();
+						bossIsDead = true;
+						dataHundred = System.currentTimeMillis();
 					}
 				}
 			}
