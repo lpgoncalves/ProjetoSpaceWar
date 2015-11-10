@@ -46,8 +46,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Timer timer;
 	private Timer tempoShadow;
 	private static Timer novosEnemies, novosEnemies2;
-	Tempo tempo;
-	private String tempoString;
+	private Tempo tempo;
 	private Timer repetirFundo;
 	private Timer novosTirosBoss;
 
@@ -86,6 +85,7 @@ public class Fase extends JPanel implements ActionListener {
 	private int tipoBoss = 0;
 	private int idNave;
 
+	private String tempoString;
 	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
 	private String pathExplosaoNave = "res\\sons\\Explosao_Nave.mp3";
 	private String pathTiroBoss = "res\\sons\\shoot01.mp3";
