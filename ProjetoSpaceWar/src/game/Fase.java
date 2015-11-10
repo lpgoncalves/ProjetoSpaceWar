@@ -34,11 +34,11 @@ import java.time.ZonedDateTime;
 
 public class Fase extends JPanel implements ActionListener {
 
-	private List<Image> background = new ArrayList<Image>();;
+	
 	private Nave nave;
 	private Tiro tiro;
 
-	ImageIcon naveInvisivel = new ImageIcon("");
+	private ImageIcon naveInvisivel = new ImageIcon("");
 
 	public ImageIcon sound = new ImageIcon("res\\Speaker-26.png");
 	public ImageIcon noSound = new ImageIcon("res\\Mute-26.png");
@@ -49,7 +49,8 @@ public class Fase extends JPanel implements ActionListener {
 	private Tempo tempo;
 	private Timer repetirFundo;
 	private Timer novosTirosBoss;
-
+	
+	private List<Image> background = new ArrayList<Image>();;
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 	private List<Vida> addVida;
