@@ -4,8 +4,11 @@ import java.awt.Color;
 
 import java.awt.Frame;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,22 +23,27 @@ import music.AllMusic;
 public class SelectNave extends JPanel {
 
 	private Main_Frame mFrame;
+	private Menu mMenu;
 	
-	private AllMusic selectNave;
+	private AllMusic selectMusic;
 	
 	private String pathSelectNave = "res\\sons\\Menu_Select.mp3";
 	
 	private JLabel naveName;
+	private JLabel nave1;
+	private JLabel nave2;
+	private JLabel nave3;
 	
 	public SelectNave(JFrame frame, Menu menu) {
 		
 		SelectNave.this.mFrame = (Main_Frame) frame;
+		mMenu = menu;
 		
-		JLabel nave1 = new JLabel(new ImageIcon("res\\nave.jpg"));
+		nave1 = new JLabel(new ImageIcon("res\\nave1.jpg"));
 		nave1.setBounds(170, 270, 95, 95);
-		JLabel nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
+		nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
 		nave2.setBounds(270, 270, 95, 95);
-		JLabel nave3 = new JLabel(new ImageIcon("res\\nave3.png"));
+		nave3 = new JLabel(new ImageIcon("res\\nave3.png"));
 		nave3.setBounds(370, 270, 95, 95);
 		add(nave1);
 		add(nave2);
@@ -46,95 +54,56 @@ public class SelectNave extends JPanel {
 		naveName.setForeground(SystemColor.WHITE);
 		naveName.setVisible(true);
 		add(naveName);
-		
-		nave1.addMouseListener(new MouseAdapter() {
-
-			public void mouseEntered(MouseEvent e) {
-				selectNave = new AllMusic(pathSelectNave);
-				selectNave.setloop(false);
-				selectNave.start();
-				nave1.setIcon(new ImageIcon("res\\nave-1-borda.png"));				
-				naveName.setText("Galaxy Explorer");
-				naveName.setBounds(173, 370, 200, 30);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				nave1.setIcon(new ImageIcon("res\\nave.jpg"));
-				naveName.setText("");
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu, 1);
-				frame.add(game);
-				setVisible(false);
-				SelectNave.this.mFrame.background.setVisible(false);
-				SelectNave.this.mFrame.menuMusic.close();
-				game.setFocusable(true);
-				game.grabFocus();
-				game = null;
-		
-			}
-		});
-		
-		nave2.addMouseListener(new MouseAdapter() {
-
-			public void mouseEntered(MouseEvent e) {
-				selectNave = new AllMusic(pathSelectNave);
-				selectNave.setloop(false);
-				selectNave.start();
-				nave2.setIcon(new ImageIcon("res\\nave-2-borda.png"));
-				naveName.setText("Destroyer SpaceShip");
-				naveName.setBounds(255, 370, 200, 30);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				nave2.setIcon(new ImageIcon("res\\nave2.jpg"));
-				naveName.setText("");
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu, 2);
-				frame.add(game);
-				setVisible(false);
-				SelectNave.this.mFrame.background.setVisible(false);
-				SelectNave.this.mFrame.menuMusic.close();
-				game.setFocusable(true);
-				game.grabFocus();
-				game = null;
-			}
-		});
-		
-		nave3.addMouseListener(new MouseAdapter() {
-
-			public void mouseEntered(MouseEvent e) {
-				selectNave = new AllMusic(pathSelectNave);
-				selectNave.setloop(false);
-				selectNave.start();
-				nave3.setIcon(new ImageIcon("res\\nave-3-borda.png"));	
-				naveName.setText("Intergallatic Commander");
-				naveName.setBounds(350, 370, 200, 30);
-			}
-
-			public void mouseExited(MouseEvent e) {
-				nave3.setIcon(new ImageIcon("res\\nave3.png"));
-				naveName.setText("");
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				Fase game = new Fase(menu, 3);
-				frame.add(game);
-				setVisible(false);
-				SelectNave.this.mFrame.background.setVisible(false);
-				SelectNave.this.mFrame.menuMusic.close();
-				game.setFocusable(true);
-				game.grabFocus();
-				game = null;
-			}
-		});
+				
+		nave1.addMouseListener(new jogar(nave1, 1));
+		nave2.addMouseListener(new jogar(nave2, 2));
+		nave3.addMouseListener(new jogar(nave3, 3));
 		
 		setBounds(150, 250, 300, 100);
 		setBackground(new Color(0,0,0,65));
         setOpaque(false);
+	}
+	
+	public class jogar implements MouseListener {
+	
+		private JLabel nave;
+		private int tipoNave;
+		public jogar(JLabel nave, int tipoNave){
+			this.nave = nave;
+			this.tipoNave = tipoNave;
+		}
+		
+		public void mouseEntered(MouseEvent e) {
+			selectMusic = new AllMusic(pathSelectNave);
+			selectMusic.setloop(false);
+			selectMusic.start();
+			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+"-borda.png"));				
+			naveName.setText("Galaxy Explorer");
+			naveName.setBounds(173, 370, 200, 30);
+		}
+
+		public void mouseExited(MouseEvent e) {
+			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+".jpg"));
+			naveName.setText("");
+		}
+
+		public void mouseClicked(MouseEvent e) {
+			Fase game = new Fase(mMenu, tipoNave);
+			mFrame.add(game);
+			setVisible(false);
+			SelectNave.this.mFrame.background.setVisible(false);
+			SelectNave.this.mFrame.menuMusic.close();
+			game.setFocusable(true);
+			game.grabFocus();
+			game = null;
+	
+		}
+
+		public void mousePressed(MouseEvent arg0) {			
+		}
+
+		public void mouseReleased(MouseEvent arg0) {
+		}
 	}
 	
 }

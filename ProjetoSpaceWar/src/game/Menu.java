@@ -43,59 +43,39 @@ import music.AllMusic;
 
 public class Menu extends JLabel implements ActionListener {
 
-	/*
-	 * Font fonte = new Font(FontGame.GetFontArcade(), Font.TRUETYPE_FONT, 18);;
-	 * Color corSelecionado = new Color(255, 0, 0); // COR VERMELHA para o item
-	 * selecionado Color corNaoSelecionado = new Color(0, 0, 0); // COR PRETA
-	 * para o item que não está selecionado
-	 */
-
-	// JFrame frame;
-
-	
-
-	public JLabel returnLabel;
-	public JLabel menuAjuda;
-	public JLabel menuRecordes;
-	public JLabel row;
-	public JPanel panelRecordes;
+	private JLabel returnLabel;
+	private JLabel menuAjuda;
+	private JLabel menuRecordes;
+	private JLabel row;
+	private JPanel panelRecordes;
 	private Main_Frame mFrame;
 	
 	private AllMusic selectOption;
 	private String pathSelectOption = "res\\sons\\Menu_Select.mp3";
 	
-	//public AllMusic menuMusic;
-	//private String pathMenuMusic = "res\\sons\\Menu.mp3";
-
 	public Menu(Main_Frame frame) {
-		
-		/*menuMusic = new AllMusic(pathMenuMusic);
-		menuMusic.setloop(true);
-		menuMusic.start();*/
 		
 		mFrame = frame;
 		mFrame.addKeyListener(new TeclaAdapter());
 
-		
-		
 		panelRecordes = new JPanel();
 		panelRecordes.setLayout(null);
 		panelRecordes.setBounds(0, 0, 600, 600);
 		panelRecordes.setVisible(false);
 		panelRecordes.setOpaque(false);
 
-		Menu.this.menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-ajuda.png"));
+		menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-ajuda.png"));
 		menuAjuda.setBounds(70, 25, 500, 500);
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
-		Menu.this.menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-recordes.png"));
+		menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-recordes.png"));
 		menuRecordes.setBounds(70, 25, 500, 500);
 		menuRecordes.setVisible(true);
 		panelRecordes.add(menuRecordes);
 		frame.add(panelRecordes);
 
-		Menu.this.returnLabel = new JLabel("Pressione ESC para voltar");
+		returnLabel = new JLabel("Pressione ESC para voltar");
 		returnLabel.setBounds(400, 500, 150, 50);
 		returnLabel.setForeground(SystemColor.WHITE);
 		returnLabel.setVisible(false);
@@ -202,9 +182,6 @@ public class Menu extends JLabel implements ActionListener {
 		mFrame.background.setVisible(true);
 		mFrame.setFocusable(true);
 		mFrame.hasFocus();
-		
-	}
-	public void MostraBackground(){
 		
 	}
 	
@@ -320,7 +297,7 @@ public class Menu extends JLabel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+		
 	}
+
 }
