@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import javax.swing.JOptionPane;
+
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 public class AllMusic extends Thread {
@@ -34,8 +36,8 @@ public class AllMusic extends Thread {
 	public boolean getloop() {
 		return loop;
 	}
-	public void setloop(boolean l) {
-		loop = l;
+	public void setloop(boolean lopp) {
+		loop = lopp;
 	}
 	
 	public void close() {
@@ -43,5 +45,13 @@ public class AllMusic extends Thread {
 		player.close();
 		
 	}	
+	
+	public void player(){
+		try {
+			player.play();
+		} catch (JavaLayerException e) {
+			e.printStackTrace();
+		}
+	}
 			
 }

@@ -15,6 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import javazoom.jl.decoder.JavaLayerException;
 import music.AllMusic;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -181,6 +183,9 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoQnt = 1000;
 		nivelTiro = 0;
 		vidaInimigo = 1;
+		
+		somFundo.player();
+
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -284,6 +289,7 @@ public class Fase extends JPanel implements ActionListener {
 		tiros.clear();
 		explosoes.clear();
 		tempoExplosao.clear();
+		tipoBoss = 0;
 
 		nave.MuteNave(true);
 		somFundo.close();
@@ -779,9 +785,7 @@ public class Fase extends JPanel implements ActionListener {
 			if (mute) {
 				nave.MuteNave(false);
 				mute = false;
-				somFundo = new AllMusic(pathMusica);
-				somFundo.setloop(true);
-				somFundo.start();
+				somFundo.player();
 			} else {
 				nave.MuteNave(true);
 				mute = true;
