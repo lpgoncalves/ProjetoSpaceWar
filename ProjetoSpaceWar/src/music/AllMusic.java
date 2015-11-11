@@ -48,7 +48,8 @@ public class AllMusic extends Thread {
 	
 	public void player(){
 		try {
-			player.play();
+			this.player = new Player(bis);
+			this.player.play();
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}

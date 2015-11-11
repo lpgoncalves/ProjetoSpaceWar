@@ -27,11 +27,11 @@ public class Inimigos {
 	
 		switch(tipoInimigo){
 	    case 0:
-	    	referencia = new ImageIcon ("res\\inimigo5.png");//Definimos o diretorio da imagem do boss.
+	    	referencia = new ImageIcon ("res\\inimigo5.png");//Definimos o diretorio da imagem da nave inimiga.
 	    	inimigoImg = referencia.getImage();
 	    	break;
 	    case 1:
-	    	referencia = new ImageIcon ("res\\asteroide.gif");//Definimos o diretorio da imagem do boss.
+	    	referencia = new ImageIcon ("res\\asteroide.gif");//Definimos o diretorio da imagem do asteroide
 	    	inimigoImg = referencia.getImage();
 	    	break;
     }

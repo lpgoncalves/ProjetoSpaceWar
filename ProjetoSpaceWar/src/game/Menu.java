@@ -24,8 +24,12 @@ public class Menu extends JLabel implements ActionListener {
 	private Main_Frame mFrame;
 	private AllMusic selectOption;
 	private String pathSelectOption = "res\\sons\\Menu_Select.mp3";
+	public AllMusic menuMusic = new AllMusic("res\\sons\\Menu.mp3");
 	
 	public Menu(Main_Frame frame) {
+		
+		menuMusic.setloop(true);
+		menuMusic.start();
 		
 		mFrame = frame;
 		mFrame.addKeyListener(new TeclaAdapter());
@@ -41,7 +45,7 @@ public class Menu extends JLabel implements ActionListener {
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
-		menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-recordes.png"));
+		menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-Recovered.png"));
 		menuRecordes.setBounds(70, 25, 500, 500);
 		menuRecordes.setVisible(true);
 		panelRecordes.add(menuRecordes);
@@ -140,8 +144,8 @@ public class Menu extends JLabel implements ActionListener {
 	public void MostraMenu() {
 		setVisible(true);
 		mFrame.background.setVisible(true);
-		mFrame.setFocusable(true);
-		mFrame.hasFocus();
+		menuMusic = new AllMusic("res\\sons\\Menu.mp3");
+		menuMusic.start();
 	}
 	
 	public String[][] GetRecord() throws IOException{

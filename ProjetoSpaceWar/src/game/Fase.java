@@ -82,9 +82,10 @@ public class Fase extends JPanel implements ActionListener {
 
 	private ImageIcon seta;
 	private ImageIcon hundredPoints = new ImageIcon("res\\MoreHundred.png");
-	private ImageIcon x2 = new ImageIcon("res\\x2.png");
-	private ImageIcon x3 = new ImageIcon("res\\x3.png");
-	private ImageIcon x4 = new ImageIcon("res\\x4.png");
+	private ImageIcon frenesiIMG = new ImageIcon("res\\modofrenezi.gif");
+	private ImageIcon x2 = new ImageIcon("res\\x2.gif");
+	private ImageIcon x3 = new ImageIcon("res\\x3.gif");
+	private ImageIcon x4 = new ImageIcon("res\\x4.gif");
 	private Menu menu;
 	public JLabel somLabel;
 	
@@ -161,6 +162,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private void StartFase() {
+		Mute(false);
 		jogoAndamento = true;
 		jogoApagado = false;
 		gravadoRc = false;
@@ -184,8 +186,7 @@ public class Fase extends JPanel implements ActionListener {
 		nivelTiro = 0;
 		vidaInimigo = 1;
 		
-		somFundo.player();
-
+		
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -292,7 +293,7 @@ public class Fase extends JPanel implements ActionListener {
 		tipoBoss = 0;
 
 		nave.MuteNave(true);
-		somFundo.close();
+		Mute(true);
 		tempo.pararTimer();
 		timer.stop();
 		novosEnemies.stop();
@@ -347,6 +348,9 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); 
 		}
 		if (jogoAndamento == true) {
+			if (boolFrenesi) {
+				graficos.drawImage(frenesiIMG.getImage(), 300, 500,null);
+			}
 			// Colocamos na tela a imagem da nave com suas evidas posições.
 			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);
 			tiros = nave.getTiros();
@@ -417,9 +421,7 @@ public class Fase extends JPanel implements ActionListener {
 					graficos.drawImage(sound.getImage(), 550, 45, null);
 				}
 			}
-			if (boolFrenesi) {
-				graficos.drawString("MODO FRENEZI", 480, 550);
-			}
+			
 			if (bossIsDead) {
 				long end = dataHundred + 1500;
 				if (System.currentTimeMillis() < end) {
@@ -569,13 +571,21 @@ public class Fase extends JPanel implements ActionListener {
 
 		if (boolFrenesi && addBoss != null) {
 			if (addBoss.isVisivel()) {
-				if (addBoss.getTipoBoss() == 0) {
-					if ((tempo.segundos > 15) && (tempo.segundos < 20)) {
-						addBoss.VELOCIDADE_BOSS = 3;
+				if (addBoss.getTipoBoss() == 0 || addBoss.getTipoBoss() == 2 || addBoss.getTipoBoss() == 4) {
+					if ((tempo.segundos > 40) && (tempo.segundos < 50)) {
+						addBoss.velocidade_boss = 3;
 					} else {
-						addBoss.VELOCIDADE_BOSS = 0.5;
+						addBoss.velocidade_boss = 0.5;
 					}
-					addBoss.BaixoMetade();
+					switch (addBoss.dir) {
+					case 0:
+						addBoss.BaixoMetade();
+						break;
+					case 1:
+						addBoss.Cima();
+						break;
+					}
+					
 					switch (addBoss.dir2) {
 					case 0:
 						addBoss.Direita();
@@ -605,19 +615,6 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 					}
 				}
-
-				if (addBoss.getTipoBoss() == 2 || addBoss.getTipoBoss() == 4) {
-					addBoss.BaixoMetade();
-					switch (addBoss.dir2) {
-					case 0:
-						addBoss.Direita();
-						break;
-					case 1:
-						addBoss.Esquerda();
-						break;
-					}
-				}
-
 			} else {
 				addBoss = null;
 			}
@@ -785,7 +782,9 @@ public class Fase extends JPanel implements ActionListener {
 			if (mute) {
 				nave.MuteNave(false);
 				mute = false;
-				somFundo.player();
+				somFundo = new AllMusic(pathMusica);
+				somFundo.setloop(true);
+				somFundo.start();
 			} else {
 				nave.MuteNave(true);
 				mute = true;

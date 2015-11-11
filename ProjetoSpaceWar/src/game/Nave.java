@@ -152,7 +152,7 @@ public class Nave {
 		if (codigo == KeyEvent.VK_SPACE) {
 			if(timeTiro < System.currentTimeMillis()){
 				atirar();
-				timeTiro = System.currentTimeMillis() + 200;
+				timeTiro = System.currentTimeMillis() + 300;
 				if(!(mute)){
 					somTiroNave = new AllMusic(pathTiroNave);
 					somTiroNave.setloop(false);

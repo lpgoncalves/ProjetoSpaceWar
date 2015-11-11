@@ -77,7 +77,7 @@ public class SelectNave extends JPanel {
 			mFrame.add(game);
 			setVisible(false);
 			SelectNave.this.mFrame.background.setVisible(false);
-			SelectNave.this.mFrame.menuMusic.close();
+			SelectNave.this.mMenu.menuMusic.close();
 			game.setFocusable(true);
 			game.grabFocus();
 			game = null;

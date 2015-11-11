@@ -13,13 +13,14 @@ public class Boss {
 	private int vidaBoss;
 	private int tipoBoss;
 	private boolean isVisivel;
-	public double VELOCIDADE_BOSS = 0.5;
+	public double velocidade_boss = 0.5;
 	public int dir;
 	public int dir2;
 	private ImageIcon referencia;
 	
 	public Boss(int x, int y, int tipoBoss){
 		dir = 0;
+		dir2 = 0;
 		this.x = x;
 		this.y = y;
 		
@@ -60,63 +61,69 @@ public class Boss {
 	
 	public void Direita() {
 		if (this.x < 600 - largura) {
-			this.x += VELOCIDADE_BOSS; 
+			this.x += velocidade_boss; 
 		}
 		else {
-			this.x -= VELOCIDADE_BOSS; 
+			this.x -= velocidade_boss;
+			this.y -= (velocidade_boss+1); 
 			dir2 = 1;
 		}
 	}
 	
 	public void Esquerda() {
 		if (this.x > 1) {
-			this.x -= VELOCIDADE_BOSS;
+			this.x -= velocidade_boss;
 		}
 		else {
-			this.x += VELOCIDADE_BOSS; 
+			this.x += velocidade_boss; 
+			this.y += (velocidade_boss+1); 
 			dir2 = 0;
 		}
-		
 	}
 	
 	public void Baixo() {	
 		if (this.y < 600 - altura ) {
-			this.y += VELOCIDADE_BOSS;
+			this.y += velocidade_boss;
 		}
 		else {
-			this.y -= VELOCIDADE_BOSS; 
+			this.y -= velocidade_boss; 
+			this.x -= (velocidade_boss+1);
 			dir = 1;
 		}
 	}
 	
 	public void Cima() {
 		if (this.y > 1) {
-			this.y -= VELOCIDADE_BOSS; 
+			this.y -= velocidade_boss; 
 		}
 		else {
+			this.y += velocidade_boss; 
+			this.x += (velocidade_boss+1);
 			dir = 0;
 		}
 	}
 	
 	public void BaixoMetade() {
-		if (this.y < 300 - altura ) {
-			this.y += VELOCIDADE_BOSS;
+		if (this.y < 400 - altura ) {
+			this.y += velocidade_boss;
 		}
 		else {
-			this.y = 300 - altura; 
+			this.y -= velocidade_boss;
+			this.x -= (velocidade_boss+1);
+			dir = 1;
 		}
 	}
 	
 	public void seguirPlayer() {
 		if (x > nave.getX() - largura) {
-			x -= VELOCIDADE_BOSS;
+			x -= velocidade_boss;
 		} else {
-			x += VELOCIDADE_BOSS;
+			x += velocidade_boss;
 		}
 		if (y > nave.getY() - altura) {
-			y -= VELOCIDADE_BOSS;
+			y -= velocidade_boss;
 		} else {
-			y += VELOCIDADE_BOSS;
+			y += velocidade_boss;
 		}
 	} 
 	

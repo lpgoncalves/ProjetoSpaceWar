@@ -11,18 +11,17 @@ public class Main_Frame extends JFrame {
 	Color corNaoSelecionado = new Color(0, 0, 0); // COR PRETA para o item que não está selecionado
 	public JLabel logo;
 	public JLabel background;
-	public AllMusic menuMusic = new AllMusic("res\\sons\\Menu.mp3");
+	
 	
     public void setLogoLabelVisible(Boolean flag) {
          this.logo.setVisible(flag);
     }
 	
 	public Main_Frame() {
-		menuMusic.setloop(true);
-		menuMusic.start();
+	
 		
 		logo = new JLabel( new ImageIcon("res\\Logo.png")); //Setar o logo
-		logo.setBounds(80, 50 , 450, 200); //Setar posição X, Y, Largura e Altura do logo
+		logo.setBounds(60, 40 , 650, 200); //Setar posição X, Y, Largura e Altura do logo
 		add(logo);
 		
 		Menu LabelMenu = new Menu(this);
