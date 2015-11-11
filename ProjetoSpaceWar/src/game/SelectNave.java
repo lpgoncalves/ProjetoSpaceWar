@@ -1,34 +1,21 @@
 package game;
 
 import java.awt.Color;
-
-import java.awt.Frame;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import game.Main_Frame;
 import music.AllMusic;
 
 public class SelectNave extends JPanel {
-
 	private Main_Frame mFrame;
 	private Menu mMenu;
-	
 	private AllMusic selectMusic;
-	
 	private String pathSelectNave = "res\\sons\\Menu_Select.mp3";
-	
 	private JLabel naveName;
 	private JLabel nave1;
 	private JLabel nave2;
@@ -38,7 +25,7 @@ public class SelectNave extends JPanel {
 		
 		SelectNave.this.mFrame = (Main_Frame) frame;
 		mMenu = menu;
-		
+
 		nave1 = new JLabel(new ImageIcon("res\\nave1.jpg"));
 		nave1.setBounds(170, 270, 95, 95);
 		nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
@@ -65,9 +52,9 @@ public class SelectNave extends JPanel {
 	}
 	
 	public class jogar implements MouseListener {
-	
 		private JLabel nave;
 		private int tipoNave;
+		
 		public jogar(JLabel nave, int tipoNave){
 			this.nave = nave;
 			this.tipoNave = tipoNave;
@@ -81,12 +68,10 @@ public class SelectNave extends JPanel {
 			naveName.setText("Galaxy Explorer");
 			naveName.setBounds(173, 370, 200, 30);
 		}
-
 		public void mouseExited(MouseEvent e) {
 			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+".jpg"));
 			naveName.setText("");
 		}
-
 		public void mouseClicked(MouseEvent e) {
 			Fase game = new Fase(mMenu, tipoNave);
 			mFrame.add(game);
@@ -96,14 +81,10 @@ public class SelectNave extends JPanel {
 			game.setFocusable(true);
 			game.grabFocus();
 			game = null;
-	
 		}
-
 		public void mousePressed(MouseEvent arg0) {			
 		}
-
 		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
-	
 }

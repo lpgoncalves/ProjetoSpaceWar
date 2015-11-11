@@ -1,13 +1,10 @@
 package game;
-
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.ImageIcon;
 
 public class Tiro {
-
 	private Image tiroImg;
 	private Image tiroBossImg;
 	private int x;
@@ -15,7 +12,6 @@ public class Tiro {
 	private int direcao;
 	private int altura, alturaBoss;
 	private int largura, larguraBoss;
-	
 	private boolean isVisivel;
 	
 	private static final int COMPRIMENTO_TELA = 600;
@@ -25,36 +21,29 @@ public class Tiro {
 		
 		this.x = (int) x;
 		this.y = (int) y;
-		
 		VELOCIDADE_TIRO = velocidade;
 		
 		ImageIcon referencia1 = new ImageIcon("res\\tiro.png");
 		ImageIcon referencia2 = new ImageIcon("res\\tiroboss.png");
 		tiroImg = referencia1.getImage();
 		tiroBossImg = referencia2.getImage();
-		
+
 		direcao = nivel;
-		
-		
+
 		this.largura = tiroImg.getWidth(null);
 		this.altura = tiroImg.getHeight(null);
-		
 		this.larguraBoss = tiroBossImg.getWidth(null);
 		this.alturaBoss = tiroBossImg.getHeight(null);
-		
 		isVisivel = true;
-		
 	}
 	
 	public void mover() {
-	
 		switch(direcao){
 			case 0: this.y -= VELOCIDADE_TIRO;
 					if(this.y > COMPRIMENTO_TELA) {
 						isVisivel = false;		
 					}	
 					break;
-					
 			case 1:
 					this.y -= VELOCIDADE_TIRO;
 					this.x -= VELOCIDADE_TIRO;
@@ -75,12 +64,10 @@ public class Tiro {
 	}
 	
 	public void moverTiroBoss() {
-		
 		this.y += VELOCIDADE_TIRO;
 		if(this.y > COMPRIMENTO_TELA) {
 			isVisivel = false;		
 		}	
-			
 	}
 	
 	public boolean isVisivel() {
@@ -109,6 +96,10 @@ public class Tiro {
 	
 	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura, altura);
+	}
+	
+	public Rectangle2D getBoundsBoss() {
+		return new Rectangle (x, y, larguraBoss, alturaBoss);
 	}
 	
 	public void Apagatiro() throws Throwable{

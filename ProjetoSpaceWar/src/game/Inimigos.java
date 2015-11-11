@@ -1,40 +1,30 @@
 package game;
-
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.ImageIcon;
 
 public class Inimigos {
-
 	private int vidaInimigo;
-	
 	private Image inimigoImg;
 	private int x;
 	private int y;
 	private int altura;
 	private int largura;
-	
 	private boolean isVisivel;
-	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static double velocidade_inimigo = 1;
-	
 	public int dir;
 	public int dir2;
 	private int tipoInimigo;
 	
 	public Inimigos(int x, int y, int tipoInimigo, int vida){
-		
-		
 		dir = 0;
 		this.x = x;
 		this.y = y;
 		vidaInimigo = vida;
-		
 		ImageIcon referencia;
-	    
+	
 		switch(tipoInimigo){
 	    case 0:
 	    	referencia = new ImageIcon ("res\\inimigo5.png");//Definimos o diretorio da imagem do boss.
@@ -45,14 +35,10 @@ public class Inimigos {
 	    	inimigoImg = referencia.getImage();
 	    	break;
     }
-		
 		this.tipoInimigo = tipoInimigo;
-		
 		this.altura = inimigoImg.getHeight(null);
 		this.largura = inimigoImg.getWidth(null);
-		
 		isVisivel = true;
-		
 	}
 	
 	public void MenosVida(){
@@ -90,7 +76,6 @@ public class Inimigos {
 			this.x -= velocidade_inimigo; 
 			dir2 = 1;
 		}
-		
 	}
 	
 	public void Esquerda() {
@@ -101,7 +86,6 @@ public class Inimigos {
 			this.x += velocidade_inimigo; 
 			dir2 = 0;
 		}
-		
 	}
 	
 	public void Baixo() {	
@@ -112,7 +96,6 @@ public class Inimigos {
 			this.y -= velocidade_inimigo; 
 			dir = 1;
 		}
-		
 	}
 	
 	public void Cima() {
@@ -122,7 +105,6 @@ public class Inimigos {
 		else {
 			dir = 0;
 		}
-		
 	}
 	public boolean isVisivel() {
 	    return isVisivel;
@@ -147,6 +129,4 @@ public class Inimigos {
 	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura - 30, altura - 20);
 	}
-	
-	
 }

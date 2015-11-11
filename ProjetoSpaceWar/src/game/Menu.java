@@ -1,11 +1,4 @@
 package game;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,42 +7,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.channels.NetworkChannel;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
-
-import com.sun.corba.se.spi.ior.iiop.IIOPProfileTemplate;
-
-import sun.java2d.pipe.AAShapePipe;
-import sun.swing.SwingAccessor;
-import sun.text.resources.cldr.mer.FormatData_mer;
-import sun.util.calendar.LocalGregorianCalendar;
-import sun.util.resources.cldr.am.CalendarData_am_ET;
-
 import game.Main_Frame;
 import music.AllMusic;
 
 public class Menu extends JLabel implements ActionListener {
-
 	private JLabel returnLabel;
 	private JLabel menuAjuda;
 	private JLabel menuRecordes;
 	private JLabel row;
 	private JPanel panelRecordes;
 	private Main_Frame mFrame;
-	
 	private AllMusic selectOption;
 	private String pathSelectOption = "res\\sons\\Menu_Select.mp3";
 	
@@ -89,24 +61,19 @@ public class Menu extends JLabel implements ActionListener {
 
 		JLabel jogar = new JLabel("");
 		jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
-		jogar.setFont(FontGame.Get());
 		jogar.setBounds(100, 0, 310, 40);
-
 		add(jogar);
 
 		jogar.addMouseListener(new MouseAdapter() {
-
 			public void mouseEntered(MouseEvent e) {
 				selectOption = new AllMusic(pathSelectOption);
 				selectOption.setloop(false);
 				selectOption.start();
 				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar2.png"));
 			}
-
 			public void mouseExited(MouseEvent e) {
 				jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
 			}
-
 			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(true);
 				setVisible(false);
@@ -115,22 +82,19 @@ public class Menu extends JLabel implements ActionListener {
 		
 		JLabel recordes = new JLabel("");
 		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
-		recordes.setFont(FontGame.Get());
 		recordes.setBounds(100, 45, 320, 40);
 		add(recordes);
+		
 		recordes.addMouseListener(new MouseAdapter() {
-
 			public void mouseEntered(MouseEvent e) {
 				selectOption = new AllMusic(pathSelectOption);
 				selectOption.setloop(false);
 				selectOption.start();
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes2.png"));
 			}
-
 			public void mouseExited(MouseEvent e) {
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 			}
-
 			public void mouseClicked(MouseEvent e) {
 				mFrame.setLogoLabelVisible(false);
 				setVisible(false);
@@ -151,22 +115,19 @@ public class Menu extends JLabel implements ActionListener {
 
 		JLabel ajuda = new JLabel("");
 		ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
-		ajuda.setFont(FontGame.Get());
 		ajuda.setBounds(100, 90, 320, 40);
 		add(ajuda);
+		
 		ajuda.addMouseListener(new MouseAdapter() {
-
 			public void mouseEntered(MouseEvent e) {
 				selectOption = new AllMusic(pathSelectOption);
 				selectOption.setloop(false);
 				selectOption.start();
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda2.png"));
 			}
-
 			public void mouseExited(MouseEvent e) {
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 			}
-
 			public void mouseClicked(MouseEvent e) {
 				mFrame.setLogoLabelVisible(false);
 				setVisible(false);
@@ -174,7 +135,6 @@ public class Menu extends JLabel implements ActionListener {
 				returnLabel.setVisible(true);
 			}
 		});
-
 	}
 
 	public void MostraMenu() {
@@ -182,7 +142,6 @@ public class Menu extends JLabel implements ActionListener {
 		mFrame.background.setVisible(true);
 		mFrame.setFocusable(true);
 		mFrame.hasFocus();
-		
 	}
 	
 	public String[][] GetRecord() throws IOException{
@@ -214,26 +173,20 @@ public class Menu extends JLabel implements ActionListener {
 		case "posicao":
 			x = 140;
 			y = 230;
-			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
-				row.setFont(FontGame.Get());
 				row.setBounds(x, y, 320, 40);
 				row.setForeground(SystemColor.WHITE);
 				row.setVisible(true);
 				panel.add(row);
-				
 				y = y + 30;
 			}
 			break;
-
 		case "tempo":
 			x = 240;
 			y = 230;
-			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
-				row.setFont(FontGame.Get());
 				row.setBounds(x, y, 320, 40);
 				row.setForeground(SystemColor.WHITE);
 				row.setVisible(true);
@@ -241,14 +194,11 @@ public class Menu extends JLabel implements ActionListener {
 				y = y + 30;
 			}
 			break;
-			
 		case "pontos":
 			x = 410;
 			y = 230;
-			
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
-				row.setFont(FontGame.Get());
 				row.setBounds(x, y, 320, 40);
 				row.setForeground(SystemColor.WHITE);
 				row.setVisible(true);
@@ -256,19 +206,13 @@ public class Menu extends JLabel implements ActionListener {
 				y = y + 30;
 			}
 			break;
-			
 		default: 
 			break;
 		}
 	}
 
-	private class TeclaAdapter extends KeyAdapter { // Classe responsável por
-													// pegar as teclas
-													// pressionadas no menu.
-
-		@Override
+	private class TeclaAdapter extends KeyAdapter { 
 		public void keyPressed(KeyEvent e) {
-
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
 					Menu.this.mFrame.setLogoLabelVisible(true);
@@ -279,10 +223,8 @@ public class Menu extends JLabel implements ActionListener {
 					setVisible(true);
 				}
 			}
-
 			Menu.this.processKeyEvent(e);
 		}
-
 		@Override
 		public void keyReleased(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -292,12 +234,8 @@ public class Menu extends JLabel implements ActionListener {
 				}
 			}
 		}
-
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 	}
-
 }

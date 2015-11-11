@@ -1,5 +1,4 @@
 package game;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,33 +10,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import music.AllMusic;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.Duration;
-import java.time.ZonedDateTime;
 
 public class Fase extends JPanel implements ActionListener {
-	
 	private Nave nave;
-
+	
 	private ImageIcon naveInvisivel = new ImageIcon("");
-
 	public ImageIcon sound = new ImageIcon("res\\Speaker-26.png");
 	public ImageIcon noSound = new ImageIcon("res\\Mute-26.png");
 
@@ -104,15 +92,12 @@ public class Fase extends JPanel implements ActionListener {
 
 	public Fase(Menu menu, int idNave) {
 
-		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais
-								// nitidez.
+		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setFocusable(true);// Seta a nave como foco.
-		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para
-											// as teclas do teclado.
+		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para  as teclas do teclado.
 
 		this.idNave = idNave;
 		this.menu = menu;
-
 
 		somLabel = new JLabel();
 		somLabel.setBounds(400, 40, 30, 30);
@@ -149,8 +134,7 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies2 = new Timer(5000, new criarInimigos2());
 		novosEnemies.start();
 		novosEnemies2.start();
-
-
+		
 		novosTirosBoss = new Timer(1000, new criarTirosBoss());
 
 		nave = new Nave(idNave);
@@ -163,10 +147,8 @@ public class Fase extends JPanel implements ActionListener {
 		up = true;
 		down = false;
 
-		timer = new Timer(5, this);// Responsavel por chamar o action performed,
-									// chamando-o de 5 em 5 milisegundos.
+		timer = new Timer(5, this);// Responsavel por chamar o action performed, chamando-o de 5 em 5 milisegundos.
 		timer.start();
-
 		somFundo = new AllMusic(pathMusica);
 		somFundo.setloop(true);
 		somFundo.start();
@@ -226,11 +208,9 @@ public class Fase extends JPanel implements ActionListener {
 		tempo.iniciarShadow();
 		intShadow = 0;
 		tempoShadow.start();
-
 	}
 
 	private void modeFrenesi(boolean frenesi) {
-
 		if (frenesi == true) {
 			velFrenesiInimigo = velFrenesiInimigo + 0.7;
 			Inimigos.SetVel(velFrenesiInimigo);
@@ -288,13 +268,10 @@ public class Fase extends JPanel implements ActionListener {
 	private void inicializarInimigos() {
 		for (int i = 0; i < inimigos.size(); i++) {
 			inimigos.remove(i);
-
 		}
 	}
 
-
 	private void ApagaGame() throws Throwable {
-
 		inimigos.clear();
 		tiros.clear();
 		addVida.clear();
@@ -312,21 +289,17 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies2.stop();
 		repetirFundo.stop();
 		novosTirosBoss.stop();
-
 	}
 
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0, vidaInimigo));
-			
-
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0, vidaInimigo));		
 		}
 	}
 
 	public class criarInimigos2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 1, vidaInimigo));
-
 		}
 	}
 
@@ -354,70 +327,34 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	}
 
-	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os
-									// objetos.
-
+	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 		graficos = (Graphics2D) g;
 		graficos.setBackground(Color.BLACK);
 		graficos.drawImage(background.get(indexBack), 0, repetir, null);
-		graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); // Colocamos
-																				// na
-																				// tela
-																				// o
-																				// background
-																				// da
-																				// fase
-																				// como
-																				// estático,
-																				// ou
-																				// seja
-																				// ele
-																				// não
-																				// irá
-																				// se
-																				// movimentar.
-
+		graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); 
 		if (jogoAndamento == true) {
-
-			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);// Colocamos
-																					// na
-																					// tela
-																					// a
-																					// imagem
-																					// da
-																					// nave
-																					// com
-																					// suas
-																					// devidas
-																					// posições.
-
+			// Colocamos na tela a imagem da nave com suas evidas posições.
+			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);
 			tiros = nave.getTiros();
+			
 			for (int i = 0; i < tiros.size(); i++) {
-
 				Tiro shoot = (Tiro) tiros.get(i);
 				graficos.drawImage(shoot.getTiroImg(), shoot.getX(), shoot.getY(), this);
 			}
 
 			for (int i = 0; i < inimigos.size(); i++) {
-
 				Inimigos enemies = inimigos.get(i);
 				graficos.drawImage(enemies.getInimigosImg(), enemies.getX(), enemies.getY(), this);
-
 			}
 			
-
 			for (int i = 0; i < addVida.size(); i++) {
-
 				Vida lifes = addVida.get(i);
 				graficos.drawImage(lifes.getVidaImg(), lifes.getX(), lifes.getY(), this);
-
 			}
 
 			for (int i = 0; i < tirosBoss.size(); i++) {
-
 				Tiro shootBoss = (Tiro) tirosBoss.get(i);
 				graficos.drawImage(shootBoss.getTiroBossImg(), shootBoss.getX(), shootBoss.getY(), this);
-
 			}
 
 			Timer tempoTemp;
@@ -426,7 +363,6 @@ public class Fase extends JPanel implements ActionListener {
 			for (int i = 0; i < tempoExplosao.size(); i++) {
 				tempoTemp = tempoExplosao.get(i);
 				expTemp = explosoes.get(i);
-
 				if (expTemp.getContador() == 5) {
 					tempoTemp.stop();
 					tempoExplosao.remove(i);
@@ -444,15 +380,13 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.setColor(Color.white);
 			graficos.setFont(pontimer);
 			graficos.drawString(" " + pontos, 20, 14);
-			// --------------------------------------------------------------------------------
-			// Caso seja menor que 10 segundos no timer ele irá colocar um zero
-			// antes (ESTÉTICA)
+			// Caso seja menor que 10 segundos no timer ele irá colocar um zero antes (ESTÉTICA)
 			if (tempo.segundos < 10) {
 				graficos.drawString(" " + tempo.minutos + ":0" + tempo.segundos, 105, 14);
 			} else {
 				graficos.drawString(" " + tempo.minutos + ":" + tempo.segundos, 105, 14);
 			}
-			// ---------------------------------------------------------------------------------
+		
 			graficos.drawString(" " + vidas, 198, 14);
 			if (pause == true) {
 				ImageIcon pause = new ImageIcon("res\\Pause2.png");
@@ -481,9 +415,7 @@ public class Fase extends JPanel implements ActionListener {
 			if(tempo.multiPontos > 1){
 				graficos.drawString("PONTOS x"+tempo.multiPontos+"", 350, 60);
 			}
-
 		} else {
-
 			try {
 				if (jogoApagado == false) {
 					ApagaGame();
@@ -494,14 +426,13 @@ public class Fase extends JPanel implements ActionListener {
 			}
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
+			
 			ImageIcon gameover = new ImageIcon("res\\game-over.gif");
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
-
+			
 			addKeyListener(new EventoMenuFinal());
 			seta = new ImageIcon("res\\seta.gif");
-			ImageIcon preto = new ImageIcon("res\\preto.png");
-
 			try {
 				if (gravadoRc == false) {
 					gravadoRc = true;
@@ -514,39 +445,28 @@ public class Fase extends JPanel implements ActionListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 			if (up == true) {
 				graficos.drawImage(seta.getImage(), 80, 457, null);
 				setFocusable(true);
-			} else {
-
 			}
-
 			if (down == true) {
 				graficos.drawImage(seta.getImage(), 80, 476, null);
 				setFocusable(true);
-			} else {
-
 			}
-
 			graficos.setFont(pontuacaoFinal);
 			graficos.drawString("Jogar Novamente", 170, 490);
 			graficos.drawString("Voltar ao Menu Principal", 170, 510);
 			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 550);
-
 			g.dispose();
 		}
-
 		g.dispose();// Irá repintar a tela com as novas atualizações.
 	}
 
 	int r;
 	private int gY;
 	private int gX;
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (tempo.segundos == 30 && boolFrenesi == false) {
 			modeFrenesi(true);
 		}
@@ -555,42 +475,31 @@ public class Fase extends JPanel implements ActionListener {
 			modeFrenesi(false);
 		}
 		
-
 		tiros = nave.getTiros();
-		
 		for (int i = 0; i < tiros.size(); i++) {
-
 			Tiro shoots = (Tiro) tiros.get(i);
-
 			if (shoots.isVisivel()) {
 				shoots.mover();
 			} else {
 				tiros.remove(i);
 			}
-
 		}				
 		
 		for (int i = 0; i < tirosBoss.size(); i++) {
-
 			Tiro shootsboss = (Tiro) tirosBoss.get(i);
-
 			if (shootsboss.isVisivel()) {
 				shootsboss.moverTiroBoss();
 			} else {
 				tirosBoss.remove(i);
 			}
-
 		}
 
 		for (int i = 0; i < inimigos.size(); i++) {
-
 			Inimigos enemies = inimigos.get(i);
-
 			if (enemies.isVisivel()) {
 				if (enemies.getTipoInimigo() == 0) {
 					enemies.mover();
 				}
-
 				if (enemies.getTipoInimigo() == 1) {
 					switch (enemies.dir) {
 					case 0:
@@ -610,17 +519,14 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 					}
 				}
-
 			} else {
 				inimigos.remove(i);
-
 				// -- Som --
 				if (!mute) {
 					somExplosao = new AllMusic(pathExplosaoNave);
 					somExplosao.setloop(false);
 					somExplosao.start();
 				}
-
 				// -- Explosao --
 				gX = enemies.getX();
 				gY = enemies.getY();
@@ -629,19 +535,15 @@ public class Fase extends JPanel implements ActionListener {
 				Timer tempoTemp = tempoExplosao.get(tempoExplosao.size() - 1);
 				tempoTemp.start();
 			}
-
 		}
 
 		for (int i = 0; i < addVida.size(); i++) {
-
 			Vida lifes = addVida.get(i);
-
 			if (lifes.isVisivel()) {
 				lifes.mover();
 			} else {
 				addVida.remove(i);
 			}
-
 		}
 
 		if (boolFrenesi && addBoss != null) {
@@ -652,7 +554,6 @@ public class Fase extends JPanel implements ActionListener {
 					} else {
 						addBoss.VELOCIDADE_BOSS = 0.5;
 					}
-
 					addBoss.BaixoMetade();
 					switch (addBoss.dir2) {
 					case 0:
@@ -700,15 +601,12 @@ public class Fase extends JPanel implements ActionListener {
 				addBoss = null;
 			}
 		}
-
 		nave.mover(); // Responsavel por fazer a ação de se movimentar da nave.
 		checarColisoes();
 		repaint();
-
 	}
 
 	public void checarColisoes() {
-
 		Rectangle2D retNave = nave.getBounds();
 		Rectangle2D retTiro;
 		Rectangle2D retInimigos;
@@ -717,7 +615,6 @@ public class Fase extends JPanel implements ActionListener {
 		Rectangle2D retTiroBoss;
 
 		for (int i = 0; i < inimigos.size(); i++) {
-
 			Inimigos tempInimigos = inimigos.get(i);
 			retInimigos = tempInimigos.getBounds();
 
@@ -726,49 +623,39 @@ public class Fase extends JPanel implements ActionListener {
 					menosVidas();
 					tempInimigos.MenosVida();
 				}
-				
 				if(tempInimigos.GetVida() == 0){
 					tempInimigos.setVisivel(false);
 				}
 				if (vidas < 0) {
-
 					jogoAndamento = false;
-
 				}
 			}
-
 		}
 
 		for (int i = 0; i < tirosBoss.size(); i++) {
-
 			Tiro tempTiroBoss = tirosBoss.get(i);
-			retTiroBoss = tempTiroBoss.getBounds();
+			retTiroBoss = tempTiroBoss.getBoundsBoss();
 
 			if (retTiroBoss.intersects(retNave)) {
 				if (tempo.shadow == 0) {
 					menosVidas();
 				}
 			}
-
 			if (vidas < 0) {
 				jogoAndamento = false;
-
 			}
 		}
 
 		tiros = nave.getTiros();
 		for (int i = 0; i < tiros.size(); i++) {
-
 			Tiro tempTiro = tiros.get(i);
 			retTiro = tempTiro.getBounds();
 
 			for (int j = 0; j < inimigos.size(); j++) {
-
 				Inimigos tempInimigos = inimigos.get(j);
 				retInimigos = tempInimigos.getBounds();
 
 				if (retTiro.intersects(retInimigos)) {
-
 					tempInimigos.MenosVida();
 					tempTiro.setVisivel(false);
 					if(tempInimigos.GetVida() == 0){
@@ -779,17 +666,16 @@ public class Fase extends JPanel implements ActionListener {
 			}
 
 			if (boolFrenesi && addBoss != null) {
-
 				retBoss = addBoss.getBounds();
 
 				if (retTiro.intersects(retBoss)) {
-
 					tempTiro.setVisivel(false);
 					addBoss.removeVidaBoss(1);
 
 					if (addBoss.getVidaBoss() == 0) {
 						if (nivelTiro < 3)
 							nivelTiro++;
+						
 						nave.setNivelTiro(nivelTiro);
 						addBoss.setVisivel(false);
 						novosTirosBoss.stop();
@@ -803,32 +689,26 @@ public class Fase extends JPanel implements ActionListener {
 
 		if (boolFrenesi && addBoss != null) {
 			retBoss = addBoss.getBounds();
-
+			
 			if (retNave.intersects(retBoss)) {
-
 				if (tempo.shadow == 0) {
 					menosVidas();
 				}
 				if (vidas < 0) {
-
 					jogoAndamento = false;
-
 				}
 			}
 		}
 
 		for (int i = 0; i < addVida.size(); i++) {
-
 			Vida tempVida = addVida.get(i);
 			retVida = tempVida.getBounds();
 
 			if (retNave.intersects(retVida)) {
-
 				tempVida.setVisivel(false);
 				maisVidas();
 			}
 		}
-
 	}
 
 	private class Repetir implements ActionListener {
@@ -857,7 +737,6 @@ public class Fase extends JPanel implements ActionListener {
 		buffRead.close();
 
 		BufferedWriter arquivo = new BufferedWriter(new FileWriter("res\\recorde.txt"));
-
 		for (i = 0; i < 5; i++) {
 			if (pontoRecord[i] > pontos) {
 				linha = Integer.toString(pontoRecord[i]);
@@ -877,7 +756,6 @@ public class Fase extends JPanel implements ActionListener {
 			arquivo.newLine();
 			i++;
 		}
-
 		arquivo.close();
 	}
 
@@ -901,7 +779,6 @@ public class Fase extends JPanel implements ActionListener {
 	public void Mute(boolean flag) {
 		if (!flag) {
 			mute = false;
-
 			somFundo = new AllMusic(pathMusica);
 			somFundo.setloop(true);
 			somFundo.start();
@@ -909,16 +786,12 @@ public class Fase extends JPanel implements ActionListener {
 			mute = true;
 			somFundo.close();
 		}
-
 	}
-
-	private class TeclaAdapter extends KeyAdapter { // Classe responsável por
-													// pegar as teclas
-													// pressionadas na fase.
-
+	
+	// Classe responsável por  pegar as teclas pressionadas na fase.
+	private class TeclaAdapter extends KeyAdapter { 
 		@Override
 		public void keyPressed(KeyEvent e) {
-
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				jogoAndamento = true;
 				pontos = 0;
@@ -948,53 +821,41 @@ public class Fase extends JPanel implements ActionListener {
 					repetirFundo.stop();
 					tempo.pararTimer();
 					Mute(true);
-
 				}
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_M) {
 				Mute();
 			}
-
 			nave.KeyPressed(e);
 		}
-
 		@Override
 		public void keyReleased(KeyEvent e) {
 			nave.KeyReleased(e);
 		}
-
 	}
 
 	private class EventoMenuFinal extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
-
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				up = true;
 				down = false;
 			}
-
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				down = true;
 				up = false;
 			}
-
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
 				if (up == true) {
-
 					StartFase();
 				}
-
 				if (down == true) {
 					setVisible(false);
 					menu.MostraMenu();
 					menu.grabFocus();
 				}
-
 			}
 		}
 	}
-
 }

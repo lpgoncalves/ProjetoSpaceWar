@@ -1,10 +1,6 @@
 package game;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.ImageIcon;
 
 public class Boss {

@@ -1,21 +1,16 @@
 package game;
-
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.ImageIcon;
 
 public class Vida {
-	
 	private Image vidaImg;
 	private int x;
 	private int y;
 	private int altura;
 	private int largura;
-	
 	private boolean isVisivel;
-	
 	private static final int COMPRIMENTO_TELA = 600;
 	private static final int VELOCIDADE_VIDA = 1;
 	
@@ -33,14 +28,12 @@ public class Vida {
 	}
 	
 	public void mover() {
-		
 		if (this.y == 600){
 			this.y = COMPRIMENTO_TELA;
 		}
 		else {
 			this.y += VELOCIDADE_VIDA;
-		}
-			
+		}	
 	}
 	
 	public boolean isVisivel() {
@@ -66,6 +59,4 @@ public class Vida {
 	public Rectangle2D getBounds() {
 		return new Rectangle (x, y, largura, altura);
 	}
-	
-
 }

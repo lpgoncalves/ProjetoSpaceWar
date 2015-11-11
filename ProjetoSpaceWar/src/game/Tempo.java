@@ -1,15 +1,9 @@
 package game;
-
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import game.Fase.criarInimigos;
-
 public class Tempo {
-	
 	Timer timer;
-	
 	public int minutos = 0;
 	public int segundos = 0;
 	public int timerMulti = 0;
@@ -17,7 +11,6 @@ public class Tempo {
 	public int shadow = 0;
 
 	public Tempo() {
-		
 		timer = new Timer();
 		timer.schedule(new DisplayCountdown(), 0, 1000);
 	}
