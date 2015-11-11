@@ -80,6 +80,9 @@ public class Fase extends JPanel implements ActionListener {
 
 	private ImageIcon seta;
 	private ImageIcon hundredPoints = new ImageIcon("res\\MoreHundred.png");
+	private ImageIcon x2 = new ImageIcon("res\\x2.png");
+	private ImageIcon x3 = new ImageIcon("res\\x3.png");
+	private ImageIcon x4 = new ImageIcon("res\\x4.png");
 	private Menu menu;
 	public JLabel somLabel;
 	
@@ -106,10 +109,10 @@ public class Fase extends JPanel implements ActionListener {
 
 		// ImageIcon referencia1 = new ImageIcon("res\\background.png");
 		ImageIcon referencia1 = new ImageIcon("res\\fase1.gif");
-		ImageIcon referencia2 = new ImageIcon("res\\fase2.jpg");
-		ImageIcon referencia3 = new ImageIcon("res\\fase3.jpg");
+		ImageIcon referencia2 = new ImageIcon("res\\fase2.gif");
+		ImageIcon referencia3 = new ImageIcon("res\\fase3.gif");
 		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
-		ImageIcon referencia5 = new ImageIcon("res\\background5.png");
+		ImageIcon referencia5 = new ImageIcon("res\\background5.jpg");
 
 		background.add(referencia1.getImage());
 		background.add(referencia2.getImage());
@@ -294,7 +297,7 @@ public class Fase extends JPanel implements ActionListener {
 
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0, vidaInimigo));		
+			inimigos.add(new Inimigos(1 + (int) (500 * Math.random()), -30, 0, vidaInimigo));		
 		}
 	}
 
@@ -331,8 +334,12 @@ public class Fase extends JPanel implements ActionListener {
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 		graficos = (Graphics2D) g;
 		graficos.setBackground(Color.BLACK);
-		graficos.drawImage(background.get(indexBack), 0, repetir, null);
-		graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); 
+		if(indexBack == 1 || indexBack == 2){
+			graficos.drawImage(background.get(indexBack), 0, 0, null);
+		}else{
+			graficos.drawImage(background.get(indexBack), 0, repetir, null);
+			graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); 
+		}
 		if (jogoAndamento == true) {
 			// Colocamos na tela a imagem da nave com suas evidas posições.
 			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);
@@ -414,7 +421,14 @@ public class Fase extends JPanel implements ActionListener {
 				}
 			}
 			if(tempo.multiPontos > 1){
-				graficos.drawString("PONTOS x"+tempo.multiPontos+"", 350, 60);
+				switch(tempo.multiPontos){
+					case 2:graficos.drawImage(x2.getImage(), 10, 45, null);
+						break;
+					case 3:graficos.drawImage(x3.getImage(), 10, 45, null);
+						break;
+					case 4:graficos.drawImage(x4.getImage(), 10, 45, null);
+						break;
+				}
 			}
 		} else {
 			try {

@@ -35,22 +35,22 @@ public class Nave {
 		switch (idNave) {
 		case 1:
 			referencia = new ImageIcon("res\\nave1.gif");
-			alturaTiro = 100;
+			alturaTiro = 30;
 			break;
 		case 2:
 			referencia = new ImageIcon("res\\nave2.gif");
-			alturaTiro = 70;
+			alturaTiro = 25;
 			break;
 		case 3:
 			referencia = new ImageIcon("res\\nave3.gif");
-			alturaTiro = 90;
+			alturaTiro = 25;
 			break;
 		}
 		naveImg = referencia.getImage();
 
 		altura = naveImg.getHeight(null);
 		largura = naveImg.getWidth(null);
-		alturaTiro = alturaTiro + altura;
+
 		nivelTiro = 0;
 		tiros = new ArrayList<Tiro>();
 
@@ -152,7 +152,7 @@ public class Nave {
 		if (codigo == KeyEvent.VK_SPACE) {
 			if(timeTiro < System.currentTimeMillis()){
 				atirar();
-				timeTiro = System.currentTimeMillis() + 300;
+				timeTiro = System.currentTimeMillis() + 200;
 				if(!(mute)){
 					somTiroNave = new AllMusic(pathTiroNave);
 					somTiroNave.setloop(false);
