@@ -139,6 +139,7 @@ public class Fase extends JPanel implements ActionListener {
 
 		nave = new Nave(idNave);
 		inicializarInimigos();
+		Inimigos.SetVel(velInimigo);
 
 		gravadoRc = false;
 		jogoApagado = false;
