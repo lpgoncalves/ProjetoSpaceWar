@@ -1,5 +1,4 @@
 package game;
-
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.ImageIcon;
 
 public class Boss {
-
 	private Nave nave;
 	private Image bossImg;
 	private double x;
@@ -18,26 +16,17 @@ public class Boss {
 	private int largura;
 	private int vidaBoss;
 	private int tipoBoss;
-	
 	private boolean isVisivel;
-	
-	private static final int COMPRIMENTO_TELA = 600;
-	private static final int Y_MAXIMO = 400;
-	private static final int Y_MINIMO = 0;
 	public double VELOCIDADE_BOSS = 0.5;
-	
-	private ImageIcon referencia;
-	
 	public int dir;
 	public int dir2;
+	private ImageIcon referencia;
 	
 	public Boss(int x, int y, int tipoBoss){
-		
 		dir = 0;
 		this.x = x;
 		this.y = y;
 		
-	    
 	    switch(tipoBoss){
 		    case 0:
 		    	referencia = new ImageIcon ("res\\boss-0.png");//Definimos o diretorio da imagem do boss.
@@ -61,14 +50,12 @@ public class Boss {
 		    	bossImg = referencia.getImage();
 		    	break;
 	    }
-	    
+	  
 	    this.tipoBoss = tipoBoss;
 		
 		this.altura = bossImg.getHeight(null);
 		this.largura = bossImg.getWidth(null);
-		
 		isVisivel = true;
-		
 	}
 	
 	public int getTipoBoss() {
@@ -83,7 +70,6 @@ public class Boss {
 			this.x -= VELOCIDADE_BOSS; 
 			dir2 = 1;
 		}
-		
 	}
 	
 	public void Esquerda() {
@@ -105,7 +91,6 @@ public class Boss {
 			this.y -= VELOCIDADE_BOSS; 
 			dir = 1;
 		}
-		
 	}
 	
 	public void Cima() {
@@ -115,7 +100,6 @@ public class Boss {
 		else {
 			dir = 0;
 		}
-		
 	}
 	
 	public void BaixoMetade() {
@@ -138,8 +122,7 @@ public class Boss {
 		} else {
 			y += VELOCIDADE_BOSS;
 		}
-	}
-        
+	} 
 	
 	public int GetAltura(){
 		return altura;
@@ -148,7 +131,6 @@ public class Boss {
 	public int GetLargura(){
 		return largura;
 	}
-	
 	
 	public boolean isVisivel() {
 	    return isVisivel;
@@ -185,6 +167,4 @@ public class Boss {
 	public Rectangle2D getBounds() {
 		return new Rectangle2D.Double(x, y, largura, altura);
 	}
-	
-	
 }

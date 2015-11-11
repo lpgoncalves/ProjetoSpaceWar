@@ -121,8 +121,8 @@ public class Fase extends JPanel implements ActionListener {
 
 		// ImageIcon referencia1 = new ImageIcon("res\\background.png");
 		ImageIcon referencia1 = new ImageIcon("res\\fase1.gif");
-		ImageIcon referencia2 = new ImageIcon("res\\background2.jpg");
-		ImageIcon referencia3 = new ImageIcon("res\\background3.jpg");
+		ImageIcon referencia2 = new ImageIcon("res\\fase2.jpg");
+		ImageIcon referencia3 = new ImageIcon("res\\fase3.jpg");
 		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
 		ImageIcon referencia5 = new ImageIcon("res\\background5.png");
 
@@ -547,7 +547,7 @@ public class Fase extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (tempo.segundos == 40 && boolFrenesi == false) {
+		if (tempo.segundos == 30 && boolFrenesi == false) {
 			modeFrenesi(true);
 		}
 
