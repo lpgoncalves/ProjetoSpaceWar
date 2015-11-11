@@ -9,7 +9,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 public class AllMusic extends Thread {
-	private static boolean loop;
+	private boolean loop;
 	private File mp3;
 	private Player player;
 	private FileInputStream fis;
