@@ -27,7 +27,7 @@ public class Tempo {
 				{
 					shadow--;
 				}
-				if(timerMulti % 10 == 0)
+				if(timerMulti % 10 == 0 && multiPontos < 4)
 					multiPontos++;	
 		}
 	}	
