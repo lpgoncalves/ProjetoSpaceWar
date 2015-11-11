@@ -61,9 +61,6 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean pause;
 	private boolean up;
 	private boolean down;
-	private boolean left;
-	private boolean middle;
-	private boolean right;
 	private boolean boolFrenesi;
 	private boolean gravadoRc;
 	private boolean jogoApagado;
@@ -204,14 +201,6 @@ public class Fase extends JPanel implements ActionListener {
 		repetirFundo.restart();
 		timer.restart();
 		novosTirosBoss.stop();
-	}
-
-	private void menosPontos() {
-		if (pontos < 0) {
-			pontos = 0;
-		} else {
-			pontos--;
-		}
 	}
 
 	private void maisPontos() {
