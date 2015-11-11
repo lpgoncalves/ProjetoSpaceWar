@@ -43,7 +43,7 @@ public class SelectNave extends JPanel {
 		nave1.setBounds(170, 270, 95, 95);
 		nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
 		nave2.setBounds(270, 270, 95, 95);
-		nave3 = new JLabel(new ImageIcon("res\\nave3.png"));
+		nave3 = new JLabel(new ImageIcon("res\\nave3.jpg"));
 		nave3.setBounds(370, 270, 95, 95);
 		add(nave1);
 		add(nave2);

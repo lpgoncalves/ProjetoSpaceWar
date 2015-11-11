@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 
 public class Inimigos {
 
+	private int vidaInimigo;
+	
 	private Image inimigoImg;
 	private int x;
 	private int y;
@@ -23,11 +25,13 @@ public class Inimigos {
 	public int dir2;
 	private int tipoInimigo;
 	
-	public Inimigos(int x, int y, int tipoInimigo){
+	public Inimigos(int x, int y, int tipoInimigo, int vida){
+		
 		
 		dir = 0;
 		this.x = x;
 		this.y = y;
+		vidaInimigo = vida;
 		
 		ImageIcon referencia;
 	    
@@ -49,6 +53,14 @@ public class Inimigos {
 		
 		isVisivel = true;
 		
+	}
+	
+	public void MenosVida(){
+		vidaInimigo--;
+	}
+	
+	public int GetVida(){
+		return vidaInimigo;
 	}
 	
 	public static void SetVel(double velocidade){

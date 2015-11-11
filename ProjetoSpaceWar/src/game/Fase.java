@@ -33,10 +33,8 @@ import java.time.Duration;
 import java.time.ZonedDateTime;
 
 public class Fase extends JPanel implements ActionListener {
-
 	
 	private Nave nave;
-	private Tiro tiro;
 
 	private ImageIcon naveInvisivel = new ImageIcon("");
 
@@ -69,9 +67,8 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean boolFrenesi;
 	private boolean gravadoRc;
 	private boolean jogoApagado;
-	private boolean mute;
+	private boolean mute = false;
 	private boolean bossIsDead = false;
-
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
 	private double velInimigo = 1;
@@ -83,13 +80,14 @@ public class Fase extends JPanel implements ActionListener {
 	private int indexBack = 0;
 	private int nivelTiro = 0;
 	private int vidaBoss = 10;
+	private int vidaInimigo = 1;
 	private int tipoBoss = 0;
 	private int idNave;
 
 	private String tempoString;
 	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
 	private String pathExplosaoNave = "res\\sons\\Explosao_Nave.mp3";
-	private String pathTiroBoss = "res\\sons\\shoot01.mp3";
+	private String pathTiroBoss = "res\\sons\\8bit_Boss_Shoot.mp3";
 	
 	private AllMusic somFundo;
 	private AllMusic somExplosao;
@@ -156,7 +154,7 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies2.start();
 
 
-		novosTirosBoss = new Timer(800, new criarTirosBoss());
+		novosTirosBoss = new Timer(1000, new criarTirosBoss());
 
 		nave = new Nave(idNave);
 		inicializarInimigos();
@@ -188,9 +186,9 @@ public class Fase extends JPanel implements ActionListener {
 		down = false;
 		nave = new Nave(idNave);
 		inicializarInimigos();
+		nave.MuteNave(false);
 
 		velFrenesiInimigo = 1;
-		Inimigos.SetVel(velFrenesiInimigo);
 		velInimigo = 1;
 		Inimigos.SetVel(velInimigo);
 		indexBack = 0;
@@ -199,6 +197,7 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoFrenesiQnt = 900;
 		inimigoQnt = 1000;
 		nivelTiro = 0;
+		vidaInimigo = 1;
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -216,19 +215,21 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private void maisPontos() {
-		pontos = pontos + 10;
+		pontos = pontos + (10*tempo.multiPontos);
 		if(pontos % 350 == 0){
 			criarVidas();
 		}
 	}
 	
 	private void maisPontosBoss(){
-		pontos = pontos + 100;
+		pontos = pontos + (100*tempo.multiPontos);
 			criarVidas();
 	}
 
 	private void menosVidas() {
 		vidas--;
+		tempo.timerMulti = 0;
+		tempo.multiPontos = 1;
 		/*if (nivelTiro > 0) {
 			nivelTiro--;
 			nave.setNivelTiro(nivelTiro);
@@ -255,11 +256,12 @@ public class Fase extends JPanel implements ActionListener {
 			boolFrenesi = frenesi;
 			novosTirosBoss.stop();
 			addBoss = null;
-
-			if (tipoBoss < 5) {
+				
+			if (tipoBoss < 4) {
 				tipoBoss++;
 			} else {
 				tipoBoss = 0;
+				vidaInimigo++;
 			}
 			mudarBack();
 		}
@@ -313,6 +315,7 @@ public class Fase extends JPanel implements ActionListener {
 		explosoes.clear();
 		tempoExplosao.clear();
 
+		nave.MuteNave(true);
 		somFundo.close();
 		tempo.pararTimer();
 		timer.stop();
@@ -325,21 +328,21 @@ public class Fase extends JPanel implements ActionListener {
 
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0));
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 0, vidaInimigo));
+			
 
 		}
 	}
 
 	public class criarInimigos2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 1));
+			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 1, vidaInimigo));
 
 		}
 	}
 
 	public void criarBoss() {
 		addBoss = new Boss(1 + (int) (550 * Math.random()), -80, tipoBoss);
-		System.out.println(tipoBoss);
 		addBoss.setVidaBoss(vidaBoss);
 		novosTirosBoss.start();
 	}
@@ -351,11 +354,14 @@ public class Fase extends JPanel implements ActionListener {
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) - 35,
-					addBoss.getY() + addBoss.GetAltura(), 0, 1));
+					addBoss.getY() + addBoss.GetAltura(), 0, 2));
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) + 25,
-					addBoss.getY() + addBoss.GetAltura(), 0, 1));
-			
-
+					addBoss.getY() + addBoss.GetAltura(), 0, 2));
+			if (!mute) {
+				somTiroBoss = new AllMusic(pathTiroBoss);
+				somTiroBoss.setloop(false);
+				somTiroBoss.start();
+			}
 		}
 	}
 
@@ -436,9 +442,7 @@ public class Fase extends JPanel implements ActionListener {
 					tempoTemp.stop();
 					tempoExplosao.remove(i);
 					explosoes.remove(i);
-
 				} else {
-
 					graficos.drawImage(expTemp.getExplosaoImg(), expTemp.getX(), expTemp.getY(), this);
 				}
 			}
@@ -451,7 +455,6 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.setColor(Color.white);
 			graficos.setFont(pontimer);
 			graficos.drawString(" " + pontos, 20, 14);
-
 			// --------------------------------------------------------------------------------
 			// Caso seja menor que 10 segundos no timer ele irá colocar um zero
 			// antes (ESTÉTICA)
@@ -462,12 +465,10 @@ public class Fase extends JPanel implements ActionListener {
 			}
 			// ---------------------------------------------------------------------------------
 			graficos.drawString(" " + vidas, 198, 14);
-
 			if (pause == true) {
 				ImageIcon pause = new ImageIcon("res\\Pause2.png");
 				graficos.drawImage(pause.getImage(), 275, 275, null);
 			}
-
 			if (mute == true) {
 				long end = dataMudo + 3000;
 				if (System.currentTimeMillis() < end) {
@@ -479,16 +480,17 @@ public class Fase extends JPanel implements ActionListener {
 					graficos.drawImage(sound.getImage(), 550, 45, null);
 				}
 			}
-			
 			if (boolFrenesi) {
 				graficos.drawString("MODO FRENEZI", 480, 550);
 			}
-			
 			if (bossIsDead) {
 				long end = dataHundred + 1500;
 				if (System.currentTimeMillis() < end) {
 				graficos.drawImage(hundredPoints.getImage(), 350, 45, null);
 				}
+			}
+			if(tempo.multiPontos > 1){
+				graficos.drawString("PONTOS x"+tempo.multiPontos+"", 350, 60);
 			}
 
 		} else {
@@ -563,6 +565,7 @@ public class Fase extends JPanel implements ActionListener {
 		if (tempo.segundos == 0 && boolFrenesi == true) {
 			modeFrenesi(false);
 		}
+		
 
 		tiros = nave.getTiros();
 		
@@ -732,8 +735,11 @@ public class Fase extends JPanel implements ActionListener {
 			if (retNave.intersects(retInimigos)) {
 				if (tempo.shadow == 0) {
 					menosVidas();
+					tempInimigos.MenosVida();
+				}
+				
+				if(tempInimigos.GetVida() == 0){
 					tempInimigos.setVisivel(false);
-
 				}
 				if (vidas < 0) {
 
@@ -774,9 +780,12 @@ public class Fase extends JPanel implements ActionListener {
 
 				if (retTiro.intersects(retInimigos)) {
 
-					tempInimigos.setVisivel(false);
+					tempInimigos.MenosVida();
 					tempTiro.setVisivel(false);
-					maisPontos();
+					if(tempInimigos.GetVida() == 0){
+						tempInimigos.setVisivel(false);
+						maisPontos();
+					}
 				}
 			}
 
@@ -886,11 +895,13 @@ public class Fase extends JPanel implements ActionListener {
 	public void Mute() {
 		if (!pause) {
 			if (mute) {
+				nave.MuteNave(false);
 				mute = false;
 				somFundo = new AllMusic(pathMusica);
 				somFundo.setloop(true);
 				somFundo.start();
 			} else {
+				nave.MuteNave(true);
 				mute = true;
 				somFundo.close();
 			}

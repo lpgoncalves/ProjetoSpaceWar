@@ -25,6 +25,8 @@ public class Nave {
 	private int largura;
 	private int nivelTiro;
 	private boolean isVisivel;
+	private boolean mute = false;
+	private long timeTiro = 0;
 
 	public ImageIcon referencia;
 
@@ -164,29 +166,7 @@ public class Nave {
 		} else if (idNave == 2) {
 			switch (nivelTiro) {
 			case 0:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 8, getY() - altura + 50, 0, 1));
-				break;
-			case 1:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 50, 0, 2));
-				break;
-			case 2:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() - altura + 50, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 50, 0, 2));
-				break;
-			case 3:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() - altura + 50, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 50, 0, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() - altura + 50, 1, 2));
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() - altura + 50, 2, 2));
-				break;
-			default:
-				break;
-			}
-			
-		} else if (idNave == 3) {
-			switch (nivelTiro) {
-			case 0:
-				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 8, getY() - altura + 70, 0, 1));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 8, getY() - altura +70, 0, 1));
 				break;
 			case 1:
 				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 70, 0, 2));
@@ -200,6 +180,28 @@ public class Nave {
 				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 70, 0, 2));
 				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() - altura + 70, 1, 2));
 				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() - altura + 70, 2, 2));
+				break;
+			default:
+				break;
+			}
+			
+		} else if (idNave == 3) {
+			switch (nivelTiro) {
+			case 0:
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 8, getY() - altura + 90, 0, 1));
+				break;
+			case 1:
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 10, getY() - altura + 90, 0, 2));
+				break;
+			case 2:
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 10, getY() - altura + 90, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 90, 0, 2));
+				break;
+			case 3:
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 0, getY() - altura + 90, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 20, getY() - altura + 90, 0, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) - 50, getY() - altura + 90, 1, 2));
+				this.tiros.add(new Tiro((int) getX() + (largura / 2) + 30, getY() - altura + 90, 2, 2));
 				break;
 			default:
 				break;
@@ -220,10 +222,15 @@ public class Nave {
 		int codigo = tecla.getKeyCode();
 
 		if (codigo == KeyEvent.VK_SPACE) {
-			atirar();
-			somTiroNave = new AllMusic(pathTiroNave);
-			somTiroNave.setloop(false);
-			somTiroNave.start();
+			if(timeTiro < System.currentTimeMillis()){
+				atirar();
+				timeTiro = System.currentTimeMillis() + 300;
+				if(!(mute)){
+					somTiroNave = new AllMusic(pathTiroNave);
+					somTiroNave.setloop(false);
+					somTiroNave.start();
+				}	
+			}
 		}
 
 		if (codigo == KeyEvent.VK_UP) { // Tecla "Seta para cima" para
@@ -274,6 +281,10 @@ public class Nave {
 
 	public void ApagaNave() throws Throwable {
 		this.finalize();
+	}
+	
+	public void MuteNave(boolean mute){
+		this.mute = mute;
 	}
 
 }

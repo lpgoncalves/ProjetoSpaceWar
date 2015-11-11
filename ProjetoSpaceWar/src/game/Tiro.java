@@ -29,7 +29,7 @@ public class Tiro {
 		VELOCIDADE_TIRO = velocidade;
 		
 		ImageIcon referencia1 = new ImageIcon("res\\tiro.png");
-		ImageIcon referencia2 = new ImageIcon("res\\tiroboss.png");
+		ImageIcon referencia2 = new ImageIcon("res\\tiroboss.jpg");
 		tiroImg = referencia1.getImage();
 		tiroBossImg = referencia2.getImage();
 		

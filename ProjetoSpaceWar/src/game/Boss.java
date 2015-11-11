@@ -50,6 +50,7 @@ public class Boss {
 		    case 2:
 		    	referencia = new ImageIcon ("res\\boss-2.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
+		    	System.out.println(tipoBoss);
 		    	break;
 		    case 3:
 		    	referencia = new ImageIcon ("res\\boss-3.png");//Definimos o diretorio da imagem do boss.
@@ -59,8 +60,6 @@ public class Boss {
 		    	referencia = new ImageIcon ("res\\boss-4.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
-		    default :
-		      tipoBoss = 0;
 	    }
 	    
 	    this.tipoBoss = tipoBoss;
