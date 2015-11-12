@@ -169,6 +169,7 @@ public class Fase extends JPanel implements ActionListener {
 		somFundo.setloop(true);
 		somFundo.start();
 		
+		tempo = new Tempo();
 		jogoAndamento = true;
 		jogoApagado = false;
 		gravadoRc = false;
