@@ -15,8 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import javazoom.jl.decoder.JavaLayerException;
 import music.AllMusic;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -56,6 +54,8 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean jogoApagado;
 	private boolean mute = false;
 	private boolean bossIsDead = false;
+	private boolean eventKey = false;
+	
 	private int inimigoQnt = 1000;
 	private int inimigoFrenesiQnt = 900;
 	private double velInimigo = 1;
@@ -95,6 +95,7 @@ public class Fase extends JPanel implements ActionListener {
 	Font pontuacaoFinal = new Font(FontGame.GetFontArcade(), Font.BOLD, 15);
 	Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	public Graphics2D graficos;
+	private EventoMenuFinal keyGameOver;
 
 	public Fase(Menu menu, int idNave) {
 
@@ -162,11 +163,16 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private void StartFase() {
-		Mute(false);
+		this.removeKeyListener(keyGameOver);
+		somFundo = new AllMusic(pathMusica);
+		somFundo.setloop(true);
+		somFundo.start();
+		
 		jogoAndamento = true;
 		jogoApagado = false;
 		gravadoRc = false;
 		boolFrenesi = false;
+		eventKey = false;
 		tempoShadow.stop();
 		nave.setNaveImg(nave.referencia);
 		up = true;
@@ -185,8 +191,6 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoQnt = 1000;
 		nivelTiro = 0;
 		vidaInimigo = 1;
-		
-		
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -293,7 +297,7 @@ public class Fase extends JPanel implements ActionListener {
 		tipoBoss = 0;
 
 		nave.MuteNave(true);
-		Mute(true);
+		somFundo.close();
 		tempo.pararTimer();
 		timer.stop();
 		novosEnemies.stop();
@@ -454,7 +458,11 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(gameover.getImage(), 0, 100, null);
 			graficos.setColor(Color.white);
 			
-			addKeyListener(new EventoMenuFinal());
+			if(!eventKey){
+				keyGameOver = new EventoMenuFinal();
+				addKeyListener(keyGameOver);
+				eventKey = true;
+			}
 			seta = new ImageIcon("res\\seta.gif");
 			try {
 				if (gravadoRc == false) {
@@ -810,17 +818,6 @@ public class Fase extends JPanel implements ActionListener {
 	private class TeclaAdapter extends KeyAdapter { 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				jogoAndamento = true;
-				pontos = 0;
-				vidas = 1;
-				tempo = new Tempo();
-				nave = new Nave(idNave);
-				novosEnemies.start();
-				novosEnemies2.start();
-				inicializarInimigos();
-			}
-
 			if (e.getKeyCode() == KeyEvent.VK_P) {
 				if (pause == true) {
 					pause = false;
@@ -864,6 +861,9 @@ public class Fase extends JPanel implements ActionListener {
 				down = true;
 				up = false;
 			}
+			
+		}
+		public void keyReleased(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (up == true) {
 					StartFase();

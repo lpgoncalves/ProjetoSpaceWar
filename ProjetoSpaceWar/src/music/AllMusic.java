@@ -3,6 +3,8 @@ package music;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javax.swing.JOptionPane;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -33,9 +35,6 @@ public class AllMusic extends Thread {
 		}
 	}
 	
-	public boolean getloop() {
-		return loop;
-	}
 	public void setloop(boolean lopp) {
 		loop = lopp;
 	}
@@ -43,16 +42,6 @@ public class AllMusic extends Thread {
 	public void close() {
 		loop = false;
 		player.close();
-		
-	}	
-	
-	public void player(){
-		try {
-			this.player = new Player(bis);
-			this.player.play();
-		} catch (JavaLayerException e) {
-			e.printStackTrace();
-		}
-	}
-			
+		player = null;
+	}				
 }
