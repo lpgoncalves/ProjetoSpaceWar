@@ -19,7 +19,7 @@ public class Main_Frame extends JFrame {
 	
 	public Main_Frame() {
 		logo = new JLabel( new ImageIcon("res\\Logo.png")); //Setar o logo
-		logo.setBounds(60, 40 , 650, 200); //Setar posição X, Y, Largura e Altura do logo
+		logo.setBounds(5, 45 , 645, 195); //Setar posição X, Y, Largura e Altura do logo
 		add(logo);
 		
 		Menu LabelMenu = new Menu(this);

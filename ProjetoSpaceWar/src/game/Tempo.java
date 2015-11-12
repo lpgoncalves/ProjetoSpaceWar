@@ -6,8 +6,6 @@ public class Tempo {
 	Timer timer;
 	public int minutos = 0;
 	public int segundos = 0;
-	public int timerMulti = 0;
-	public int multiPontos = 1;
 	public int shadow = 0;
 
 	public Tempo() {
@@ -18,7 +16,6 @@ public class Tempo {
 	class DisplayCountdown extends TimerTask {
 		public void run() {
 				segundos++;
-				timerMulti++;
 				if(segundos == 60){
 					segundos = 0;
 					minutos++;
@@ -27,8 +24,6 @@ public class Tempo {
 				{
 					shadow--;
 				}
-				if(timerMulti % 10 == 0 && multiPontos < 4)
-					multiPontos++;	
 		}
 	}	
 	

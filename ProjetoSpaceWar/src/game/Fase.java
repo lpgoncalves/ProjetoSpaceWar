@@ -66,10 +66,12 @@ public class Fase extends JPanel implements ActionListener {
 	private int intShadow;
 	private int indexBack = 0;
 	private int nivelTiro = 0;
-	private int vidaBoss = 10;
+	private int vidaBoss = 5;
 	private int vidaInimigo = 1;
 	private int tipoBoss = 0;
 	private int idNave;
+	private int multiPontos = 1;
+	private int qntInimigosDestruido = 0;
 
 	private String tempoString;
 	private String pathMusica = "res\\sons\\Musica_Fase.mp3";
@@ -98,7 +100,6 @@ public class Fase extends JPanel implements ActionListener {
 	private EventoMenuFinal keyGameOver;
 
 	public Fase(Menu menu, int idNave) {
-
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setFocusable(true);// Seta a nave como foco.
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para  as teclas do teclado.
@@ -191,6 +192,8 @@ public class Fase extends JPanel implements ActionListener {
 		inimigoQnt = 1000;
 		nivelTiro = 0;
 		vidaInimigo = 1;
+		multiPontos = 1;
+		qntInimigosDestruido = 0;
 
 		novosEnemies.restart();
 		novosEnemies2.restart();
@@ -200,21 +203,21 @@ public class Fase extends JPanel implements ActionListener {
 	}
 
 	private void maisPontos() {
-		pontos = pontos + (10*tempo.multiPontos);
+		pontos = pontos + (10*multiPontos);
 		if(pontos % 350 == 0){
 			criarVidas();
 		}
 	}
 	
 	private void maisPontosBoss(){
-		pontos = pontos + (100*tempo.multiPontos);
+		pontos = pontos + (100*multiPontos);
 			criarVidas();
 	}
 
 	private void menosVidas() {
 		vidas--;
-		tempo.timerMulti = 0;
-		tempo.multiPontos = 1;
+		qntInimigosDestruido = 0;
+		multiPontos = 1;
 		/*if (nivelTiro > 0) {
 			nivelTiro--;
 			nave.setNivelTiro(nivelTiro);
@@ -228,7 +231,7 @@ public class Fase extends JPanel implements ActionListener {
 		if (frenesi == true) {
 			velFrenesiInimigo = velFrenesiInimigo + 0.7;
 			Inimigos.SetVel(velFrenesiInimigo);
-			vidaBoss = vidaBoss + 5;
+			vidaBoss = vidaBoss + 15;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
 			criarBoss();
 			boolFrenesi = frenesi;
@@ -244,6 +247,8 @@ public class Fase extends JPanel implements ActionListener {
 				tipoBoss++;
 			} else {
 				tipoBoss = 0;
+			}
+			if(tempo.minutos % 3 == 0){
 				vidaInimigo++;
 			}
 			mudarBack();
@@ -432,8 +437,8 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(hundredPoints.getImage(), 350, 45, null);
 				}
 			}
-			if(tempo.multiPontos > 1){
-				switch(tempo.multiPontos){
+			if(multiPontos > 1){
+				switch(multiPontos){
 					case 2:graficos.drawImage(x2.getImage(), 10, 45, null);
 						break;
 					case 3:graficos.drawImage(x3.getImage(), 10, 45, null);
@@ -686,6 +691,11 @@ public class Fase extends JPanel implements ActionListener {
 					tempTiro.setVisivel(false);
 					if(tempInimigos.GetVida() == 0){
 						tempInimigos.setVisivel(false);
+						qntInimigosDestruido++;
+						if(qntInimigosDestruido % 10 == 0){
+							if(multiPontos < 4)
+								multiPontos++;
+						}
 						maisPontos();
 					}
 				}
