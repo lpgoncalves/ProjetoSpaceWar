@@ -143,8 +143,10 @@ public class Menu extends JLabel implements ActionListener {
 
 	public void MostraMenu() {
 		setVisible(true);
+		mFrame.requestFocusInWindow();
 		mFrame.background.setVisible(true);
 		menuMusic = new AllMusic("res\\sons\\Menu.mp3");
+		menuMusic.setloop(true);
 		menuMusic.start();
 	}
 	

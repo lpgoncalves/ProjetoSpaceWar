@@ -303,7 +303,8 @@ public class Fase extends JPanel implements ActionListener {
 		tipoBoss = 0;
 
 		nave.MuteNave(true);
-		somFundo.close();
+		if(!mute)
+			somFundo.close();
 		tempo.pararTimer();
 		timer.stop();
 		novosEnemies.stop();
@@ -882,7 +883,6 @@ public class Fase extends JPanel implements ActionListener {
 				if (down == true) {
 					setVisible(false);
 					menu.MostraMenu();
-					menu.grabFocus();
 				}
 			}
 		}
