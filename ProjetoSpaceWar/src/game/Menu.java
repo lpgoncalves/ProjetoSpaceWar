@@ -219,6 +219,8 @@ public class Menu extends JLabel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
+					for(int i = 1; i < panelRecordes.getComponentCount(); i++)
+						panelRecordes.remove(i);
 					Menu.this.mFrame.setLogoLabelVisible(true);
 					//Menu.this.mFrame.background.setVisible(false);
 					Menu.this.menuAjuda.setVisible(false);
