@@ -60,7 +60,7 @@ public class Boss {
 	}
 	
 	public void Direita() {
-		if (this.x < 600 - largura) {
+		if (this.x < Main_Frame.LARGURA_TELA - largura) {
 			this.x += velocidade_boss; 
 		}
 		else {
@@ -82,7 +82,7 @@ public class Boss {
 	}
 	
 	public void Baixo() {	
-		if (this.y < 600 - altura ) {
+		if (this.y < Main_Frame.COMPRIMENTO_TELA - altura ) {
 			this.y += velocidade_boss;
 		}
 		else {
@@ -104,7 +104,7 @@ public class Boss {
 	}
 	
 	public void BaixoMetade() {
-		if (this.y < 400 - altura ) {
+		if (this.y < (Main_Frame.COMPRIMENTO_TELA/2) ) {
 			this.y += velocidade_boss;
 		}
 		else {

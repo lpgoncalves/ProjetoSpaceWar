@@ -56,8 +56,8 @@ public class Nave {
 
 		isVisivel = true;
 		// Setamos a posição inicial da nave.
-		this.x = 275;
-		this.y = 500;
+		this.x = 425;
+		this.y = 680;
 	}
 
 	public void mover() {
@@ -68,14 +68,14 @@ public class Nave {
 		if (this.x < 1) {
 			x = 1;
 		}
-		if (this.x > 502) {
-			x = 502;
+		if (this.x > 802) {
+			x = 802;
 		}
 		if (this.y < 20) {
 			y = 20;
 		}
-		if (this.y > 480) {
-			y = 480;
+		if (this.y > 680) {
+			y = 680;
 		}
 	}
 

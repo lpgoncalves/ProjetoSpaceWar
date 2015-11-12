@@ -36,23 +36,23 @@ public class Menu extends JLabel implements ActionListener {
 
 		panelRecordes = new JPanel();
 		panelRecordes.setLayout(null);
-		panelRecordes.setBounds(0, 0, 600, 600);
+		panelRecordes.setBounds(0, 0, 900, 800);
 		panelRecordes.setVisible(false);
 		panelRecordes.setOpaque(false);
 
 		menuAjuda = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-ajuda.png"));
-		menuAjuda.setBounds(70, 25, 500, 500);
+		menuAjuda.setBounds(55, 35, 800, 700);
 		menuAjuda.setVisible(false);
 		frame.add(menuAjuda);
 
 		menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-Recovered.png"));
-		menuRecordes.setBounds(70, 25, 500, 500);
+		menuRecordes.setBounds(200, 160, 500, 500);
 		menuRecordes.setVisible(true);
 		panelRecordes.add(menuRecordes);
 		frame.add(panelRecordes);
 
 		returnLabel = new JLabel("Pressione ESC para voltar");
-		returnLabel.setBounds(400, 500, 150, 50);
+		returnLabel.setBounds(700, 650, 150, 50);
 		returnLabel.setForeground(SystemColor.WHITE);
 		returnLabel.setVisible(false);
 		frame.add(returnLabel);
@@ -100,7 +100,7 @@ public class Menu extends JLabel implements ActionListener {
 				recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 			}
 			public void mouseClicked(MouseEvent e) {
-				mFrame.setLogoLabelVisible(false);
+				mFrame.logo.setVisible(false);
 				setVisible(false);
 				panelRecordes.setVisible(true);
 				returnLabel.setVisible(true);
@@ -133,7 +133,7 @@ public class Menu extends JLabel implements ActionListener {
 				ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 			}
 			public void mouseClicked(MouseEvent e) {
-				mFrame.setLogoLabelVisible(false);
+				mFrame.logo.setVisible(false);
 				setVisible(false);
 				menuAjuda.setVisible(true);
 				returnLabel.setVisible(true);
@@ -177,8 +177,8 @@ public class Menu extends JLabel implements ActionListener {
 		
 		switch (coluna) {
 		case "posicao":
-			x = 140;
-			y = 230;
+			x = 272;
+			y = 370;
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
 				row.setBounds(x, y, 320, 40);
@@ -189,8 +189,8 @@ public class Menu extends JLabel implements ActionListener {
 			}
 			break;
 		case "tempo":
-			x = 240;
-			y = 230;
+			x = 365;
+			y = 370;
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
 				row.setBounds(x, y, 320, 40);
@@ -201,8 +201,8 @@ public class Menu extends JLabel implements ActionListener {
 			}
 			break;
 		case "pontos":
-			x = 410;
-			y = 230;
+			x = 535;
+			y = 370;
 			for (int i = 0; i < values.length; i++) {
 				row = new JLabel(values[i]);
 				row.setBounds(x, y, 320, 40);
@@ -223,7 +223,7 @@ public class Menu extends JLabel implements ActionListener {
 				if (!Menu.this.mFrame.logo.isVisible()) {
 					for(int i = 1; i < panelRecordes.getComponentCount(); i++)
 						panelRecordes.remove(i);
-					Menu.this.mFrame.setLogoLabelVisible(true);
+					mFrame.logo.setVisible(true);
 					//Menu.this.mFrame.background.setVisible(false);
 					Menu.this.menuAjuda.setVisible(false);
 					Menu.this.panelRecordes.setVisible(false);

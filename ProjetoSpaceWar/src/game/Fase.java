@@ -94,14 +94,14 @@ public class Fase extends JPanel implements ActionListener {
 	public long dataMudo;
 	public long dataHundred;
 
-	Font pontuacaoFinal = new Font(FontGame.GetFontArcade(), Font.BOLD, 15);
+	Font pontuacaoFinal = new Font(FontGame.GetFontArcade(), Font.BOLD, 18);
 	Font pontimer = new Font("Century Schoolbook L", Font.PLAIN, 10);
 	public Graphics2D graficos;
 	private EventoMenuFinal keyGameOver;
 
 	public Fase(Menu menu, int idNave) {
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
-		setFocusable(true);// Seta a nave como foco.
+		setVisible(true);
 		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para  as teclas do teclado.
 
 		this.idNave = idNave;
@@ -110,7 +110,7 @@ public class Fase extends JPanel implements ActionListener {
 		somLabel = new JLabel();
 		somLabel.setBounds(400, 40, 30, 30);
 		somLabel.setVisible(false);
-		Fase.this.add(somLabel);
+		add(somLabel);
 
 		// ImageIcon referencia1 = new ImageIcon("res\\background.png");
 		ImageIcon referencia1 = new ImageIcon("res\\fase1.gif");
@@ -315,24 +315,24 @@ public class Fase extends JPanel implements ActionListener {
 
 	public class criarInimigos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (500 * Math.random()), -30, 0, vidaInimigo));		
+			inimigos.add(new Inimigos(1 + (int) (820 * Math.random()), -30, 0, vidaInimigo));		
 		}
 	}
 
 	public class criarInimigos2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			inimigos.add(new Inimigos(1 + (int) (550 * Math.random()), -30, 1, vidaInimigo));
+			inimigos.add(new Inimigos(1 + (int) (850 * Math.random()), -30, 1, vidaInimigo));
 		}
 	}
 
 	public void criarBoss() {
-		addBoss = new Boss(1 + (int) (550 * Math.random()), -80, tipoBoss);
+		addBoss = new Boss(1 + (int) (850 * Math.random()), -80, tipoBoss);
 		addBoss.setVidaBoss(vidaBoss);
 		novosTirosBoss.start();
 	}
 
 	public void criarVidas(){
-		addVida.add(new Vida(1 + (int) (550 * Math.random()), -80));
+		addVida.add(new Vida(1 + (int) (850 * Math.random()), -80));
 	}
 
 	public class criarTirosBoss implements ActionListener {
@@ -356,7 +356,7 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawImage(background.get(indexBack), 0, 0, null);
 		}else{
 			graficos.drawImage(background.get(indexBack), 0, repetir, null);
-			graficos.drawImage(background.get(indexBack), 0, repetir - 600, null); 
+			graficos.drawImage(background.get(indexBack), 0, repetir - 800, null); 
 		}
 		if (jogoAndamento == true) {
 			if (boolFrenesi) {
@@ -424,19 +424,19 @@ public class Fase extends JPanel implements ActionListener {
 			if (mute == true) {
 				long end = dataMudo + 3000;
 				if (System.currentTimeMillis() < end) {
-					graficos.drawImage(noSound.getImage(), 550, 45, null);
+					graficos.drawImage(noSound.getImage(), 850, 45, null);
 				}
 			} else {
 				long end = dataMudo + 3000;
 				if (System.currentTimeMillis() < end) {
-					graficos.drawImage(sound.getImage(), 550, 45, null);
+					graficos.drawImage(sound.getImage(), 850, 45, null);
 				}
 			}
 			
 			if (bossIsDead) {
 				long end = dataHundred + 1500;
 				if (System.currentTimeMillis() < end) {
-				graficos.drawImage(hundredPoints.getImage(), 350, 45, null);
+				graficos.drawImage(hundredPoints.getImage(), 650, 45, null);
 				}
 			}
 			if(multiPontos > 1){
@@ -460,9 +460,8 @@ public class Fase extends JPanel implements ActionListener {
 			}
 			ImageIcon black = new ImageIcon("res\\black.png");
 			graficos.drawImage(black.getImage(), 0, 0, null);
-			
 			ImageIcon gameover = new ImageIcon("res\\game-over.gif");
-			graficos.drawImage(gameover.getImage(), 0, 100, null);
+			graficos.drawImage(gameover.getImage(), 160, 190, null);
 			graficos.setColor(Color.white);
 			
 			if(!eventKey){
@@ -484,17 +483,17 @@ public class Fase extends JPanel implements ActionListener {
 				e.printStackTrace();
 			}
 			if (up == true) {
-				graficos.drawImage(seta.getImage(), 80, 457, null);
+				graficos.drawImage(seta.getImage(), 230, 515, null);
 				setFocusable(true);
 			}
 			if (down == true) {
-				graficos.drawImage(seta.getImage(), 80, 476, null);
+				graficos.drawImage(seta.getImage(), 230, 545, null);
 				setFocusable(true);
 			}
 			graficos.setFont(pontuacaoFinal);
-			graficos.drawString("Jogar Novamente", 170, 490);
-			graficos.drawString("Voltar ao Menu Principal", 170, 510);
-			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 170, 550);
+			graficos.drawString("Jogar Novamente", 330, 550);
+			graficos.drawString("Voltar ao Menu Principal", 330, 580);
+			graficos.drawString("Você conseguiu incríveis " + pontos + " pontos!", 330, 650);
 			g.dispose();
 		}
 		g.dispose();// Irá repintar a tela com as novas atualizações.

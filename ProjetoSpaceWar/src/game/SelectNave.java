@@ -27,11 +27,11 @@ public class SelectNave extends JPanel {
 		mMenu = menu;
 
 		nave1 = new JLabel(new ImageIcon("res\\nave1.jpg"));
-		nave1.setBounds(170, 270, 95, 95);
+		nave1.setBounds(295, 380, 95, 95);
 		nave2 = new JLabel(new ImageIcon("res\\nave2.jpg"));
-		nave2.setBounds(270, 270, 95, 95);
+		nave2.setBounds(395, 380, 95, 95);
 		nave3 = new JLabel(new ImageIcon("res\\nave3.jpg"));
-		nave3.setBounds(370, 270, 95, 95);
+		nave3.setBounds(495, 380, 95, 95);
 		add(nave1);
 		add(nave2);
 		add(nave3);
@@ -46,7 +46,7 @@ public class SelectNave extends JPanel {
 		nave2.addMouseListener(new jogar(nave2, 2));
 		nave3.addMouseListener(new jogar(nave3, 3));
 		
-		setBounds(150, 250, 300, 100);
+		setBounds(280, 350, 300, 100);
 		setBackground(new Color(0,0,0,65));
         setOpaque(false);
 	}
@@ -64,9 +64,21 @@ public class SelectNave extends JPanel {
 			selectMusic = new AllMusic(pathSelectNave);
 			selectMusic.setloop(false);
 			selectMusic.start();
-			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+"-borda.png"));				
-			naveName.setText("Galaxy Explorer");
-			naveName.setBounds(173, 370, 200, 30);
+			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+"-borda.png"));	
+			switch(tipoNave){
+				case 1:
+					naveName.setText("Galaxy Explorer");
+					naveName.setBounds(295, 475, 200, 30);
+					break;
+				case 2:
+					naveName.setText("Destroyer SpaceShip");
+					naveName.setBounds(385, 475, 200, 30);
+					break;
+				case 3:
+					naveName.setText("Intergallatic Commander");
+					naveName.setBounds(495, 475, 200, 30);
+					break;
+			}
 		}
 		public void mouseExited(MouseEvent e) {
 			nave.setIcon(new ImageIcon("res\\nave"+tipoNave+".jpg"));
@@ -78,8 +90,7 @@ public class SelectNave extends JPanel {
 			setVisible(false);
 			SelectNave.this.mFrame.background.setVisible(false);
 			SelectNave.this.mMenu.menuMusic.close();
-			game.setFocusable(true);
-			game.grabFocus();
+			game.requestFocus();
 			game = null;
 		}
 		public void mousePressed(MouseEvent arg0) {			
