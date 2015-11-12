@@ -11,7 +11,6 @@ public class Vida {
 	private int altura;
 	private int largura;
 	private boolean isVisivel;
-	private static final int COMPRIMENTO_TELA = 600;
 	private static final int VELOCIDADE_VIDA = 1;
 	
 	public Vida (int x, int y) {
@@ -28,8 +27,8 @@ public class Vida {
 	}
 	
 	public void mover() {
-		if (this.y == 600){
-			this.y = COMPRIMENTO_TELA;
+		if (this.y == Main_Frame.COMPRIMENTO_TELA){
+			this.y = Main_Frame.COMPRIMENTO_TELA;
 		}
 		else {
 			this.y += VELOCIDADE_VIDA;

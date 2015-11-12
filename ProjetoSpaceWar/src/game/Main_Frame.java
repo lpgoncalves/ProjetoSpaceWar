@@ -11,7 +11,7 @@ public class Main_Frame extends JFrame {
 	Color corNaoSelecionado = new Color(0, 0, 0); // COR PRETA para o item que não está selecionado
 	public JLabel logo;
 	public JLabel background;
-	
+	public static final int COMPRIMENTO_TELA = 600;
 	
     public void setLogoLabelVisible(Boolean flag) {
          this.logo.setVisible(flag);
@@ -26,7 +26,6 @@ public class Main_Frame extends JFrame {
 		LabelMenu.setForeground(SystemColor.textHighlight);
 		LabelMenu.setBounds(65,250, 400, 600);
 		LabelMenu.setVisible(true);
-	
 		add(LabelMenu);
 		
 		//JLabel background = new JLabel( new ImageIcon("res\\Menu.jpg"));
@@ -35,7 +34,7 @@ public class Main_Frame extends JFrame {
 
 		setTitle("Runiverse");//Seta o titulo para o frame.
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setSize(600,600);//Seta o tamanho do frame.
+	    setSize(COMPRIMENTO_TELA, COMPRIMENTO_TELA);//Seta o tamanho do frame.
 	    setLocationRelativeTo(null);//Responsavel por deixar centralizado.
 	    setResizable(false);//Não é possivel redimensionar a janela.
 	    setVisible(true);//Deixa visivel o frame.   

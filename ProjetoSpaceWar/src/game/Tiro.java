@@ -13,9 +13,7 @@ public class Tiro {
 	private int altura, alturaBoss;
 	private int largura, larguraBoss;
 	private boolean isVisivel;
-	
-	private static final int COMPRIMENTO_TELA = 600;
-	public int VELOCIDADE_TIRO;
+	private int VELOCIDADE_TIRO;
 	
 	public Tiro(double x, double y, int nivel,int velocidade){
 		
@@ -40,21 +38,21 @@ public class Tiro {
 	public void mover() {
 		switch(direcao){
 			case 0: this.y -= VELOCIDADE_TIRO;
-					if(this.y > COMPRIMENTO_TELA) {
+					if(this.y > Main_Frame.COMPRIMENTO_TELA) {
 						isVisivel = false;		
 					}	
 					break;
 			case 1:
 					this.y -= VELOCIDADE_TIRO;
 					this.x -= VELOCIDADE_TIRO;
-					if(this.y > COMPRIMENTO_TELA) {
+					if(this.y > Main_Frame.COMPRIMENTO_TELA) {
 						isVisivel = false;		
 					}
 					break;
 			case 2:
 				this.y -= VELOCIDADE_TIRO;
 				this.x += VELOCIDADE_TIRO;
-				if(this.y > COMPRIMENTO_TELA) {
+				if(this.y > Main_Frame.COMPRIMENTO_TELA) {
 					isVisivel = false;		
 				}
 				break;
@@ -65,7 +63,7 @@ public class Tiro {
 	
 	public void moverTiroBoss() {
 		this.y += VELOCIDADE_TIRO;
-		if(this.y > COMPRIMENTO_TELA) {
+		if(this.y > Main_Frame.COMPRIMENTO_TELA) {
 			isVisivel = false;		
 		}	
 	}
@@ -105,5 +103,4 @@ public class Tiro {
 	public void Apagatiro() throws Throwable{
 		this.finalize();
 	}
-	
 }

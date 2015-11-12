@@ -12,7 +12,6 @@ public class Inimigos {
 	private int altura;
 	private int largura;
 	private boolean isVisivel;
-	private static final int COMPRIMENTO_TELA = 600;
 	private static double velocidade_inimigo = 1;
 	public int dir;
 	public int dir2;
@@ -58,10 +57,9 @@ public class Inimigos {
 	}
 	
 	public void mover() {
-		
-		if ((this.y == 600 || this.x == 600)){
-			this.y = COMPRIMENTO_TELA;
-			this.x = COMPRIMENTO_TELA;
+		if ((this.y == Main_Frame.COMPRIMENTO_TELA || this.x == Main_Frame.COMPRIMENTO_TELA)){
+			this.y = Main_Frame.COMPRIMENTO_TELA;
+			this.x = Main_Frame.COMPRIMENTO_TELA;
 		}
 		else {
 			this.y += velocidade_inimigo;
@@ -69,7 +67,7 @@ public class Inimigos {
 	}
 	
 	public void Direita() {
-		if (this.x < 600 - largura) {
+		if (this.x < Main_Frame.COMPRIMENTO_TELA - largura) {
 			this.x += velocidade_inimigo; 
 		}
 		else {
@@ -89,7 +87,7 @@ public class Inimigos {
 	}
 	
 	public void Baixo() {	
-		if (this.y < 600 - altura ) {
+		if (this.y < Main_Frame.COMPRIMENTO_TELA - altura ) {
 			this.y += velocidade_inimigo;
 		}
 		else {
