@@ -26,7 +26,7 @@ public class Inimigos {
 	
 		switch(tipoInimigo){
 	    case 0:
-	    	referencia = new ImageIcon ("res\\inimigo5.png");//Definimos o diretorio da imagem da nave inimiga.
+	    	referencia = new ImageIcon ("res\\inimigo.png");//Definimos o diretorio da imagem da nave inimiga.
 	    	inimigoImg = referencia.getImage();
 	    	break;
 	    case 1:
@@ -125,6 +125,6 @@ public class Inimigos {
 	}
 	
 	public Rectangle2D getBounds() {
-		return new Rectangle (x, y, largura - 30, altura - 20);
+		return new Rectangle (x, y, largura, altura);
 	}
 }

@@ -56,10 +56,12 @@ public class Fase extends JPanel implements ActionListener {
 	private boolean bossIsDead = false;
 	private boolean eventKey = false;
 	
-	private int inimigoQnt = 1000;
-	private int inimigoFrenesiQnt = 900;
+	private int inimigoQnt = 900;
+	private int inimigoFrenesiQnt = 750;
+	private int delayTiroBoss = 1000;
 	private double velInimigo = 1;
 	private double velFrenesiInimigo = 1;
+	private int velTiroBoss = 2;
 	private int repetir = 0;
 	private int pontos = 0;
 	private int vidas = 3;
@@ -117,13 +119,11 @@ public class Fase extends JPanel implements ActionListener {
 		ImageIcon referencia2 = new ImageIcon("res\\fase2.gif");
 		ImageIcon referencia3 = new ImageIcon("res\\fase3.gif");
 		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
-		ImageIcon referencia5 = new ImageIcon("res\\background5.jpg");
 
 		background.add(referencia1.getImage());
 		background.add(referencia2.getImage());
 		background.add(referencia3.getImage());
 		background.add(referencia4.getImage());
-		background.add(referencia5.getImage());
 
 		inimigos = new ArrayList<Inimigos>();
 		addVida = new ArrayList<Vida>();
@@ -143,7 +143,7 @@ public class Fase extends JPanel implements ActionListener {
 		novosEnemies.start();
 		novosEnemies2.start();
 		
-		novosTirosBoss = new Timer(1000, new criarTirosBoss());
+		novosTirosBoss = new Timer(delayTiroBoss, new criarTirosBoss());
 
 		nave = new Nave(idNave);
 		inicializarInimigos();
@@ -185,6 +185,8 @@ public class Fase extends JPanel implements ActionListener {
 
 		velFrenesiInimigo = 1;
 		velInimigo = 1;
+		velTiroBoss = 2;
+		delayTiroBoss = 1000;
 		Inimigos.SetVel(velInimigo);
 		indexBack = 0;
 		pontos = 0;
@@ -232,7 +234,7 @@ public class Fase extends JPanel implements ActionListener {
 		if (frenesi == true) {
 			velFrenesiInimigo = velFrenesiInimigo + 0.7;
 			Inimigos.SetVel(velFrenesiInimigo);
-			vidaBoss = vidaBoss + 15;
+			vidaBoss = vidaBoss + 10;
 			novosEnemies.setDelay(inimigoFrenesiQnt);
 			criarBoss();
 			boolFrenesi = frenesi;
@@ -244,13 +246,16 @@ public class Fase extends JPanel implements ActionListener {
 			novosTirosBoss.stop();
 			addBoss = null;
 				
-			if (tipoBoss < 4) {
+			if (tipoBoss < 3) {
 				tipoBoss++;
 			} else {
 				tipoBoss = 0;
 			}
-			if(tempo.minutos % 3 == 0){
+			if(tempo.minutos % 2 == 0){
 				vidaInimigo++;
+				velTiroBoss++;
+				delayTiroBoss = delayTiroBoss - 200;
+				novosTirosBoss.setDelay(delayTiroBoss);
 			}
 			mudarBack();
 		}
@@ -338,9 +343,9 @@ public class Fase extends JPanel implements ActionListener {
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) - 35,
-					addBoss.getY() + addBoss.GetAltura(), 0, 2));
+					addBoss.getY() + addBoss.GetAltura(), 0, velTiroBoss));
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) + 25,
-					addBoss.getY() + addBoss.GetAltura(), 0, 2));
+					addBoss.getY() + addBoss.GetAltura(), 0, velTiroBoss));
 			if (!mute) {
 				somTiroBoss = new AllMusic(pathTiroBoss);
 				somTiroBoss.setloop(false);
@@ -360,7 +365,7 @@ public class Fase extends JPanel implements ActionListener {
 		}
 		if (jogoAndamento == true) {
 			if (boolFrenesi) {
-				graficos.drawImage(frenesiIMG.getImage(), 300, 500,null);
+				graficos.drawImage(frenesiIMG.getImage(), 700, 730,null);
 			}
 			// Colocamos na tela a imagem da nave com suas evidas posições.
 			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);
@@ -436,7 +441,7 @@ public class Fase extends JPanel implements ActionListener {
 			if (bossIsDead) {
 				long end = dataHundred + 1500;
 				if (System.currentTimeMillis() < end) {
-				graficos.drawImage(hundredPoints.getImage(), 650, 45, null);
+				graficos.drawImage(hundredPoints.getImage(), 730, 45, null);
 				}
 			}
 			if(multiPontos > 1){
@@ -585,49 +590,84 @@ public class Fase extends JPanel implements ActionListener {
 
 		if (boolFrenesi && addBoss != null) {
 			if (addBoss.isVisivel()) {
-				if (addBoss.getTipoBoss() == 0 || addBoss.getTipoBoss() == 2 || addBoss.getTipoBoss() == 4) {
-					if ((tempo.segundos > 40) && (tempo.segundos < 50)) {
-						addBoss.velocidade_boss = 3;
-					} else {
-						addBoss.velocidade_boss = 0.5;
-					}
-					switch (addBoss.dir) {
+				if ((tempo.segundos > 40) && (tempo.segundos < 50)) {
+					addBoss.velocidade_boss = 3;
+				} else 
+					addBoss.velocidade_boss = 0.5;
+						
+				switch(addBoss.getTipoBoss()){
+				
 					case 0:
-						addBoss.BaixoMetade();
+						addBoss.Baixo(200);
+						switch (addBoss.dir2) {
+							case 0:
+								addBoss.Direita();
+								break;
+							case 1:
+								addBoss.Esquerda();
+								break;
+						}
 						break;
+						
 					case 1:
-						addBoss.Cima();
+						switch (addBoss.dir) {
+							case 0:
+								addBoss.Baixo(550);
+								break;
+							case 1:
+								addBoss.Cima();
+								break;
+							}
+							
+							switch (addBoss.dir2) {
+							case 0:
+								addBoss.Direita();
+								break;
+							case 1:
+								addBoss.Esquerda();
+								break;
+						}
 						break;
-					}
-					
-					switch (addBoss.dir2) {
-					case 0:
-						addBoss.Direita();
+						
+					case 2:
+						switch (addBoss.dir) {
+							case 0:
+								addBoss.Baixo(0);
+								break;
+							case 1:
+								addBoss.Cima();
+								break;
+							}
+							
+							switch (addBoss.dir2) {
+							case 0:
+								addBoss.Direita();
+								break;
+							case 1:
+								addBoss.Esquerda();
+								break;
+						}
 						break;
-					case 1:
-						addBoss.Esquerda();
+						
+					case 3:
+						switch (addBoss.dir) {
+							case 0:
+								addBoss.Baixo(0);
+								break;
+							case 1:
+								addBoss.Cima();
+								break;
+							}
+							
+							switch (addBoss.dir2) {
+							case 0:
+								addBoss.Direita();
+								break;
+							case 1:
+								addBoss.Esquerda();
+								break;
+						}
 						break;
-					}
-				}
-
-				if (addBoss.getTipoBoss() == 1 || addBoss.getTipoBoss() == 3) {
-					switch (addBoss.dir) {
-					case 0:
-						addBoss.Baixo();
-						break;
-					case 1:
-						addBoss.Cima();
-						break;
-					}
-
-					switch (addBoss.dir2) {
-					case 0:
-						addBoss.Direita();
-						break;
-					case 1:
-						addBoss.Esquerda();
-						break;
-					}
 				}
 			} else {
 				addBoss = null;

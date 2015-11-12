@@ -26,24 +26,20 @@ public class Boss {
 		
 	    switch(tipoBoss){
 		    case 0:
-		    	referencia = new ImageIcon ("res\\boss-0.png");//Definimos o diretorio da imagem do boss.
+		    	referencia = new ImageIcon ("res\\boss1.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
 		    case 1:
-		    	referencia = new ImageIcon ("res\\boss-1.png");//Definimos o diretorio da imagem do boss.
+		    	referencia = new ImageIcon ("res\\boss2.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
 		    case 2:
-		    	referencia = new ImageIcon ("res\\boss-2.png");//Definimos o diretorio da imagem do boss.
+		    	referencia = new ImageIcon ("res\\boss3.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	System.out.println(tipoBoss);
 		    	break;
 		    case 3:
 		    	referencia = new ImageIcon ("res\\boss-3.png");//Definimos o diretorio da imagem do boss.
-		    	bossImg = referencia.getImage();
-		    	break;
-		    case 4:
-		    	referencia = new ImageIcon ("res\\boss-4.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
 	    }
@@ -81,13 +77,11 @@ public class Boss {
 		}
 	}
 	
-	public void Baixo() {	
-		if (this.y < Main_Frame.COMPRIMENTO_TELA - altura ) {
+	public void Baixo(int limiteTela) {	
+		if (this.y < limiteTela- altura ) {
 			this.y += velocidade_boss;
 		}
 		else {
-			this.y -= velocidade_boss; 
-			this.x -= (velocidade_boss+1);
 			dir = 1;
 		}
 	}
@@ -100,17 +94,6 @@ public class Boss {
 			this.y += velocidade_boss; 
 			this.x += (velocidade_boss+1);
 			dir = 0;
-		}
-	}
-	
-	public void BaixoMetade() {
-		if (this.y < (Main_Frame.COMPRIMENTO_TELA/2) ) {
-			this.y += velocidade_boss;
-		}
-		else {
-			this.y -= velocidade_boss;
-			this.x -= (velocidade_boss+1);
-			dir = 1;
 		}
 	}
 	
