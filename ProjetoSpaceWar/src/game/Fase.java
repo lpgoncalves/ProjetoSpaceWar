@@ -104,7 +104,7 @@ public class Fase extends JPanel implements ActionListener {
 	public Fase(Menu menu, int idNave) {
 		setDoubleBuffered(true);// Responsável fazer o buffer da imagem com mais nitidez.
 		setVisible(true);
-		addKeyListener(new TeclaAdapter());// Adicionando uma ação listener para  as teclas do teclado.
+		addKeyListener(new ControleGame());// Adicionando uma ação listener para  as teclas do teclado.
 
 		this.idNave = idNave;
 		this.menu = menu;
@@ -597,34 +597,10 @@ public class Fase extends JPanel implements ActionListener {
 						
 				switch(addBoss.getTipoBoss()){
 					case 0:
-						addBoss.Baixo(200);
-						switch (addBoss.dir2) {
-							case 0:
-								addBoss.Direita();
-								break;
-							case 1:
-								addBoss.Esquerda();
-								break;
-						}
+						addBoss.mover(180);
 						break;
-						
 					case 1:
-						switch (addBoss.dir) {
-							case 0:
-								addBoss.Baixo(550);
-								break;
-							case 1:
-								addBoss.Cima();
-								break;
-							}
-							switch (addBoss.dir2) {
-							case 0:
-								addBoss.Direita();
-								break;
-							case 1:
-								addBoss.Esquerda();
-								break;
-						}
+						addBoss.mover(550);
 						break;
 						
 					case 2:
@@ -632,22 +608,7 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 						
 					case 3:
-						switch (addBoss.dir) {
-							case 0:
-								addBoss.Baixo(0);
-								break;
-							case 1:
-								addBoss.Cima();
-								break;
-							}
-							switch (addBoss.dir2) {
-							case 0:
-								addBoss.Direita();
-								break;
-							case 1:
-								addBoss.Esquerda();
-								break;
-						}
+						addBoss.mover(800);
 						break;
 				}
 			} else {
@@ -847,7 +808,7 @@ public class Fase extends JPanel implements ActionListener {
 	}
 	
 	// Classe responsável por  pegar as teclas pressionadas na fase.
-	private class TeclaAdapter extends KeyAdapter { 
+	private class ControleGame extends KeyAdapter { 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_P) {

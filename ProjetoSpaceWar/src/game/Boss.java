@@ -4,7 +4,6 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.ImageIcon;
 
 public class Boss {
-	
 	private Image bossImg;
 	private double x;
 	private double y;
@@ -43,9 +42,7 @@ public class Boss {
 		    	bossImg = referencia.getImage();
 		    	break;
 	    }
-	  
 	    this.tipoBoss = tipoBoss;
-		
 		this.altura = bossImg.getHeight(null);
 		this.largura = bossImg.getWidth(null);
 		isVisivel = true;
@@ -55,45 +52,39 @@ public class Boss {
 		return tipoBoss;
 	}
 	
-	public void Direita() {
-		if (this.x < Main_Frame.LARGURA_TELA - largura) {
-			this.x += velocidade_boss; 
+	public void mover(int limiteTela){
+		if(dir2 == 0){
+			if (this.x < Main_Frame.LARGURA_TELA - largura) {
+				this.x += velocidade_boss; 
+			}
+			else {
+				this.x -= velocidade_boss;
+				dir2 = 1;
+			}
+		}else{
+			if (this.x > 1) {
+				this.x -= velocidade_boss;
+			}
+			else {
+				this.x += velocidade_boss; 
+				dir2 = 0;
+			}
 		}
-		else {
-			this.x -= velocidade_boss;
-			this.y -= (velocidade_boss+1); 
-			dir2 = 1;
-		}
-	}
-	
-	public void Esquerda() {
-		if (this.x > 1) {
-			this.x -= velocidade_boss;
-		}
-		else {
-			this.x += velocidade_boss; 
-			this.y += (velocidade_boss+1); 
-			dir2 = 0;
-		}
-	}
-	
-	public void Baixo(int limiteTela) {	
-		if (this.y < limiteTela- altura ) {
-			this.y += velocidade_boss;
-		}
-		else {
-			dir = 1;
-		}
-	}
-	
-	public void Cima() {
-		if (this.y > 1) {
-			this.y -= velocidade_boss; 
-		}
-		else {
-			this.y += velocidade_boss; 
-			this.x += (velocidade_boss+1);
-			dir = 0;
+		if(dir == 0){
+			if (this.y < limiteTela- altura ) {
+				this.y += velocidade_boss;
+			}
+			else {
+				dir = 1;
+			}
+		}else{
+			if (this.y > 1) {
+				this.y -= velocidade_boss; 
+			}
+			else {
+				this.y += velocidade_boss; 
+				dir = 0;
+			}
 		}
 	}
 	

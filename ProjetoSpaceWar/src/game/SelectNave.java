@@ -90,8 +90,7 @@ public class SelectNave extends JPanel {
 			setVisible(false);
 			SelectNave.this.mFrame.background.setVisible(false);
 			SelectNave.this.mMenu.menuMusic.close();
-			game.requestFocus();
-			game = null;
+			game.requestFocusInWindow();
 		}
 		public void mousePressed(MouseEvent arg0) {			
 		}

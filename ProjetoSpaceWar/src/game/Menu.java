@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import game.Main_Frame;
 import music.AllMusic;
 
-public class Menu extends JLabel implements ActionListener {
+public class Menu extends JLabel {
 	private JLabel returnLabel;
 	private JLabel menuAjuda;
 	private JLabel menuRecordes;
@@ -32,7 +32,7 @@ public class Menu extends JLabel implements ActionListener {
 		menuMusic.start();
 		
 		mFrame = frame;
-		mFrame.addKeyListener(new TeclaAdapter());
+		mFrame.addKeyListener(new VoltarEsc());
 
 		panelRecordes = new JPanel();
 		panelRecordes.setLayout(null);
@@ -217,7 +217,7 @@ public class Menu extends JLabel implements ActionListener {
 		}
 	}
 
-	private class TeclaAdapter extends KeyAdapter { 
+	private class VoltarEsc extends KeyAdapter { 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
@@ -243,7 +243,5 @@ public class Menu extends JLabel implements ActionListener {
 			}
 		}
 	}
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-	}
+	
 }
