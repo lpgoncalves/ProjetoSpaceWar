@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.ImageIcon;
 
 public class Boss {
-	private Nave nave;
+	
 	private Image bossImg;
 	private double x;
 	private double y;
@@ -97,13 +97,13 @@ public class Boss {
 		}
 	}
 	
-	public void seguirPlayer() {
-		if (x > nave.getX() - largura) {
+	public void seguirPlayer(Nave nave) {
+		if (x > nave.getRastroX() - largura) {
 			x -= velocidade_boss;
 		} else {
 			x += velocidade_boss;
 		}
-		if (y > nave.getY() - altura) {
+		if (y > nave.getRastroY() - altura) {
 			y -= velocidade_boss;
 		} else {
 			y += velocidade_boss;

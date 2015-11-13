@@ -17,6 +17,9 @@ public class Nave {
 	private int largura;
 	private int nivelTiro;
 	private int alturaTiro;
+	private int rastroX = 0;
+	private int rastroY = 0;
+	private long timeRastro = 0;
 	private boolean isVisivel;
 	private boolean mute = false;
 	private long timeTiro = 0;
@@ -63,6 +66,12 @@ public class Nave {
 	public void mover() {
 		x += dx; // somamos x com dx para que seja possivel realizar a movimentação da nave.
 		y += dy;
+	
+		if(timeRastro < System.currentTimeMillis()){
+			rastroX = x;
+			rastroY = y;
+			timeRastro = System.currentTimeMillis() + 2000;
+		}
 		// Os if's criados são para determinar o x limite e y limite que a nave
 		// pode se locomover.
 		if (this.x < 1) {
@@ -91,10 +100,15 @@ public class Nave {
 		return tiros;
 	}
 
+	public int getRastroX(){
+		return rastroY;
+	}
+	public int getRastroY(){
+		return rastroY;
+	}
 	public int getX() {
 		return x;
 	}
-
 	public int getY() {
 		return y;
 	}

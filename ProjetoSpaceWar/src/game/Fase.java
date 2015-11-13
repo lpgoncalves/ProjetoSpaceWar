@@ -590,7 +590,7 @@ public class Fase extends JPanel implements ActionListener {
 
 		if (boolFrenesi && addBoss != null) {
 			if (addBoss.isVisivel()) {
-				if ((tempo.segundos > 40) && (tempo.segundos < 50)) {
+				if ((tempo.segundos > 40) && (tempo.segundos < 50) && addBoss.getTipoBoss() != 2) {
 					addBoss.velocidade_boss = 3;
 				} else 
 					addBoss.velocidade_boss = 0.5;
@@ -630,23 +630,7 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 						
 					case 2:
-						switch (addBoss.dir) {
-							case 0:
-								addBoss.Baixo(0);
-								break;
-							case 1:
-								addBoss.Cima();
-								break;
-							}
-							
-							switch (addBoss.dir2) {
-							case 0:
-								addBoss.Direita();
-								break;
-							case 1:
-								addBoss.Esquerda();
-								break;
-						}
+						addBoss.seguirPlayer(nave);
 						break;
 						
 					case 3:
