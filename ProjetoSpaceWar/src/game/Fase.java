@@ -602,11 +602,9 @@ public class Fase extends JPanel implements ActionListener {
 					case 1:
 						addBoss.mover(550);
 						break;
-						
 					case 2:
 						addBoss.seguirPlayer(nave);
 						break;
-						
 					case 3:
 						addBoss.mover(800);
 						break;

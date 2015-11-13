@@ -99,8 +99,4 @@ public class Tiro {
 	public Rectangle2D getBoundsBoss() {
 		return new Rectangle (x, y, larguraBoss, alturaBoss);
 	}
-	
-	public void Apagatiro() throws Throwable{
-		this.finalize();
-	}
 }
