@@ -101,7 +101,7 @@ public class Nave {
 	}
 
 	public int getRastroX(){
-		return rastroY;
+		return rastroX;
 	}
 	public int getRastroY(){
 		return rastroY;

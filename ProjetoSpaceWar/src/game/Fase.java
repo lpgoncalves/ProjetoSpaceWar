@@ -596,7 +596,6 @@ public class Fase extends JPanel implements ActionListener {
 					addBoss.velocidade_boss = 0.5;
 						
 				switch(addBoss.getTipoBoss()){
-				
 					case 0:
 						addBoss.Baixo(200);
 						switch (addBoss.dir2) {
@@ -618,7 +617,6 @@ public class Fase extends JPanel implements ActionListener {
 								addBoss.Cima();
 								break;
 							}
-							
 							switch (addBoss.dir2) {
 							case 0:
 								addBoss.Direita();
@@ -642,7 +640,6 @@ public class Fase extends JPanel implements ActionListener {
 								addBoss.Cima();
 								break;
 							}
-							
 							switch (addBoss.dir2) {
 							case 0:
 								addBoss.Direita();
