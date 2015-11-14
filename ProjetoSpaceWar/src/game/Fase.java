@@ -206,6 +206,28 @@ public class Fase extends JPanel implements ActionListener {
 		novosTirosBoss.stop();
 	}
 
+	private void ApagaGame() throws Throwable {
+		inimigos.clear();
+		tiros.clear();
+		addVida.clear();
+		addBoss = null;
+		tirosBoss.clear();
+		tiros.clear();
+		explosoes.clear();
+		tempoExplosao.clear();
+		tipoBoss = 0;
+
+		nave.MuteNave(true);
+		if(!mute)
+			somFundo.close();
+		tempo.pararTimer();
+		timer.stop();
+		novosEnemies.stop();
+		novosEnemies2.stop();
+		repetirFundo.stop();
+		novosTirosBoss.stop();
+	}
+	
 	private void maisPontos() {
 		pontos = pontos + (10*multiPontos);
 		if(pontos % 350 == 0){
@@ -229,6 +251,10 @@ public class Fase extends JPanel implements ActionListener {
 		tempo.iniciarShadow();
 		intShadow = 0;
 		tempoShadow.start();
+	}
+	
+	private void maisVidas() {
+		vidas++;
 	}
 
 	private void modeFrenesi(boolean frenesi) {
@@ -287,36 +313,10 @@ public class Fase extends JPanel implements ActionListener {
 		}
 	};
 
-	private void maisVidas() {
-		vidas++;
-	}
-
 	private void inicializarInimigos() {
 		for (int i = 0; i < inimigos.size(); i++) {
 			inimigos.remove(i);
 		}
-	}
-
-	private void ApagaGame() throws Throwable {
-		inimigos.clear();
-		tiros.clear();
-		addVida.clear();
-		addBoss = null;
-		tirosBoss.clear();
-		tiros.clear();
-		explosoes.clear();
-		tempoExplosao.clear();
-		tipoBoss = 0;
-
-		nave.MuteNave(true);
-		if(!mute)
-			somFundo.close();
-		tempo.pararTimer();
-		timer.stop();
-		novosEnemies.stop();
-		novosEnemies2.stop();
-		repetirFundo.stop();
-		novosTirosBoss.stop();
 	}
 
 	public class criarInimigos implements ActionListener {
@@ -330,17 +330,7 @@ public class Fase extends JPanel implements ActionListener {
 			inimigos.add(new Inimigos(1 + (int) (850 * Math.random()), -30, 1, vidaInimigo));
 		}
 	}
-
-	public void criarBoss() {
-		addBoss = new Boss(1 + (int) (850 * Math.random()), -80, tipoBoss);
-		addBoss.setVidaBoss(vidaBoss);
-		novosTirosBoss.start();
-	}
-
-	public void criarVidas(){
-		addVida.add(new Vida(1 + (int) (850 * Math.random()), -80));
-	}
-
+	
 	public class criarTirosBoss implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			tirosBoss.add(new Tiro(addBoss.getX() + (addBoss.GetLargura() / 2) - 35,
@@ -353,6 +343,15 @@ public class Fase extends JPanel implements ActionListener {
 				somTiroBoss.start();
 			}
 		}
+	}
+	public void criarBoss() {
+		addBoss = new Boss(1 + (int) (850 * Math.random()), -80, tipoBoss);
+		addBoss.setVidaBoss(vidaBoss);
+		novosTirosBoss.start();
+	}
+
+	public void criarVidas(){
+		addVida.add(new Vida(1 + (int) (850 * Math.random()), -80));
 	}
 
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
