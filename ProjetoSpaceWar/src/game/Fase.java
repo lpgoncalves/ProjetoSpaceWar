@@ -24,6 +24,7 @@ import java.io.IOException;
 
 public class Fase extends JPanel implements ActionListener {
 	private Nave nave;
+	private Boss addBoss;
 	
 	private ImageIcon naveInvisivel = new ImageIcon("");
 	public ImageIcon sound = new ImageIcon("res\\Speaker-26.png");
@@ -40,7 +41,6 @@ public class Fase extends JPanel implements ActionListener {
 	private List<Inimigos> inimigos;
 	private List<Tiro> tiros;
 	private List<Vida> addVida;
-	private Boss addBoss;
 	private List<Tiro> tirosBoss;
 	private List<Explosao> explosoes;
 	private List<Timer> tempoExplosao;
@@ -90,6 +90,7 @@ public class Fase extends JPanel implements ActionListener {
 	private ImageIcon x2 = new ImageIcon("res\\x2.gif");
 	private ImageIcon x3 = new ImageIcon("res\\x3.gif");
 	private ImageIcon x4 = new ImageIcon("res\\x4.gif");
+	
 	private Menu menu;
 	public JLabel somLabel;
 	

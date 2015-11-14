@@ -16,6 +16,9 @@ import game.Main_Frame;
 import music.AllMusic;
 
 public class Menu extends JLabel {
+	private JLabel jogar;
+	private JLabel recordes;
+	private JLabel ajuda;
 	private JLabel returnLabel;
 	private JLabel menuAjuda;
 	private JLabel menuRecordes;
@@ -63,7 +66,7 @@ public class Menu extends JLabel {
 		panel.setVisible(false);
 		frame.add(panel);
 
-		JLabel jogar = new JLabel("");
+		jogar = new JLabel("");
 		jogar.setIcon(new ImageIcon("res\\Menu Inicial\\iniciar.png"));
 		jogar.setBounds(100, 0, 310, 40);
 		add(jogar);
@@ -84,7 +87,7 @@ public class Menu extends JLabel {
 			}
 		});		
 		
-		JLabel recordes = new JLabel("");
+		recordes = new JLabel("");
 		recordes.setIcon(new ImageIcon("res\\Menu Inicial\\recordes.png"));
 		recordes.setBounds(100, 45, 320, 40);
 		add(recordes);
@@ -117,7 +120,7 @@ public class Menu extends JLabel {
 			}
 		});
 
-		JLabel ajuda = new JLabel("");
+		ajuda = new JLabel("");
 		ajuda.setIcon(new ImageIcon("res\\Menu Inicial\\ajuda.png"));
 		ajuda.setBounds(100, 90, 320, 40);
 		add(ajuda);
