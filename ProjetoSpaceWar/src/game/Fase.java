@@ -116,9 +116,9 @@ public class Fase extends JPanel implements ActionListener {
 
 		// ImageIcon referencia1 = new ImageIcon("res\\background.png");
 		ImageIcon referencia1 = new ImageIcon("res\\fase1.gif");
-		ImageIcon referencia2 = new ImageIcon("res\\fase2.gif");
-		ImageIcon referencia3 = new ImageIcon("res\\fase3.gif");
-		ImageIcon referencia4 = new ImageIcon("res\\background4.png");
+		ImageIcon referencia2 = new ImageIcon("res\\b1.jpg");
+		ImageIcon referencia3 = new ImageIcon("res\\b2.jpg");
+		ImageIcon referencia4 = new ImageIcon("res\\b7.jpg");
 
 		background.add(referencia1.getImage());
 		background.add(referencia2.getImage());
@@ -357,15 +357,11 @@ public class Fase extends JPanel implements ActionListener {
 	public void paint(Graphics g) { // Responsavel por mostrar na tela todos os objetos.
 		graficos = (Graphics2D) g;
 		graficos.setBackground(Color.BLACK);
-		if(indexBack == 1 || indexBack == 2){
-			graficos.drawImage(background.get(indexBack), 0, 0, null);
-		}else{
 			graficos.drawImage(background.get(indexBack), 0, repetir, null);
 			graficos.drawImage(background.get(indexBack), 0, repetir - 800, null); 
-		}
 		if (jogoAndamento == true) {
 			if (boolFrenesi) {
-				graficos.drawImage(frenesiIMG.getImage(), 700, 730,null);
+				graficos.drawImage(frenesiIMG.getImage(), 500, 730,null);
 			}
 			// Colocamos na tela a imagem da nave com suas evidas posições.
 			graficos.drawImage(nave.getNaveImg(), nave.getX(), nave.getY(), this);
@@ -597,7 +593,7 @@ public class Fase extends JPanel implements ActionListener {
 						
 				switch(addBoss.getTipoBoss()){
 					case 0:
-						addBoss.mover(180);
+						addBoss.mover(150);
 						break;
 					case 1:
 						addBoss.mover(550);
@@ -731,7 +727,7 @@ public class Fase extends JPanel implements ActionListener {
 	private class Repetir implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// REPETIR FUNDO
-			if (repetir < 600)
+			if (repetir < 800)
 				repetir = repetir + 1;
 			else
 				repetir = 0;

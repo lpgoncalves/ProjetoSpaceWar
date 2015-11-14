@@ -38,7 +38,7 @@ public class Boss {
 		    	System.out.println(tipoBoss);
 		    	break;
 		    case 3:
-		    	referencia = new ImageIcon ("res\\boss-3.png");//Definimos o diretorio da imagem do boss.
+		    	referencia = new ImageIcon ("res\\boss-4.png");//Definimos o diretorio da imagem do boss.
 		    	bossImg = referencia.getImage();
 		    	break;
 	    }
