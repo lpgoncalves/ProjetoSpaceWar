@@ -805,7 +805,6 @@ public class Fase extends JPanel implements ActionListener {
 	private class ControleGame extends KeyAdapter { 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println("teste"+e.getKeyCode());
 			if (e.getKeyCode() == KeyEvent.VK_P) {
 				if (pause == true) {
 					pause = false;
