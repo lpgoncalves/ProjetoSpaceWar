@@ -568,7 +568,7 @@ public class Fase extends JPanel implements ActionListener {
 				// -- Explosao --
 				gX = enemies.getX();
 				gY = enemies.getY();
-				explosoes.add(new Explosao(gX, gY));
+				explosoes.add(new Explosao(gX, gY, 0));
 				tempoExplosao.add(new Timer(60, explosoes.get(explosoes.size() - 1)));
 				Timer tempoTemp = tempoExplosao.get(tempoExplosao.size() - 1);
 				tempoTemp.start();
@@ -606,6 +606,20 @@ public class Fase extends JPanel implements ActionListener {
 						break;
 				}
 			} else {
+				gX =(int) addBoss.getX();
+				gY =(int) addBoss.getY();
+				// -- Som --
+				if (!mute) {
+					somExplosao = new AllMusic(pathExplosaoNave);
+					somExplosao.setloop(false);
+					somExplosao.start();
+				}
+				// -- Explosao --
+				explosoes.add(new Explosao(gX, gY, 1));
+				tempoExplosao.add(new Timer(60, explosoes.get(explosoes.size() - 1)));
+				Timer tempoTemp = tempoExplosao.get(tempoExplosao.size() - 1);
+				tempoTemp.start();
+				
 				addBoss = null;
 			}
 		}

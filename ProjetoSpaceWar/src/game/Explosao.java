@@ -10,11 +10,16 @@ public class Explosao implements ActionListener {
 	private int y;
 	private int contador;
 
-	public Explosao(int x, int y) {
+	public Explosao(int x, int y, int tipo) {
 		this.x = x;
 		this.y = y;
+		ImageIcon referencia;
 		
-		ImageIcon referencia = new ImageIcon("res\\explosao.gif");
+		if(tipo == 0)
+			referencia = new ImageIcon("res\\explosao.gif");
+		else
+			referencia = new ImageIcon("res\\explosao-Boss.gif");
+		
 		explosaoImg = referencia.getImage();
 		contador = 0;
 	}
