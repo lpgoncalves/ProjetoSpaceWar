@@ -11,8 +11,10 @@ import music.AllMusic;
 public class Nave {
 	private int x;
 	private int y;
-	private int dx;
-	private int dy;
+	private int dDx;
+	private int dCy;
+	private int dBy;
+	private int dEx;
 	private int altura;
 	private int largura;
 	private int nivelTiro;
@@ -64,8 +66,8 @@ public class Nave {
 	}
 
 	public void mover() {
-		x += dx; // somamos x com dx para que seja possivel realizar a movimentação da nave.
-		y += dy;
+		x = x + dEx +dDx ; // somamos x com dx para que seja possivel realizar a movimentação da nave.
+		y = y + dCy + dBy;
 	
 		if(timeRastro < System.currentTimeMillis()){
 			rastroX = x;
@@ -175,34 +177,38 @@ public class Nave {
 			}
 		}
 		if (codigo == KeyEvent.VK_UP) { // Tecla "Seta para cima" para movimentar a nave para cima.
-			dy = VELOCIDADE_NAVE - 4;
+			dCy = -VELOCIDADE_NAVE;
+			dBy = 0;
 		}
 		if (codigo == KeyEvent.VK_DOWN) {// Tecla "Seta para baixo" para movimentar a nave para baixo.
-			dy = VELOCIDADE_NAVE;
+			dBy = VELOCIDADE_NAVE;
+			dCy = 0;
 		}
 
 		if (codigo == KeyEvent.VK_LEFT) {// Tecla "Seta para esquerda" para movimentar a nave para esquerda.
-			dx = VELOCIDADE_NAVE - 4;
+			dEx = -VELOCIDADE_NAVE;
+			dDx = 0;
 		}
 
 		if (codigo == KeyEvent.VK_RIGHT) {// Tecla "Seta para direita" para movimentar a nave para direita.
-			dx = VELOCIDADE_NAVE;
+			dDx = VELOCIDADE_NAVE;
+			dEx = 0;
 		}
 	}
 
 	public void KeyReleased(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
 		if (codigo == KeyEvent.VK_UP) {
-			dy = 0;
+			dCy = 0;
 		}
 		if (codigo == KeyEvent.VK_DOWN) {
-			dy = 0;
+			dBy = 0;
 		}
 		if (codigo == KeyEvent.VK_LEFT) {
-			dx = 0;
+			dEx = 0;
 		}
 		if (codigo == KeyEvent.VK_RIGHT) {
-			dx = 0;
+			dDx = 0;
 		}
 	}
 
