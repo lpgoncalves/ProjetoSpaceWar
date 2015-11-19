@@ -420,7 +420,7 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.drawString(" " + vidas, 198, 14);
 			if (pause == true) {
 				ImageIcon pause = new ImageIcon("res\\Pause2.png");
-				graficos.drawImage(pause.getImage(), 275, 275, null);
+				graficos.drawImage(pause.getImage(), 425, 375, null);
 			}
 			if (mute == true) {
 				long end = dataMudo + 3000;
