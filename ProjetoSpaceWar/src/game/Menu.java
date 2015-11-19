@@ -51,7 +51,6 @@ public class Menu extends JLabel {
 		menuRecordes = new JLabel(new ImageIcon("res\\Menu Inicial\\menu-Recovered.png"));
 		menuRecordes.setBounds(200, 160, 500, 500);
 		menuRecordes.setVisible(true);
-		panelRecordes.add(menuRecordes);
 		frame.add(panelRecordes);
 
 		returnLabel = new JLabel("Pressione ESC para voltar");
@@ -113,7 +112,7 @@ public class Menu extends JLabel {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				
+				panelRecordes.add(menuRecordes);
 				CreateLabels(panelRecordes, "posicao",  new String[]{ "1º", "2º", "3º","4º","5º" }); 			/// QUANTIDADE DE REGISTROS (LINHAS)
 				CreateLabels(panelRecordes, "tempo",  pontuacao[1]); 	/// TEMPO
 				CreateLabels(panelRecordes, "pontos",  pontuacao[0]);		/// PONTUAÇÃO
@@ -224,8 +223,7 @@ public class Menu extends JLabel {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				if (!Menu.this.mFrame.logo.isVisible()) {
-					for(int i = 1; i < panelRecordes.getComponentCount(); i++)
-						panelRecordes.remove(i);
+					panelRecordes.removeAll();
 					mFrame.logo.setVisible(true);
 					//Menu.this.mFrame.background.setVisible(false);
 					Menu.this.menuAjuda.setVisible(false);
